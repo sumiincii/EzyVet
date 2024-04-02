@@ -14,13 +14,7 @@
         <input type="text" name="password" placeholder="password">
         <input type="submit" name="submit" placeholder="login">
     </form>
-
-
-
-
     <a href="registration.php">GO TO LOGIN</a><br/>
-
-
 
     <?php 
     if(isset($_POST['submit'])){
