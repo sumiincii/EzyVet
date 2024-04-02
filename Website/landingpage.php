@@ -79,7 +79,7 @@
         <a href="#" class="logo">Logo</a>
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a href="aboutUs.php" class="nav-link">About Us</a>
+                <a href="#" class="nav-link">About Us</a>
             </li>
             <li class="nav-item ">
                 <a href="services.php" class="nav-link">Services</a>
