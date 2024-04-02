@@ -7,7 +7,7 @@
 </head>
 <style>
     body {
-    font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif !important;
 }
 
 .navbar {
@@ -62,10 +62,10 @@
         <a href="#" class="logo">Logo</a>
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a href="#" class="nav-link">Home</a>
+                <a href="#" class="nav-link">123</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">About</a>
+                <a href="#" class="nav-link"></a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">Services</a>
