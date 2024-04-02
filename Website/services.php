@@ -46,13 +46,13 @@
     text-decoration: none;
     color: #fff;
     padding: 0.5rem 1rem;
-    transition: background-color 0.3s ease;
+    /* transition: background-color 0.3s ease; */
     font-size: 25px;
 }
 
-.nav-link:hover {
+/* .nav-link:hover {
     background-color: #555;
-}
+} */
 
 .active {
     background-color: #555;
@@ -78,11 +78,11 @@
     <div class="container">
         <a href="#" class="logo">Logo</a>
         <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a href="aboutUs.php" class="nav-link">About Us</a>
-            </li>
             <li class="nav-item ">
-                <a href="#" class="nav-link">Services</a>
+                <a href="landingpage.php" class="nav-link">About Us</a>
+            </li>
+            <li class="nav-item active">
+                <a href="services.php" class="nav-link">Services</a>
             </li>
             <li class="nav-item ">
                 <a href="#" class="nav-link">Services</a>
