@@ -78,10 +78,10 @@
     <div class="container">
         <a href="#" class="logo">Logo</a>
         <ul class="navbar-nav">
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a href="aboutUs.php" class="nav-link">About Us</a>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item active">
                 <a href="services.php" class="nav-link">Services</a>
             </li>
             <li class="nav-item ">
