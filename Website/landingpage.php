@@ -72,9 +72,12 @@
 
 </style>
 <body>
+    <div class="taas">
     <div class="box">
         <h1>now accepting</h1>
     </div>
+    </div>
+    
 <nav class="navbar">
     <div class="container">
         <a href="#" class="logo">Logo</a>
@@ -86,7 +89,7 @@
                 <a href="services.php" class="nav-link">Services</a>
             </li>
             <li class="nav-item ">
-                <a href="#" class="nav-link">Services</a>
+                <a href="#" class="nav-link">Appointment</a>
             </li>
             <li class="nav-item ">
                 <a href="#" class="nav-link">Contact</a>

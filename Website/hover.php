@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        nav {
+  nav {
   width: 80%;
   margin: 0 auto;
   background: #fff;
@@ -42,7 +42,7 @@ nav a {
   width: 100%;
   transition: width.3s;
 }
-    </style>
+</style>
 </head>
 <body>
 <nav>
