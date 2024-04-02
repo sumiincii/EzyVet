@@ -7,13 +7,14 @@
 </head>
 <style>
     body {
-    font-family: Arial, sans-serif!important;
+    font-family: Arial, sans-serif !important;
 }
 
 .navbar {
-    background-color: #333;
+    background-color: #033626;
     color: #AD8B73;
     padding: 3rem;
+    margin: 0;
 }
 
 .container {
@@ -46,14 +47,16 @@
     color: #fff;
     padding: 0.5rem 1rem;
     transition: background-color 0.3s ease;
+    font-size: 25px;
 }
 
-/*.nav-link:hover {
+.nav-link:hover {
     background-color: #555;
-} */
+}
 
 .active {
     background-color: #555;
+    max-height: 60px;
 }
 .box{
     max-width: 2000px;
@@ -71,5 +74,24 @@
     <div class="box">
         <h1>now accepting</h1>
     </div>
+<nav class="navbar">
+    <div class="container">
+        <a href="#" class="logo">Logo</a>
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a href="aboutUs.php" class="nav-link">About Us</a>
+            </li>
+            <li class="nav-item ">
+                <a href="#" class="nav-link">Services</a>
+            </li>
+            <li class="nav-item ">
+                <a href="#" class="nav-link">Services</a>
+            </li>
+            <li class="nav-item ">
+                <a href="#" class="nav-link">Contact</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 </body>
 </html>
