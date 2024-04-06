@@ -121,9 +121,9 @@ margin: 0;
 <div class="con3">
 <nav>
   <ul>
-    <li class="cool-link"><a href="#">Home</a></li>
-    <li class="cool-link"><a href="#">About</a></li>
-    <li class="cool-link"><a href="#">Contact</a></li>
+    <li class="cool-link"><a href="#">ABOUT US</a></li>
+    <li class="cool-link"><a href="#">SERVICES</a></li>
+    <li class="cool-link"><a href="#">CLIENT</a></li>
   </ul>
 </nav>
 </div>

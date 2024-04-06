@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ezyvet</title>
+    <link rel="stylesheet" type="text/css" href="_assets/bootstrap.min.css" />
 </head>
 <style>
     body {
@@ -97,5 +98,15 @@
         </ul>
     </div>
 </nav>
+
+
+
+
+
+
+
+
+<script src="_assets/bootstrap.min.js"></script>
+<script src="_assets/jquery.min.js"></script>
 </body>
 </html>
