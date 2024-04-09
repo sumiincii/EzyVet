@@ -36,26 +36,7 @@
         padding: 14px;
         color: darkslategray;
     }
-
-    /* nav {
-        
-        overflow: hidden;
-    }
-    nav a {
-        position: relative;
-        float: left;
-        display: block;
-        color: black;
-        text-align: center;
-        padding: 14px 20px;
-        font-size: 15px;
-        font-weight: 500;
-        text-decoration: none;
-        letter-spacing: 2px;
-        line-height: 1px;
-    }
-    */
-     nav a::before {
+    nav a::before{
         content: '';
         position: absolute;
         top:100%;
@@ -64,19 +45,15 @@
         height: 2.5px;
         background: #c1cad3;
         transition: .3s;
-        
     }
     nav a:hover::before {
         width: 100%;
-        /* color: black; */
 
     }
     nav{
         margin-top: 10px;
-        /* overflow: hidden; */
-        /* height: 90px; */
         background: #fff;
-        /* box-shadow: 0 10px 15px rgba(0, 0, 0, 1);  */
+        
 }
 .logo{
     padding: 5px 0 0 90px;
@@ -109,9 +86,7 @@ nav ul li a{
     
     
 }
-/* nav ul li a:hover{
-    background: rgb(150, 150, 150);
-} */
+
 .hober a:hover{
     background: rgb(150, 150, 150);
 }
@@ -119,24 +94,22 @@ nav ul ul{
     position: absolute;
     top: 65px;
     display: none;
-    /* right: -120px; */
     
 }
 nav ul li:hover > ul{
     display: block;
     box-shadow: 0 7px 14px rgba(0, 0, 0, 1);
     border: 1px solid #3e444b; 
+    
 }
 nav ul ul li{
-    width: 159px; /* width ng dropdown eto */
+    width: 159px;
     float: none;
     display: list-item;
     position: relative;
 }
 nav ul ul ul li{
     position: relative;
-    /* top: -60px;
-    left: 300px; */
 }
 
 </style>
@@ -175,6 +148,11 @@ nav ul ul ul li{
             </ul>
         </nav>
     </div>
+    </div>
+
+    <div class="container-fluid">
+
+    
     </div>
 
     
