@@ -124,7 +124,7 @@ nav ul ul{
 }
 nav ul li:hover > ul{
     display: block;
-    box-shadow: 0 7px 14px rgba(0, 0, 0, 1);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 1);
     border: 1px solid #3e444b; 
 }
 nav ul ul li{
@@ -138,7 +138,9 @@ nav ul ul ul li{
     /* top: -60px;
     left: 300px; */
 }
-
+.container{
+/* height: 50rem; */
+}
 </style>
 <body>
     <div class="container-fluid text-center">
