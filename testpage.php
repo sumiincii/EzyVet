@@ -31,11 +31,6 @@
         padding: 7px;
         color: #3e444b;
     }
-    #logo{
-        text-align: start;
-        padding: 14px;
-        color: darkslategray;
-    }
     nav a::before{
         content: '';
         position: absolute;
@@ -56,7 +51,7 @@
         
 }
 .logo{
-    padding: 5px 0 0 90px;
+    padding: 2px 0 0 90px;
     width: 150px;
     height: auto;
 }
@@ -123,7 +118,7 @@ nav ul ul ul li{
     <div class="container-fluid text-center"> 
         <div class="dropdown">
         <nav>
-            <img class="logo" src="/images/cafeterialogo.png">
+            <img class="logo" src="images/logo.png">
             <ul>
                 <li><a href="#">HOME</a></li>
                 <li><a href="#">ABOUT</a>
@@ -143,8 +138,6 @@ nav ul ul ul li{
                     </ul>
                 </li>
                 <li><a href="contact_form.html">CONTACT US</a></li>
-                <!-- <li><a href="feedback.html">FEEDBACK</a></li>
-                <li><a href="loginpage.html">LOG OUT</a></li> -->
             </ul>
         </nav>
     </div>
