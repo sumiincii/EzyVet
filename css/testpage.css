@@ -14,15 +14,11 @@ body {
   margin-top: -2px;
 }
 [class*="container2"] {
-  border: 2px solid red;
+  border: 2px solid yellow;
 }
 [class*="container3"] {
-  border: 2px solid red;
-}
-.container3 {
+  border: 30px solid yellow;
   background-color: #f5f6f8;
-  height: 300px;
-  width: 100% !important;
 }
 
 .sentence {
@@ -107,21 +103,4 @@ nav ul ul li {
 }
 nav ul ul ul li {
   position: relative;
-}
-
-/* paragraph css */
-
-#p1 {
-  padding: 100px;
-  font-family: "Montserrat" !important;
-  letter-spacing: normal;
-  font-size: 15px;
-  text-align: center;
-  line-height: 26px;
-}
-.div-2 {
-  width: 30px;
-}
-.grid-one {
-  background-color: black;
 }

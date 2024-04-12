@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/testpage.css">
     <link rel="stylesheet" type="text/css" href="_assets/bootstrap.min.css" />
-    
 </head>
 <body>
     <div class="container1 container-fluid text-center">
@@ -70,17 +69,24 @@
       </div>
     </div>
   </div>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-<div class="grid text-center grid-one" style="--bs-rows: 3; --bs-columns: 3;">
-    <div class="g-start-2" style="grid-row: 2">
-        Auto-column
+<div class="container text-center">
+  <div class="row">
+    <div class="col align-self-center">
+      One of three columns
     </div>
-
-    <div class="g-start-2 div-2" style="grid-row: 2">
-        <p>Being a pet owner, you are aware of the importance of regular veterinary checkups for your animal's health. But sometimes you might wonder whether the stress of visiting the veterinarian is really worth your pet's fear and anxiety. You don't have to choose between your pet's mental health and veterinary care at Dr. Ron Veterinary Clinic because we are committed to providing high-quality, holistic veterinarian care with an intense focus on a fear-free approach.</p>
+    <div class="col-7 align-self-center">
+      <p style=" padding: 50px;font-family: Montserrat !important;letter-spacing: normal;font-size: 15px;text-align: center;line-height: 22px; color: #3e444b;">Being a pet owner, you are aware of the importance of regular veterinary checkups for your animal's health. But sometimes you might wonder whether the stress of visiting the veterinarian is really worth your pet's fear and anxiety. You don't have to choose between your pet's mental health and veterinary care at Dr. Ron Veterinary Clinic because we are committed to providing high-quality, holistic veterinarian care with an intense focus on a fear-free approach.</p>
     </div>
-
-    <div class="g-start-2" style="grid-row: 2">Auto-column</div>
+    <div class="col align-self-center">
+      One of three columns
+    </div>
+  </div>
 </div>
 
 <script src="_assets/bootstrap.min.js"></script>
