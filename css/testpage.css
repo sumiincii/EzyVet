@@ -16,6 +16,15 @@ body {
 [class*="container2"] {
   border: 2px solid red;
 }
+[class*="container3"] {
+  border: 2px solid red;
+}
+.container3 {
+  background-color: #f5f6f8;
+  height: 300px;
+  width: 100% !important;
+}
+
 .sentence {
   border: 2px solid black;
   overflow: hidden;
@@ -98,4 +107,21 @@ nav ul ul li {
 }
 nav ul ul ul li {
   position: relative;
+}
+
+/* paragraph css */
+
+#p1 {
+  padding: 100px;
+  font-family: "Montserrat" !important;
+  letter-spacing: normal;
+  font-size: 15px;
+  text-align: center;
+  line-height: 26px;
+}
+.div-2 {
+  width: 30px;
+}
+.grid-one {
+  background-color: black;
 }

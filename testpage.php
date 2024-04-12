@@ -13,7 +13,7 @@
     
 </head>
 <body>
-    <div class="container1-fluid text-center">
+    <div class="container1 container-fluid text-center">
         <div class="row">
             <div class="col" id="wc">Welcome to <b>Dr. Ron Veterinary Clinic</b> , your trusted partner in providing top-notch veterinary care for your beloved pets.</div>
         </div>
@@ -50,7 +50,7 @@
 <br>
 <br>
 <br>
-<br> 
+<br>
 <br>
 <br>
 <br>
@@ -60,7 +60,7 @@
 <br>
 
 
-<div class="container2-fluid text-center">
+<div class="container2 container-fluid text-center">
   <div class="row">
     <div class="sentence col-6">
       <p>YOUR PET'S SANCTUARY <br>FOR COMPASSIONATE<br><p style="font-family: Rock Salt !important;font-size: 40px;line-height:49px;"><b>VETERINARY CARE</b></p></p>
@@ -70,8 +70,18 @@
       </div>
     </div>
   </div>
-</div>
 
+<div class="grid text-center grid-one" style="--bs-rows: 3; --bs-columns: 3;">
+    <div class="g-start-2" style="grid-row: 2">
+        Auto-column
+    </div>
+
+    <div class="g-start-2 div-2" style="grid-row: 2">
+        <p>Being a pet owner, you are aware of the importance of regular veterinary checkups for your animal's health. But sometimes you might wonder whether the stress of visiting the veterinarian is really worth your pet's fear and anxiety. You don't have to choose between your pet's mental health and veterinary care at Dr. Ron Veterinary Clinic because we are committed to providing high-quality, holistic veterinarian care with an intense focus on a fear-free approach.</p>
+    </div>
+
+    <div class="g-start-2" style="grid-row: 2">Auto-column</div>
+</div>
 
 <script src="_assets/bootstrap.min.js"></script>
 <script src="_assets/jquery.min.js"></script>
