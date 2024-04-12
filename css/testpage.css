@@ -1,8 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Allura&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Rancho&family=Rock+Salt&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
 body {
   background-color: #ffffff;
-  font-family: "Montserrat", sans-serif, "Allura" !important;
+  font-family: "Montserrat", sans-serif, "Allura", "Playfair Display" !important;
 }
 [class*="col"] {
   padding: 0;
@@ -14,10 +15,10 @@ body {
   margin-top: -2px;
 }
 [class*="container2"] {
-  border: 2px solid yellow;
+  /* border: 2px solid yellow; */
 }
 [class*="container3"] {
-  border: 30px solid yellow;
+  /* border: 30px solid yellow;  */
   background-color: #f5f6f8;
 }
 
