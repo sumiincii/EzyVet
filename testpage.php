@@ -47,28 +47,6 @@
   <br>
   <br>
 
-
-
-
-  <!-- <p>YOUR PET'S SANCTUARY <br>FOR COMPASSIONATE<br><p style="font-family: Rock Salt !important;font-size: 39px;line-height:49px;"><b>VETERINARY CARE</b></p></p> -->
-
-  <!-- <img src="images/asologo.png" alt="asologo" class="asologo"> -->
-
-
-  <!-- <div class="containeruna container-fluid ">
-<div class="row ">
-  <div class="col"></div>
-  <div class="col-6">
-    <img src="images/asologo.png" alt="asologo" class="asologo">
-  </div>
-</div>
-<div class="row ">
-  <div class="col"></div>
-  <div class="col"></div>
-</div>
-
-</div> -->
-
   <br>
   <br>
   <br>
@@ -84,9 +62,6 @@
         </p>
         <button type="button" class="btn btn-success button1">REQUEST AN APPOINTMENT</button>
       </div>
-      <!-- <div class="col-1">
-      
-    </div> -->
       <div class="col-6 align-self-right">
         <img src="images/asologo.png" alt="asologo" class="asologo float-start">
       </div>
@@ -94,29 +69,7 @@
 
   </div>
 
-  <!-- <div class="containeruna container-fluid text-center">
-  <div class="row ">
-    <div class="col align-self-start">
-      
-    </div>
 
-    <div class="col">
-    </div>
-  </div>
-</div> -->
-
-
-
-
-  <!-- <div class="container2 container-fluid text-center">
-  <div class="row">
-    <div class="sentence col-6 align-self-left">
-      <p>YOUR PET'S SANCTUARY <br>FOR COMPASSIONATE<br><p style="font-family: Rock Salt !important;font-size: 39px;line-height:49px;"><b>VETERINARY CARE</b></p></p>
-    </div>
-    <div class="col-6">
-      </div>
-    </div>
-  </div> -->
   <br>
   <br>
   <br>
@@ -152,17 +105,6 @@
       <button type="button" class="btn btn-success button2">REQUEST AN APPOINTMENT</button>
     </div>
   </div>
-
-
-
-
-
-
-
-
-
-
-
 
   <script src="_assets/bootstrap.min.js"></script>
   <script src="_assets/jquery.min.js"></script>
