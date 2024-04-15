@@ -110,7 +110,7 @@
   <script src="_assets/jquery.min.js"></script>
 </body>
 
-</html>
+
 <footer class="container-fluid text-center footer">
   <div class="row">
     <div class="col-4">
@@ -132,3 +132,5 @@
     </div>
   </div>
 </footer>
+
+</html>

@@ -55,20 +55,93 @@
     <br>
     <br>
 
-    <div class="containeruna ">
-        <div class="row">
-            <div class="col-6 sentence">
-                <p id="vetcare">YOUR PET'S SANCTUARY <br>FOR COMPASSIONATE<br>
-                <p style="font-family:Allura !important;font-size: 80px;line-height:49px; font-weight:350;"><b>Veterinary Care</b></p>
-                </p>
-                <button type="button" class="btn btn-success button1">REQUEST AN APPOINTMENT</button>
+
+    <div class=" container1 container-fluid p-0">
+        <div class="row g-0 image-top">
+            <div class="col-12 position-relative">
+                <img src="images/pusa6.jpg" alt="Dogs running" class="img-fluid w-100 h-50" />
             </div>
-            <div class="col-6 align-self-right">
-                <img src="images/asologo.png" alt="asologo" class="asologo float-start">
+        </div>
+    </div>
+
+
+
+    <div class="container my-5">
+        <h2 class="text-center ">Make your Appointment Request Online</h2>
+        <div class="row">
+            <p>Planning a visit? Fill out our appointment request form below and hit 'submit.' Please schedule your appointment at least 24 hours in advance so we can confirm it with you. In case of an emergency, don't use this form—call us at (860) 757-3346 or visit our hospital.</p>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <form>
+                    <p>Fields marked with an * are required</p>
+                    <div class="mb-3">
+                        <label class="form-label">Are You A New Client *</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="newClient" id="newClientYes" value="yes" />
+                            <label class="form-check-label" for="newClientYes">Yes</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="newClient" id="newClientNo" value="no" />
+                            <label class="form-check-label" for="newClientNo">No</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Select Preferred Veterinarian *</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="preferredVet" id="vetMonica" value="monica" />
+                            <label class="form-check-label" for="vetMonica">Dr. Monica</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 mb-3">
+                            <label for="firstName" class="form-label">First Name *</label>
+                            <input type="text" class="form-control" id="firstName" required />
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <label for="lastName" class="form-label">Last Name *</label>
+                            <input type="text" class="form-control" id="lastName" required />
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="appointmentDate" class="form-label">Preferred Day for Appointment *</label>
+                        <input type="date" class="form-control" id="appointmentDate" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Preferred Time for Appointment *</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="preferredTime" id="timeAM" value="am" />
+                            <label class="form-check-label" for="timeAM">AM</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="preferredTime" id="timePM" value="pm" />
+                            <label class="form-check-label" for="timePM">PM</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="col-md-4 d-none d-md-block">
+                <img src="https://placehold.co/300x300" alt="Pet" class="img-fluid rounded-circle" />
             </div>
         </div>
 
+
+
+
+        <!-- <div class="col-lg-4 d-none d-lg-block">
+        <img src="https://placehold.co/300x300" alt="Pet" class="img-fluid rounded-circle" />
+    </div> -->
     </div>
+    </div>
+
+
+
+
+
+
+
 
 </body>
 
