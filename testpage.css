@@ -84,6 +84,7 @@ nav ul li a {
 
 .hober a:hover {
   background: rgb(150, 150, 150);
+
 }
 
 nav ul ul {
@@ -105,9 +106,9 @@ nav ul ul li {
   position: relative;
 }
 
-nav ul ul ul li {
+/* nav ul ul ul li {
   position: relative;
-}
+} */
 
 .paws-logo {
   width: 13%;
@@ -236,4 +237,24 @@ nav ul ul ul li {
   color: #fff;
   padding: 10px, 25px;
   border-radius: 20px;
+}
+
+.footer {
+  border: 2px red solid;
+}
+
+.footerright img {
+  height: 200px;
+  width: 50%;
+
+}
+
+.footerright {
+  background-color: #c1cad3;
+  color: #3e444b;
+}
+
+.footerright p {
+  font-family: "Montserrat" !important;
+  font-weight: 500;
 }

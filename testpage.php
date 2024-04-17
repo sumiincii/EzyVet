@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <link rel="stylesheet" href="css/testpage.css">
+  <link rel="stylesheet" href="testpage.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ezyvet</title>
@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="_assets/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
 
 <body>
@@ -19,24 +20,25 @@
       <div class="col" id="wc">Welcome to <b>Dr. Ron Veterinary Clinic</b> , your trusted partner in providing top-notch veterinary care for your beloved pets.</div>
     </div>
   </div>
-  <img class="logo img-fluid float-start" src="images/ezyvet.png" alt="logo">
+  <a href="testpage.php"><img class="logo img-fluid float-start" src="images/ezyvet.png" alt="logo"></a>
+
   <div class="container-fluid text-center">
     <div class="dropdown">
       <nav>
         <ul>
           <li><a href="#">ABOUT</a></li>
-          <li><a href="#">SERVICES</a>
+          <li><a href="">SERVICES</a>
             <ul>
-              <li class="hober"><a href="#">asd</a></li>
-              <li class="hober"><a href="#">asd</a></li>
+              <li class="hober"><a href="#">asdasdasdasdasdasdasdasdasdasdasd</a></li>
+              <li class="hober"><a href="#">asasdasdasdasdasdasdasdd</a></li>
             </ul>
           </li>
-          <li><a href="#">BOOK NOW</a>
-            <ul>
-              <li class="hober"><a href="#">asd</a></li>
+          <li><a href="appointment.php">BOOK NOW</a>
+            <!-- <ul>
+              <li class="hober1"><a href="appointment.php">REQUESTANAPPOINTMENT </a></li>
               <li class="hober"><a href="#">asd</a>
               </li>
-            </ul>
+            </ul> -->
           </li>
           <li><a href="#">CONTACT US</a></li>
         </ul>
@@ -76,7 +78,7 @@
   <br>
   <br>
 
-  <div>
+  <div class="animate__animated animate__fadeInLeft">
     <div class="container3 text-center">
       <div class="row row-number2">
         <div class="col align-self-center wala">
@@ -111,21 +113,19 @@
 </body>
 
 
-<footer class="container-fluid text-center footer">
+<footer class="containerfooter container-fluid text-center footer">
   <div class="row">
-    <div class="col-4">
+    <div class="col-8">
       <!-- Embed a map here -->
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.338564653656!2d-1.8208356846043523!3d53.48321568002524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487bdf2e46e9e0b1%3A0x8469e8a6832f5c6e!2sDr.%20Ron%20Veterinary%20Clinic!5e0!3m2!1sen!2suk!4v1646022342255!5m2!1sen!2suk" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
-    <div class="col-4">
-      <img src="images/ezyvet.png" alt="logo" class="logo-footer">
+    <div class="col-4 footerright">
+      <!-- <img src="images/ezyvet.png" alt="logo" class="logo-footer "> -->
+      <display>EZYVET</display>
       <p>Dr. Ron Veterinary Clinic</p>
-      <p>Location: [Your Address]</p>
+      <p>Location: Mulawin St. Barangay Bitas, Cabanatuan City, Nueva Ecija</p>
       <p>Opening Hours: [Your Opening Hours]</p>
       <p>Closing Hours: [Your Closing Hours]</p>
-    </div>
-    <div class="col-4">
-      <!-- You could add another section here, like contact information -->
       <p>Contact Us:</p>
       <p>Phone: [Your Phone Number]</p>
       <p>Email: [Your Email]</p>

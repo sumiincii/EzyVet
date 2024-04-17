@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="css/appointment.css">
+    <link rel="stylesheet" href="appointment.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Appointment</title>
@@ -20,7 +20,7 @@
             <div class="col" id="wc">Welcome to <b>Dr. Ron Veterinary Clinic</b> , your trusted partner in providing top-notch veterinary care for your beloved pets.</div>
         </div>
     </div>
-    <img class="logo img-fluid float-start" src="images/ezyvet.png" alt="logo">
+    <a href="testpage.php"><img class="logo img-fluid float-start" src="images/ezyvet.png" alt="logo"></a>
     <div class="container-fluid text-center">
         <div class="dropdown">
             <nav>
@@ -59,17 +59,15 @@
     <div class=" container1 container-fluid p-0">
         <div class="row g-0 image-top">
             <div class="col-12 position-relative">
-                <img src="images/pusa6.jpg" alt="Dogs running" class="img-fluid w-100 h-50" />
+                <img src="images/pusa6.jpg" alt="Dogs running" class="img-fluid w-100 h-100" />
             </div>
         </div>
     </div>
 
-
-
     <div class="container my-5">
         <h2 class="text-center ">Make your Appointment Request Online</h2>
         <div class="row">
-            <p>Planning a visit? Fill out our appointment request form below and hit 'submit.' Please schedule your appointment at least 24 hours in advance so we can confirm it with you. In case of an emergency, don't use this form—call us at (860) 757-3346 or visit our hospital.</p>
+            <p>Planning a visit? Fill out our appointment request form below and hit 'submit.' Please schedule your appointment at least 24 hours in advance so we can confirm it with you. In case of an emergency, don't use this form—call us at (860) 757-3346 or visit our clinic.</p>
         </div>
         <div class="row">
             <div class="col-md-8">
@@ -91,6 +89,14 @@
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="preferredVet" id="vetMonica" value="monica" />
                             <label class="form-check-label" for="vetMonica">Dr. Monica</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="preferredVet" id="vetJohn" value="john" />
+                            <label class="form-check-label" for="vetJohn">Dr. John</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="preferredVet" id="vetSarah" value="sarah" />
+                            <label class="form-check-label" for="vetSarah">Dr. Sarah</label>
                         </div>
                     </div>
                     <div class="row">
