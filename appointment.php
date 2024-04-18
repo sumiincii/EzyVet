@@ -67,7 +67,7 @@
     <div class=" container1 container-fluid p-0" style="overflow:visible;">
         <div class="row g-0">
             <div class="col-12 image-top">
-                <img src="images/pusa6.jpg" alt="cat" class="img-fluid w-100 h-100" />
+                <img src="images/pusa8.jpg" alt="cat" class="img-fluid w-100 h-100" />
             </div>
         </div>
     </div>

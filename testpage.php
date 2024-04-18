@@ -27,10 +27,13 @@
       <nav>
         <ul>
           <li><a href="#">ABOUT</a></li>
-          <li><a href="">SERVICES</a>
+          <li><a href="#">SERVICES</a>
             <ul>
               <li class="hober"><a href="#">Medications</a></li>
               <li class="hober"><a href="#">checkup</a></li>
+              <li class="hober"><a href="#">vaccinations</a></li>
+              <li class="hober"><a href="#">vaccinations</a></li>
+              <li class="hober"><a href="#">vaccinations</a></li>
               <li class="hober"><a href="#">vaccinations</a></li>
             </ul>
           </li>
@@ -69,12 +72,11 @@
         <button type="button" class="btn btn-success button1">REQUEST AN APPOINTMENT</button>
       </div>
       <div class="col-6 align-self-right">
-        <img src="images/asologo.png" alt="asologo" class="asologo float-start">
+        <img src="images/asologo.png" alt="asologo" class="asologo float-start img-fluid">
       </div>
     </div>
 
   </div>
-
   <!-- eto last ng header -->
   <br>
   <br>
