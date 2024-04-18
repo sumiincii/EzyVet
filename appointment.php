@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="css/appointment.css">
+    <link rel="stylesheet" href="appointment.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ezyvet</title>
@@ -65,9 +65,9 @@
     <br>
 
     <div class=" container1 container-fluid p-0" style="overflow:visible;">
-        <div class="row g-0 image-top">
-            <div class="col-12 position-relative">
-                <img src="images/pusa6.jpg" alt="Dogs running" class="img-fluid w-100 h-100" />
+        <div class="row g-0">
+            <div class="col-12 image-top">
+                <img src="images/pusa6.jpg" alt="cat" class="img-fluid w-100 h-100" />
             </div>
         </div>
     </div>

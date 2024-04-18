@@ -126,11 +126,20 @@ nav ul ul ul li {
     position: relative;
 }
 
-.top-image {
-    pad: 10px;
-    height: 300px;
+/* .top-image {
+    
+    height: 200px;
     border-radius: 30px;
-}
+} */
+/* .image-top{
+    width: 100%;
+    height: auto;
+} */
+/* .image-top{
+    width: auto;
+    height: 400px;
+    /* object-fit: cover; */
+  } */
 
 .button1 {
     font-family: "Montserrat" !important;
