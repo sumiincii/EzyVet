@@ -18,7 +18,7 @@ body {
     /* margin-top: -100px; */
     /* border: 2px solid red; */
     margin-top: -2px;
-
+    overflow: visible;
 }
 
 [class*="container2"] {
@@ -84,6 +84,10 @@ nav ul li {
     display: inline-block;
 }
 
+nav ul li ul {
+    overflow: visible;
+}
+
 nav ul li a {
     display: block;
     padding: 0 25px;
@@ -126,4 +130,16 @@ nav ul ul ul li {
     pad: 10px;
     height: 300px;
     border-radius: 30px;
+}
+
+.button1 {
+    font-family: "Montserrat" !important;
+    text-align: center;
+    font-size: 15px;
+    letter-spacing: 2px;
+    /* margin-left: 85px; */
+    /* margin-top: 50px; */
+    border-radius: 20px;
+    background-color: #89a194;
+    color: #fff;
 }

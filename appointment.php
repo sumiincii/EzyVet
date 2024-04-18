@@ -2,16 +2,16 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="appointment.css">
+    <link rel="stylesheet" href="css/appointment.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Appointment</title>
+    <title>Ezyvet</title>
     <!-- this is my fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="_assets/bootstrap.min.css" />
-</head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
 
 <body>
@@ -21,23 +21,29 @@
         </div>
     </div>
     <a href="testpage.php"><img class="logo img-fluid float-start" src="images/ezyvet.png" alt="logo"></a>
+
     <div class="container-fluid text-center">
         <div class="dropdown">
             <nav>
                 <ul>
                     <li><a href="#">ABOUT</a></li>
-                    <li><a href="#">SERVICES</a>
+                    <li><a href="">SERVICES</a>
                         <ul>
-                            <li class="hober"><a href="#">asd</a></li>
-                            <li class="hober"><a href="#">asd</a></li>
+                            <li class="hober"><a href="#">Medications</a></li>
+                            <li class="hober"><a href="#">checkup</a></li>
+                            <li class="hober"><a href="#">vaccinations</a></li>
+                            <li class="hober"><a href="#">vaccinations</a></li>
+                            <li class="hober"><a href="#">vaccinations</a></li>
+                            <li class="hober"><a href="#">vaccinations</a></li>
+                            <li class="hober"><a href="#">vaccinations</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">BOOK NOW</a>
-                        <ul>
-                            <li class="hober"><a href="#">asd</a></li>
-                            <li class="hober"><a href="#">asd</a>
-                            </li>
-                        </ul>
+                    <li><a href="appointment.php">BOOK NOW</a>
+                        <!-- <ul>
+              <li class="hober1"><a href="appointment.php">REQUESTANAPPOINTMENT </a></li>
+              <li class="hober"><a href="#">asd</a>
+              </li>
+            </ul> -->
                     </li>
                     <li><a href="#">CONTACT US</a></li>
                 </ul>
@@ -54,9 +60,11 @@
     <br>
     <br>
     <br>
+    <br>
+    <br>
+    <br>
 
-
-    <div class=" container1 container-fluid p-0">
+    <div class=" container1 container-fluid p-0" style="overflow:visible;">
         <div class="row g-0 image-top">
             <div class="col-12 position-relative">
                 <img src="images/pusa6.jpg" alt="Dogs running" class="img-fluid w-100 h-100" />
@@ -71,7 +79,7 @@
         </div>
         <div class="row">
             <div class="col-md-8">
-                <form>
+                <form action="" method="post">
                     <p>Fields marked with an * are required</p>
                     <div class="mb-3">
                         <label class="form-label">Are You A New Client *</label>
@@ -87,16 +95,16 @@
                     <div class="mb-3">
                         <label class="form-label">Select Preferred Veterinarian *</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="preferredVet" id="vetMonica" value="monica" />
-                            <label class="form-check-label" for="vetMonica">Dr. Monica</label>
+                            <input class="form-check-input" type="radio" name="preferredVet" id="sumi" value="monica" />
+                            <label class="form-check-label" for="sumi">Dr. sumi</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="preferredVet" id="vetJohn" value="john" />
-                            <label class="form-check-label" for="vetJohn">Dr. John</label>
+                            <input class="form-check-input" type="radio" name="preferredVet" id="mano" value="john" />
+                            <label class="form-check-label" for="mano">Dr. mano</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="preferredVet" id="vetSarah" value="sarah" />
-                            <label class="form-check-label" for="vetSarah">Dr. Sarah</label>
+                            <input class="form-check-input" type="radio" name="preferredVet" id="vince" value="sarah" />
+                            <label class="form-check-label" for="vince">Dr. vince</label>
                         </div>
                     </div>
                     <div class="row">
@@ -107,6 +115,17 @@
                         <div class="col-sm-6 mb-3">
                             <label for="lastName" class="form-label">Last Name *</label>
                             <input type="text" class="form-control" id="lastName" required />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6 mb-3">
+                            <label for="email" class="form-label"> Email *</label>
+                            <input type="email" class="form-control" id="email" required />
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <label for="phone" class="form-label">phone</label>
+                            <input type="number" class="form-control" id="phone" required />
                         </div>
                     </div>
 
@@ -125,7 +144,7 @@
                             <label class="form-check-label" for="timePM">PM</label>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-success button1">SUBMIT</button>
                 </form>
             </div>
             <div class="col-md-4 d-none d-md-block">

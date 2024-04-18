@@ -113,7 +113,7 @@ nav ul ul li {
 .paws-logo {
   width: 13%;
   height: auto;
-  margin-bottom: -20px;
+  margin-bottom: -5px;
   /* border: 3px solid red; */
 }
 
@@ -239,22 +239,55 @@ nav ul ul li {
   border-radius: 20px;
 }
 
-.footer {
+/* FOOTER TO  */
+
+footer {
   border: 2px red solid;
+  height: 400px;
+  padding: 0;
+
 }
 
-.footerright img {
-  height: 200px;
-  width: 50%;
 
+footer iframe {
+  margin-left: -15px;
+}
+
+.footerright .row {
+  background-color: #c1cad3;
+  color: #3e444b;
+  align-content: center;
+
+  /* border: 3px red solid; */
+}
+
+.footerright {
+  align-content: center;
 }
 
 .footerright {
   background-color: #c1cad3;
-  color: #3e444b;
 }
 
-.footerright p {
+.footerright,
+p,
+h1 {
   font-family: "Montserrat" !important;
   font-weight: 500;
+  letter-spacing: normal;
+  line-height: 20px;
+}
+
+.iconsto img {
+  width: 10%;
+  height: auto;
+}
+
+.iconsto {
+  align-content: center;
+  font-family: "Montserrat" !important;
+}
+
+footer h1 {
+  letter-spacing: 2px;
 }

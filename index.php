@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="_assets/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
 
 <body>
@@ -19,24 +20,25 @@
       <div class="col" id="wc">Welcome to <b>Dr. Ron Veterinary Clinic</b> , your trusted partner in providing top-notch veterinary care for your beloved pets.</div>
     </div>
   </div>
-  <img class="logo img-fluid float-start" src="images/ezyvet.png" alt="logo">
+  <a href="testpage.php"><img class="logo img-fluid float-start" src="images/ezyvet.png" alt="logo"></a>
+
   <div class="container-fluid text-center">
     <div class="dropdown">
       <nav>
         <ul>
           <li><a href="#">ABOUT</a></li>
-          <li><a href="#">SERVICES</a>
+          <li><a href="">SERVICES</a>
             <ul>
-              <li class="hober"><a href="#">asd</a></li>
-              <li class="hober"><a href="#">asd</a></li>
+              <li class="hober"><a href="#">asdasdasdasdasdasdasdasdasdasdasd</a></li>
+              <li class="hober"><a href="#">asasdasdasdasdasdasdasdd</a></li>
             </ul>
           </li>
-          <li><a href="#">BOOK NOW</a>
-            <ul>
-              <li class="hober"><a href="#">asd</a></li>
+          <li><a href="appointment.php">BOOK NOW</a>
+            <!-- <ul>
+              <li class="hober1"><a href="appointment.php">REQUESTANAPPOINTMENT </a></li>
               <li class="hober"><a href="#">asd</a>
               </li>
-            </ul>
+            </ul> -->
           </li>
           <li><a href="#">CONTACT US</a></li>
         </ul>
@@ -69,14 +71,14 @@
 
   </div>
 
-
+  <!-- eto last ng header -->
   <br>
   <br>
   <br>
   <br>
   <br>
 
-  <div>
+  <div class="animate__animated animate__fadeInLeft">
     <div class="container3 text-center">
       <div class="row row-number2">
         <div class="col align-self-center wala">
@@ -110,25 +112,85 @@
   <script src="_assets/jquery.min.js"></script>
 </body>
 
-</html>
-<footer class="container-fluid text-center footer">
+<footer class="containerfooter container-fluid text-center footer">
   <div class="row">
-    <div class="col-4">
+    <div class="col-7">
       <!-- Embed a map here -->
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.338564653656!2d-1.8208356846043523!3d53.48321568002524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487bdf2e46e9e0b1%3A0x8469e8a6832f5c6e!2sDr.%20Ron%20Veterinary%20Clinic!5e0!3m2!1sen!2suk!4v1646022342255!5m2!1sen!2suk" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!3m2!1sen!2sph!4v1713428538080!5m2!1sen!2sph!6m8!1m7!1s1UPyzrm-fB9QmunjaXDomg!2m2!1d15.49962680830744!2d120.9768442687773!3f244.72785217855838!4f1.4193708654089647!5f0.7820865974627469" width="740" height="520" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
-    <div class="col-4">
-      <img src="images/ezyvet.png" alt="logo" class="logo-footer">
-      <p>Dr. Ron Veterinary Clinic</p>
-      <p>Location: [Your Address]</p>
-      <p>Opening Hours: [Your Opening Hours]</p>
-      <p>Closing Hours: [Your Closing Hours]</p>
-    </div>
-    <div class="col-4">
-      <!-- You could add another section here, like contact information -->
-      <p>Contact Us:</p>
-      <p>Phone: [Your Phone Number]</p>
-      <p>Email: [Your Email]</p>
+
+    <div class="col-5 footerright">
+      <!-- <ul class="list-unstyled">
+        <li>Monday: 9:00 am - 6:00 pm</li>
+        <li>Tuesday: 9:00 am - 6:00 pm</li>
+      </ul> -->
+
+
+      <!-- <div class="col">
+        <img src="icons/geo.svg" alt="location">
+      </div>
+      <div class="col">
+        <display>
+          <h1>EZYVET</h1>
+        </display>
+        <p>Dr. Ron Veterinary Clinic</p>
+
+        <p>Mulawin St. Barangay Bitas, Cabanatuan City, Nueva Ecija</p>
+        <p>Opening Hours: 8:00AM</p>
+        <p>Closing Hours: 6:00PM</p>
+
+        <p>Phone: 0955-617-9958</p>
+        <p>Email: dronclinic@gmail.com</p>
+      </div> -->
+
+      <div class="row">
+        <h1>EZYVET</h1>
+      </div>
+
+      <div class="row">
+        <p>Dr. Ron Veterinary Clinic</p>
+      </div>
+
+      <!-- <div class="row iconsto1">
+        <div class="col-5 lg"><img src="icons/geo.svg" alt="location">
+        </div>
+        <div class="col-5 lg">
+          Mulawin St. Barangay Bitas,<br> Cabanatuan City, Nueva Ecija
+        </div>
+      </div> -->
+      <div class="row iconsto">
+        <img src="icons/geo.svg" alt="location">
+        Mulawin St. Barangay Bitas,<br> Cabanatuan City, Nueva Ecija
+      </div>
+      <!-- <div class="row">
+        <div class="col-sm-3">Level 1: .col-sm-3</div>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-8 col-sm-6">Level 2: .col-8 .col-sm-6</div>
+            <div class="col-4 col-sm-6">Level 2: .col-4 .col-sm-6</div>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="row iconsto">
+        <img src="icons/telephone.svg" alt="">
+        Phone: 0955-617-9958
+      </div>
+      <div class="row iconsto">
+        <img src="icons/email.svg" alt="">
+        Email: dronclinic@gmail.com
+      </div>
+      <div class="row iconsto">
+        <img src="icons/clock.svg" alt="">
+        Opening Hours: 8:00AM<br> Closing Hours: 6:00PM
+      </div>
     </div>
   </div>
 </footer>
+
+
+
+</body>
+
+
+</html>
