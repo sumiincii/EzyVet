@@ -48,7 +48,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Appointment Status</h5>
-                        <p class="card-text">Pending: 5<br>Confirmed: 8<br>Canceled: 2</p>
+                        <p class="card-text">Pending: 5<br>Completed: 8<br></p>
                     </div>
                 </div>
             </div>
