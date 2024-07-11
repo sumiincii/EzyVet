@@ -29,12 +29,10 @@
           <li><a href="#">ABOUT</a></li>
           <li><a href="#">SERVICES</a>
             <ul>
-              <li class="hober"><a href="#">Medications</a></li>
-              <li class="hober"><a href="#">checkup</a></li>
-              <li class="hober"><a href="#">vaccinations</a></li>
-              <li class="hober"><a href="#">vaccinations</a></li>
-              <li class="hober"><a href="#">vaccinations</a></li>
-              <li class="hober"><a href="#">vaccinations</a></li>
+              <li class="hober"><a href="#">Checkups</a></li>
+              <li class="hober"><a href="#">Vaccinations</a></li>
+              <li class="hober"><a href="#">Grooming</a></li>
+              <li class="hober"><a href="#">Follow Up</a></li>
             </ul>
           </li>
           <li><a href="appointment.php">BOOK NOW</a>
