@@ -20,7 +20,7 @@
       <div class="col" id="wc">Welcome to <b>Dr. Ron Veterinary Clinic</b> , your trusted partner in providing top-notch veterinary care for your beloved pets.</div>
     </div>
   </div>
-  <a href="testpage.php"><img class="logo img-fluid float-start" src="images/ezyvet.png" alt="logo"></a>
+  <a href="testpage.php"><img class="logo img-fluid float-start" src="images/ezyvetnewlogo.png" alt="logo"></a>
 
   <div class="container-fluid text-center">
     <div class="dropdown">
@@ -29,7 +29,7 @@
           <li><a href="#">ABOUT</a></li>
           <li><a href="#">SERVICES</a>
             <ul>
-              <li class="hober"><a href="#">Checkups</a></li>
+              <li class="hober"><a href="checkup.php">Checkups</a></li>
               <li class="hober"><a href="#">Vaccinations</a></li>
               <li class="hober"><a href="#">Grooming</a></li>
               <li class="hober"><a href="#">Follow Up</a></li>

@@ -20,7 +20,7 @@
             <div class="col" id="wc">Welcome to <b>Dr. Ron Veterinary Clinic</b> , your trusted partner in providing top-notch veterinary care for your beloved pets.</div>
         </div>
     </div>
-    <a href="testpage.php"><img class="logo img-fluid float-start" src="images/ezyvet.png" alt="logo"></a>
+    <a href="testpage.php"><img class="logo img-fluid float-start" src="images/ezyvetnewlogo.png" alt="logo"></a>
 
     <div class="container-fluid text-center">
         <div class="dropdown">
@@ -29,7 +29,7 @@
                     <li><a href="#">ABOUT</a></li>
                     <li><a href="">SERVICES</a>
                         <ul>
-                            <li class="hober"><a href="#">Checkups</a></li>
+                            <li class="hober"><a href="checkup.php">Checkups</a></li>
                             <li class="hober"><a href="#">Vaccinations</a></li>
                             <li class="hober"><a href="#">Grooming</a></li>
                             <li class="hober"><a href="#">Follow Up</a></li>
@@ -64,7 +64,7 @@
     <div class=" container1 container-fluid p-0" style="overflow:visible;">
         <div class="row g-0">
             <div class="col-12 image-top">
-                <img src="images/pusa8.jpg" alt="cat" class="img-fluid w-100 h-100" />
+                <img src="images/booknow1.jpg" alt="dog image" class="img-fluid w-100 h-100" />
             </div>
         </div>
     </div>
