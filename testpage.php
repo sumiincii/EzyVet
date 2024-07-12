@@ -50,7 +50,6 @@
   </div>
   <br>
   <br>
-
   <br>
   <br>
   <br>
@@ -60,7 +59,6 @@
   <br>
   <br>
   <br>
-
   <div class="containeruna">
     <div class="row">
       <div class="col-6 sentence">
