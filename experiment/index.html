@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="english">
+  <head>
+    <title>exported project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta property="twitter:card" content="summary_large_image" />
+
+    <style data-tag="reset-style-sheet">
+      html {
+        line-height: 1.15;
+      }
+      body {
+        margin: 0;
+      }
+      * {
+        box-sizing: border-box;
+        border-width: 0;
+        border-style: solid;
+      }
+      p,
+      li,
+      ul,
+      pre,
+      div,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      figure,
+      blockquote,
+      figcaption {
+        margin: 0;
+        padding: 0;
+      }
+      button {
+        background-color: transparent;
+      }
+      button,
+      input,
+      optgroup,
+      select,
+      textarea {
+        font-family: inherit;
+        font-size: 100%;
+        line-height: 1.15;
+        margin: 0;
+      }
+      button,
+      select {
+        text-transform: none;
+      }
+      button,
+      [type="button"],
+      [type="reset"],
+      [type="submit"] {
+        -webkit-appearance: button;
+      }
+      button::-moz-focus-inner,
+      [type="button"]::-moz-focus-inner,
+      [type="reset"]::-moz-focus-inner,
+      [type="submit"]::-moz-focus-inner {
+        border-style: none;
+        padding: 0;
+      }
+      button:-moz-focus,
+      [type="button"]:-moz-focus,
+      [type="reset"]:-moz-focus,
+      [type="submit"]:-moz-focus {
+        outline: 1px dotted ButtonText;
+      }
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+      input {
+        padding: 2px 4px;
+      }
+      img {
+        display: block;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+    <style data-tag="default-style-sheet">
+      html {
+        font-family: Inter;
+        font-size: 16px;
+      }
+
+      body {
+        font-weight: 400;
+        font-style: normal;
+        text-decoration: none;
+        text-transform: none;
+        letter-spacing: normal;
+        line-height: 1.15;
+        color: var(--dl-color-theme-neutral-dark);
+        background-color: var(--dl-color-theme-neutral-light);
+
+        fill: var(--dl-color-theme-neutral-dark);
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/animate.css@4.1.1/animate.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+      data-tag="font"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@teleporthq/teleport-custom-scripts/dist/style.css"
+    />
+  </head>
+  <body>
+    <link rel="stylesheet" href="./style.css" />
+    <div>
+      <link href="./index.css" rel="stylesheet" />
+
+      <div class="services-checkups-container">
+        <div class="services-checkups-services-checkups">
+          <img
+            src="public/external/rectangle42422-89yb-200h.png"
+            alt="Rectangle42422"
+            class="services-checkups-rectangle4"
+          />
+          <span class="services-checkups-text">
+            <span>How Pet Checkup</span>
+            <br />
+            <span>ensure thorough care for your pet?</span>
+          </span>
+          <span class="services-checkups-text04">
+            <span>
+              For the sake of our furry friends' well-being, routine pet exams
+              are essential. Veterinarians can perform a comprehensive health
+              assessment during these visits, looking for any early indicators
+              of disease or underlying problems. Early detection allows for
+              quick treatment, which frequently averts later, more serious
+              health issues. Additionally, pet owners can get advice on
+              behavior, diet, and preventive care during checkups. We make sure
+              that our pets receive the care and attention they require to live
+              long, healthy lives by making routine checkups a priority. We
+              advise having a yearly examination for all pets, as they age
+              considerably more quickly than we do. Visiting a veterinarian for
+              your pet once a year is equivalent to seeing a doctor for a
+              checkup just once every six to eight years. As they age, more
+              frequent checkups might be required.
+            </span>
+          </span>
+          <span class="services-checkups-text06">
+            <span>
+              Help your pet in maintaining the best possible health and
+              wellbeing at every stage of their life. Make an appointment for
+              wellness today.
+            </span>
+          </span>
+          <img
+            src="public/external/paws12422-7c4l-200h.png"
+            alt="Paws12422"
+            class="services-checkups-paws1"
+          />
+          <img
+            src="public/external/rectangle22422-u57-200h.png"
+            alt="Rectangle22422"
+            class="services-checkups-rectangle2"
+          />
+          <span class="services-checkups-text08">
+            <span>REQUEST AN APPOINTMENT</span>
+          </span>
+          <img
+            src="public/external/jarihytonenycpkwr6uaunsplash12421-na-500h.png"
+            alt="jarihytonenYCPkWr6uAunsplash12421"
+            class="services-checkups-jarihytonen-yc-pk-wr6u-aunsplash1"
+          />
+          <img
+            src="public/external/rectangle122421-hjv-700w.png"
+            alt="Rectangle122421"
+            class="services-checkups-rectangle12"
+          />
+          <div class="services-checkups-component3">
+            <span class="services-checkups-text10"><span>ABOUT</span></span>
+            <span class="services-checkups-text12"><span>BOOK NOW</span></span>
+            <div class="services-checkups-hover">
+              <span class="services-checkups-text14">
+                <span>SERVICES</span>
+              </span>
+            </div>
+            <div class="services-checkups-feedback-hover">
+              <span class="services-checkups-text16">
+                <span>Feedback</span>
+              </span>
+            </div>
+          </div>
+          <div class="services-checkups-group8">
+            <img
+              src="public/external/image4357796643998409495788964647110874979254029n1i426-63ue-1000w.png"
+              alt="IMAGE4357796643998409495788964647110874979254029n1I426"
+              class="services-checkups-image4357796643998409495788964647110874979254029n1"
+            />
+            <img
+              src="public/external/rectangle8i426-t8p7-600w.png"
+              alt="Rectangle8I426"
+              class="services-checkups-rectangle8"
+            />
+            <div class="services-checkups-group9">
+              <img
+                src="public/external/vectori426-ywb8.svg"
+                alt="VectorI426"
+                class="services-checkups-vector"
+              />
+              <img
+                src="public/external/vectori426-1dhf.svg"
+                alt="VectorI426"
+                class="services-checkups-vector1"
+              />
+              <img
+                src="public/external/vectori426-w9ir.svg"
+                alt="VectorI426"
+                class="services-checkups-vector2"
+              />
+              <img
+                src="public/external/vectori426-avs.svg"
+                alt="VectorI426"
+                class="services-checkups-vector3"
+              />
+              <span class="services-checkups-text18">
+                <span>Mulawin St. Brgy.Bitas,</span>
+                <br />
+                <span></span>
+                <br />
+                <span>Cabanatuan City, Nueva Ecija</span>
+                <br />
+                <span></span>
+                <br />
+                <span>Phone: (+63) 955-617-9958</span>
+                <br />
+                <span></span>
+                <br />
+                <span>Email: dronclinic@gmail.com</span>
+                <br />
+                <span></span>
+                <br />
+                <span>Opening Hours: 8:00 AM</span>
+                <br />
+                <span></span>
+                <br />
+                <span>Closing Hours: 6:00 PM</span>
+              </span>
+            </div>
+            <div class="services-checkups-group7">
+              <span class="services-checkups-text40">
+                <span>Dr. Ron Veterinary Clinic</span>
+              </span>
+              <span class="services-checkups-text42"><span>EZYVET</span></span>
+            </div>
+            <div class="services-checkups-group20">
+              <div class="services-checkups-group14">
+                <span class="services-checkups-text44">
+                  <span>
+                    Veterinary Website&nbsp;by&nbsp;EzyVet: A Comprehensive Web
+                    system for Veterinary Clinic
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="services-checkups-headercomponent">
+            <img
+              src="public/external/rectangle6i446-id8h-200h.png"
+              alt="Rectangle6I446"
+              class="services-checkups-rectangle6"
+            />
+            <span class="services-checkups-text46">
+              <span class="services-checkups-text47">Welcome to</span>
+              <span class="services-checkups-text48">
+                &nbsp;Dr. Ron Veterinary Clinic
+              </span>
+              <span class="services-checkups-text49">
+                &nbsp;, your trusted partner in providing top-notch veterinary
+                care for your beloved pets.
+              </span>
+            </span>
+          </div>
+          <span class="services-checkups-text50">
+            <span>Login as Admin</span>
+          </span>
+          <div class="services-checkups-ezyvet4">
+            <img
+              src="public/external/ezyvet3i512-vvam-300w.png"
+              alt="ezyvet3I512"
+              class="services-checkups-ezyvet3"
+            />
+          </div>
+          <div class="services-checkups-ezyvet41">
+            <img
+              src="public/external/ezyvet3i512-ca1k-300w.png"
+              alt="ezyvet3I512"
+              class="services-checkups-ezyvet31"
+            />
+          </div>
+          <img
+            src="public/external/line405105-x2q.svg"
+            alt="Line405105"
+            class="services-checkups-line40"
+          />
+          <img
+            src="public/external/line415105-bs0m.svg"
+            alt="Line415105"
+            class="services-checkups-line41"
+          />
+          <img
+            src="public/external/paws35105-evtl-200h.png"
+            alt="Paws35105"
+            class="services-checkups-paws3"
+          />
+          <img
+            src="public/external/line425105-0sjs2.svg"
+            alt="Line425105"
+            class="services-checkups-line42"
+          />
+          <img
+            src="public/external/line435105-dy8j.svg"
+            alt="Line435105"
+            class="services-checkups-line43"
+          />
+          <img
+            src="public/external/paws45105-0dkf-200h.png"
+            alt="Paws45105"
+            class="services-checkups-paws4"
+          />
+          <div class="services-checkups-group15">
+            <img
+              src="public/external/rectangle3i336-f7l-200h.png"
+              alt="Rectangle3I336"
+              class="services-checkups-rectangle3"
+            />
+            <img
+              src="public/external/ellipse1i336-0op-200h.png"
+              alt="Ellipse1I336"
+              class="services-checkups-ellipse1"
+            />
+            <img
+              src="public/external/phonei336-1dbk-200h.png"
+              alt="PhoneI336"
+              class="services-checkups-phone"
+            />
+            <img
+              src="public/external/rectangle4i336-tcp-200h.png"
+              alt="Rectangle4I336"
+              class="services-checkups-rectangle41"
+            />
+            <span class="services-checkups-text52">
+              <span>REQUEST AN APPOINTMENT</span>
+            </span>
+            <span class="services-checkups-text54">
+              <span>(+63) 955-617-9558</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
