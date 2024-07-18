@@ -30,9 +30,9 @@
                     <li><a href="">SERVICES</a>
                         <ul>
                             <li class="hober"><a href="checkup.php">Checkups</a></li>
-                            <li class="hober"><a href="#">Vaccinations</a></li>
-                            <li class="hober"><a href="#">Grooming</a></li>
-                            <li class="hober"><a href="#">Follow Up</a></li>
+                            <li class="hober"><a href="vaccinations.php">Vaccinations</a></li>
+                            <li class="hober"><a href="grooming.php">Grooming</a></li>
+                            <li class="hober"><a href="followup.php">Follow Up</a></li>
                         </ul>
                     </li>
                     <li><a href="appointment.php">BOOK NOW</a>
