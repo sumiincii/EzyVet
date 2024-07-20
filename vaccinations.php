@@ -72,7 +72,7 @@
     <br>
     <!-- <br>
     <br> -->
-
+    <!-- eto yung head -->
 
     <!-- this is the divider -->
     <div class="container text-center">

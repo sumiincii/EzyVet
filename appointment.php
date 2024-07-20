@@ -121,7 +121,7 @@
                             <input type="email" class="form-control" id="email" required />
                         </div>
                         <div class="col-sm-6 mb-3">
-                            <label for="phone" class="form-label">phone</label>
+                            <label for="phone" class="form-label">Phone</label>
                             <input type="number" class="form-control" id="phone" required />
                         </div>
                     </div>
@@ -131,40 +131,17 @@
                         <input type="date" class="form-control" id="appointmentDate" required />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Preferred Time for Appointment *</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="preferredTime" id="timeAM" value="am" />
-                            <label class="form-check-label" for="timeAM">AM</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="preferredTime" id="timePM" value="pm" />
-                            <label class="form-check-label" for="timePM">PM</label>
-                        </div>
+                        <label for="appointmentTime" class="form-label">Preferred Time for Appointment *</label>
+                        <input type="time" class="form-control" id="appointmentTime" required />
                     </div>
-                    <button type="button" class="btn btn-success button1">SUBMIT</button>
+                    <button type="submit" class="btn btn-success button1">SUBMIT</button>
                 </form>
             </div>
             <div class="col-md-4 d-none d-md-block">
                 <img src="https://placehold.co/300x300" alt="Pet" class="img-fluid rounded-circle" />
             </div>
         </div>
-
-
-
-
-        <!-- <div class="col-lg-4 d-none d-lg-block">
-        <img src="https://placehold.co/300x300" alt="Pet" class="img-fluid rounded-circle" />
-    </div> -->
     </div>
-    </div>
-
-
-
-
-
-
-
-
 </body>
 
 </html>
