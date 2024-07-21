@@ -90,6 +90,59 @@
     </div>
     <!-- end of divider -->
 
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12 text-center mb-4">
+                <h2>NEED HELP?</h2>
+                <h3>Contact Us</h3>
+                <p>Whether you're looking for a new veterinarian or are a current client with questions, we'd love to hear from you. You can contact us by calling, visiting us, or filling out our contact form.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <form>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name: <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email: <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message: <span class="text-danger">*</span></label>
+                        <textarea class="form-control" id="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <h4>DR. RON VETERINARY CLINIC</h4>
+                <p>Mulawin St. Brgy.Bitas,<br>Cabanatuan City, Nueva Ecija</p>
+                <p>Phone: (+63) 955-617-9958</p>
+                <p>Email: dronclinic@gmail.com</p>
+                <h5>Clinic Hours:</h5>
+                <p>
+                    Monday: 8:00 am - 6:00 pm<br>
+                    Tuesday: 8:00 am - 6:00 pm<br>
+                    Wednesday: 8:00 am - 6:00 pm<br>
+                    Thursday: 8:00 am - 6:00 pm<br>
+                    Friday: 8:00 am - 6:00 pm<br>
+                    Saturday: 8:00 am - 6:00 pm<br>
+                    Sunday: Closed
+                </p>
+                <h5>Payment Options:</h5>
+                <p>
+                    G-cash<br>
+                    All major credit cards<br>
+                    Cash
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+
 </body>
 
 </html>
