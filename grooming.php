@@ -42,7 +42,7 @@
               </li>
             </ul> -->
                     </li>
-                    <li><a href="#">CONTACT US</a></li>
+                    <li><a href="contactus.php">CONTACT US</a></li>
                 </ul>
             </nav>
         </div>
@@ -63,7 +63,7 @@
     <div class=" container1 container-fluid p-0" style="overflow:visible;">
         <div class="row g-0">
             <div class="col-12 image-top">
-                <img src="images/dog.jpg" alt="dog image" class="img-fluid w-100 h-100" />
+                <img src="images/DogGrooming.jpg" alt="dog image" class="img-fluid w-100 h-100" />
             </div>
         </div>
     </div>
