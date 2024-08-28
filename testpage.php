@@ -101,7 +101,6 @@
   </div>
 
 
-
   <div class="container4 container-fluid text-center">
     <div class="border">
       <img src="images/Paws.png" class="rounded mx-auto d-block paws-logo" alt="PawsLogo">
