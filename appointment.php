@@ -51,6 +51,9 @@
     <br>
     <br>
 
+
+    <!-- mag add ng types of pet input -->
+
     <div class="container1 container-fluid p-0" style="overflow:visible;">
         <div class="row g-0">
             <div class="col-12 image-top">
@@ -154,7 +157,6 @@
     <div class="container my-5">
         <div class="row align-items-center">
             <div class="col-lg-6 text-center text-lg-left mb-4 mb-lg-0">
-
                 <iframe src="https://www.google.com/maps/embed?pb=!3m2!1sen!2sph!4v1713428538080!5m2!1sen!2sph!6m8!1m7!1s1UPyzrm-fB9QmunjaXDomg!2m2!1d15.49962680830744!2d120.9768442687773!3f244.72785217855838!4f1.4193708654089647!5f0.7820865974627469" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
             <div class="col-lg-6 text-center text-lg-left">

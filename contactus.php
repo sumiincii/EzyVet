@@ -142,6 +142,44 @@
     </div>
 
 
+    <!-- this is the divider -->
+    <div class="container text-center">
+        <div class="row">
+            <div class="col  d-flex align-items-center">
+                <hr class="w-100 mx-auto" style="height: 2px; background-color: black; border: none;">
+            </div>
+            <div class="col-2 text-center ">
+                <img src="images/Paws.png" alt="PawsLogo" class="img-fluid" style="max-width: 75px; margin-top: 0;">
+            </div>
+            <div class="col  d-flex align-items-center">
+                <hr class="w-100 mx-auto" style="height: 2px; background-color: black; border: none;">
+            </div>
+        </div>
+    </div>
+    <!-- end of divider -->
+
+
+
+    <!-- this is the footer  -->
+    <div class="container my-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6 text-center text-lg-left mb-4 mb-lg-0">
+                <iframe src="https://www.google.com/maps/embed?pb=!3m2!1sen!2sph!4v1713428538080!5m2!1sen!2sph!6m8!1m7!1s1UPyzrm-fB9QmunjaXDomg!2m2!1d15.49962680830744!2d120.9768442687773!3f244.72785217855838!4f1.4193708654089647!5f0.7820865974627469" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="col-lg-6 text-center text-lg-left">
+                <h3>EZVET</h3>
+                <p>Dr. Ron Veterinary Clinic</p>
+                <p>Mulao St. Brgy. Batas,<br> Cabantuan City, Nueva Ecija</p>
+                <p>Phone: (+63) 955-617-9963</p>
+                <p>Email: dronclinic@gmail.com</p>
+                <p>Opening Hours: 8:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+    </div>
+
+
+
+
 
 </body>
 
