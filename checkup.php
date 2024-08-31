@@ -135,7 +135,7 @@
 
 
 
-
+    <!-- this is the footer  -->
     <div class="container my-5">
         <div class="row align-items-center">
             <div class="col-lg-6 text-center text-lg-left mb-4 mb-lg-0">
