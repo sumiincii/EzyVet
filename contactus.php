@@ -158,8 +158,6 @@
     </div>
     <!-- end of divider -->
 
-
-
     <!-- this is the footer  -->
     <div class="container my-5">
         <div class="row align-items-center">

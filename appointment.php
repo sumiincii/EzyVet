@@ -70,59 +70,82 @@
         <div class="row">
             <div class="col-md-8">
                 <form action="" method="post">
-                    <p>Fields marked with an * are required</p>
-                    <div class="mb-3">
-                        <label class="form-label">Are You A New Client *</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="newClient" id="newClientYes" value="yes" required />
-                            <label class="form-check-label" for="newClientYes">Yes</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="newClient" id="newClientNo" value="no" required />
-                            <label class="form-check-label" for="newClientNo">No</label>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Select Preferred Veterinarian *</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="preferredVet" id="sumi" value="sumi" required />
-                            <label class="form-check-label" for="sumi">Dr. Sumi</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="preferredVet" id="mano" value="mano" required />
-                            <label class="form-check-label" for="mano">Dr. Mano</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="preferredVet" id="vince" value="vince" required />
-                            <label class="form-check-label" for="vince">Dr. Vince</label>
-                        </div>
-                    </div>
+                    <p>Fields marked with an <span class="text-danger">* </span> required</p>
                     <div class="row">
                         <div class="col-sm-6 mb-3">
-                            <label for="firstName" class="form-label">First Name *</label>
+                            <label for="firstName" class="form-label">First Name <span class="text-danger">*</label>
                             <input type="text" class="form-control" id="firstName" required />
                         </div>
                         <div class="col-sm-6 mb-3">
-                            <label for="lastName" class="form-label">Last Name *</label>
+                            <label for="lastName" class="form-label">Last Name <span class="text-danger">*</label>
                             <input type="text" class="form-control" id="lastName" required />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6 mb-3">
-                            <label for="email" class="form-label">Email *</label>
+                            <label for="email" class="form-label">Email <span class="text-danger">*</label>
                             <input type="email" class="form-control" id="email" required />
                         </div>
                         <div class="col-sm-6 mb-3">
-                            <label for="phone" class="form-label">Phone</label>
-                            <input type="number" class="form-control" id="phone" required />
+                            <label for="phone" class="form-label">Phone: <span class="text-danger">*</label>
+                            <input type="number" placeholder="+63" class="form-control" id="phone" required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 mb-3">
+                            <label for="petName" class="form-label">Pet's Name <span class="text-danger">*</label>
+                            <input type="text" class="form-control" id="petName" required />
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <label for="breed" class="form-label">Breed <span class="text-danger">*</label>
+                            <input type="text" class="form-control" id="breed" required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 mb-3">
+                            <label for="petName" class="form-label">Pet's Name <span class="text-danger">*</label>
+                            <input type="text" class="form-control" id="petName" required />
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <label for="species" class="form-label">Species <span class="text-danger">*</label>
+                            <select class="form-control" id="species" required>
+                                <option value="">Select</option>
+                                <option value="Dog">Dog</option>
+                                <option value="Cat">Cat</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 mb-3">
+                            <label for="color" class="form-label">Color <span class="text-danger">*</label>
+                            <input type="text" class="form-control" id="color" required />
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <label for="sex" class="form-label">Sex <span class="text-danger">*</label>
+                            <select class="form-control" id="sex" required>
+                                <option value="">Select</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 mb-3">
+                            <label for="age" class="form-label">Age <span class="text-danger">*</label>
+                            <input type="number" class="form-control" id="age" required />
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="appointmentDate" class="form-label">Preferred Day for Appointment *</label>
-                        <input type="date" class="form-control" id="appointmentDate" required />
+                        <label for="appointmentDate" class="form-label">Preferred Day for Appointment <span class="text-danger">*</label>
+                        <input type="date" class="form-control" id="appointmentDate" min="<?php echo date('Y-m-d'); ?>" required />
                     </div>
+                    <script>
+                        //This will prevent users from selecting a date earlier than the current date. However, please note that this is only a client-side validation and can be bypassed by a determined user. You should also validate the date on the server-side to ensure that the selected date is not earlier than the current date.
+                        document.getElementById('appointmentDate').min = new Date().toISOString().split('T')[0];
+                    </script>
                     <div class="mb-3">
-                        <label for="appointmentTime" class="form-label">Preferred Time for Appointment *</label>
+                        <label for="appointmentTime" class="form-label">Preferred Time for Appointment <span class="text-danger">*</label>
                         <input type="time" class="form-control" id="appointmentTime" min="08:00" max="17:00" required />
                     </div>
                     <button type="submit" class="btn btn-success button1">SUBMIT</button>
