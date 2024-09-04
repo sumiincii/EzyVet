@@ -100,7 +100,6 @@
     </div>
   </div>
 
-
   <div class="container4 container-fluid text-center">
     <div class="border">
       <img src="images/Paws.png" class="rounded mx-auto d-block paws-logo" alt="PawsLogo">
@@ -113,83 +112,22 @@
   <script src="_assets/jquery.min.js"></script>
 </body>
 
-<footer class="containerfooter container-fluid text-center footer">
-  <div class="row">
-    <div class="col-7">
-      <!-- Embed a map here -->
-      <iframe src="https://www.google.com/maps/embed?pb=!3m2!1sen!2sph!4v1713428538080!5m2!1sen!2sph!6m8!1m7!1s1UPyzrm-fB9QmunjaXDomg!2m2!1d15.49962680830744!2d120.9768442687773!3f244.72785217855838!4f1.4193708654089647!5f0.7820865974627469" width="740" height="520" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<div class="container my-5">
+  <div class="row align-items-center">
+    <div class="col-lg-6 text-center text-lg-left mb-4 mb-lg-0">
+
+      <iframe src="https://www.google.com/maps/embed?pb=!3m2!1sen!2sph!4v1713428538080!5m2!1sen!2sph!6m8!1m7!1s1UPyzrm-fB9QmunjaXDomg!2m2!1d15.49962680830744!2d120.9768442687773!3f244.72785217855838!4f1.4193708654089647!5f0.7820865974627469" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
-
-    <div class="col-5 footerright">
-      <!-- <ul class="list-unstyled">
-        <li>Monday: 9:00 am - 6:00 pm</li>
-        <li>Tuesday: 9:00 am - 6:00 pm</li>
-      </ul> -->
-
-
-      <!-- <div class="col">
-        <img src="icons/geo.svg" alt="location">
-      </div>
-      <div class="col">
-        <display>
-          <h1>EZYVET</h1>
-        </display>
-        <p>Dr. Ron Veterinary Clinic</p>
-
-        <p>Mulawin St. Barangay Bitas, Cabanatuan City, Nueva Ecija</p>
-        <p>Opening Hours: 8:00AM</p>
-        <p>Closing Hours: 6:00PM</p>
-
-        <p>Phone: 0955-617-9958</p>
-        <p>Email: dronclinic@gmail.com</p>
-      </div> -->
-
-      <div class="row">
-        <h1>EZYVET</h1>
-      </div>
-
-      <div class="row">
-        <p>Dr. Ron Veterinary Clinic</p>
-      </div>
-
-      <!-- <div class="row iconsto1">
-        <div class="col-5 lg"><img src="icons/geo.svg" alt="location">
-        </div>
-        <div class="col-5 lg">
-          Mulawin St. Barangay Bitas,<br> Cabanatuan City, Nueva Ecija
-        </div>
-      </div> -->
-      <div class="row iconsto">
-        <img src="icons/geo.svg" alt="location">
-        Mulawin St. Barangay Bitas,<br> Cabanatuan City, Nueva Ecija
-      </div>
-      <!-- <div class="row">
-        <div class="col-sm-3">Level 1: .col-sm-3</div>
-        <div class="col-sm-9">
-          <div class="row">
-            <div class="col-8 col-sm-6">Level 2: .col-8 .col-sm-6</div>
-            <div class="col-4 col-sm-6">Level 2: .col-4 .col-sm-6</div>
-          </div>
-        </div>
-      </div> -->
-
-      <div class="row iconsto">
-        <img src="icons/telephone.svg" alt="">
-        Phone: 0955-617-9958
-      </div>
-      <div class="row iconsto">
-        <img src="icons/email.svg" alt="">
-        Email: dronclinic@gmail.com
-      </div>
-      <div class="row iconsto">
-        <img src="icons/clock.svg" alt="">
-        Opening Hours: 8:00AM<br> Closing Hours: 6:00PM
-      </div>
+    <div class="col-lg-6 text-center text-lg-left">
+      <h3>EZVET</h3>
+      <p>Dr. Ron Veterinary Clinic</p>
+      <p>Mulao St. Brgy. Batas,<br> Cabantuan City, Nueva Ecija</p>
+      <p>Phone: (+63) 955-617-9963</p>
+      <p>Email: dronclinic@gmail.com</p>
+      <p>Opening Hours: 8:00 AM - 6:00 PM</p>
     </div>
   </div>
-</footer>
-
-
+</div>
 
 </body>
 

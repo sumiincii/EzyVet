@@ -1,3 +1,65 @@
+<?php
+include 'connection.php';
+
+// Fetch appointments data
+$sql = "SELECT * FROM appointments";
+$result = $conn->query($sql);
+
+// Fetch owners data
+$sql_owners = "SELECT * FROM owners";
+$result_owners = $conn->query($sql_owners);
+
+// Fetch pets data
+$sql_pets = "SELECT * FROM pets";
+$result_pets = $conn->query($sql_pets);
+?>
+<?php
+$result->data_seek(0); // reset the pointer to the beginning of the result set
+while ($row = $result->fetch_assoc()) {
+?>
+    <tr>
+        <td><?php echo $row['id']; ?></td>
+        <?php
+        // Fetch owner name
+        $owner_id = $row['owner_id'];
+        $sql_owner_name = "SELECT fullname FROM owners WHERE id = '$owner_id'";
+        $result_owner_name = $conn->query($sql_owner_name);
+        $owner_name = $result_owner_name->fetch_assoc();
+        ?>
+        <td><?php echo $owner_name['fullname']; ?></td>
+        <?php
+        // Fetch pet species
+        $pet_id = $row['pet_id'];
+        $sql_pet_species = "SELECT species FROM pets WHERE id = '$pet_id'";
+        $result_pet_species = $conn->query($sql_pet_species);
+        $pet_species = $result_pet_species->fetch_assoc();
+        ?>
+        <td><?php echo $pet_species['species']; ?></td>
+        <td><?php echo date('m/d/Y', strtotime($row['appointment_date'])); ?></td>
+        <td><?php echo $row['appointment_time']; ?></td>
+        <td><?php echo $row['status']; ?></td>
+        <td><?php echo $row['preferred_veterinarian']; ?></td>
+        <td><button class="btn btn-dark btn-sm">Archive</button></td>
+    </tr>
+<?php } ?>
+</tbody>
+</table>
+
+<nav>
+    <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    </ul>
+</nav>
+</div>
+</div>
+</body>
+
+</html>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -78,7 +140,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Pet Owner</th>
-                        <th>Type of Pet</th>
+                        <th>Species</th>
                         <th>Date (mm/dd/yyyy)</th>
                         <th>Time-AM/PM</th>
                         <th>Status</th>
