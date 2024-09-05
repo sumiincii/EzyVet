@@ -32,8 +32,10 @@
         $color = $_POST['color'];
         $sex = $_POST['sex'];
         $age = $_POST['age'];
+        $appointment_for = $_POST['appointmentFor'];  // New field for appointment purpose
         $appointment_date = $_POST['appointmentDate'];
         $appointment_time = $_POST['appointmentTime'];
+        $comments = $_POST['comments'];  // New comments field
 
         // Insert into owners table
         $owner_sql = "INSERT INTO owners (fullname, email, phone) VALUES ('$fullname', '$email', '$phone')";
@@ -46,7 +48,7 @@
                 $pet_id = $conn->insert_id; // Get the last inserted pet ID
 
                 // Insert into appointments table
-                $appointment_sql = "INSERT INTO appointments (owner_id, pet_id, appointment_date, appointment_time, status) VALUES ('$owner_id', '$pet_id', '$appointment_date', '$appointment_time', 'Pending')";
+                $appointment_sql = "INSERT INTO appointments (owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments) VALUES ('$owner_id', '$pet_id', '$appointment_date', '$appointment_time', 'Pending', '$appointment_for', '$comments')";
                 if ($conn->query($appointment_sql) === TRUE) {
                     echo "<script>
                         document.addEventListener('DOMContentLoaded', function() {
@@ -130,6 +132,21 @@
                             <input type="email" class="form-control" id="email" name="email" required />
                         </div>
                     </div>
+                    <!-- New dropdown for appointment purpose -->
+                    <div class="row">
+                        <div class="col-sm-6 mb-3">
+                            <label for="appointmentFor" class="form-label">What is the Appointment For <span class="text-danger">*</span></label>
+                            <select class="form-control" id="appointmentFor" name="appointmentFor" required>
+                                <option value="">Select</option>
+                                <option value="Vaccinations">Vaccinations</option>
+                                <option value="Checkup">Checkup</option>
+                                <option value="Grooming">Grooming</option>
+                                <option value="Follow Up">Follow Up</option>
+                            </select>
+                            <small class="text-danger">If this is an emergency, or your pet is in pain or injured, or you need an appointment today, please call our office.</small>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-sm-6 mb-3">
                             <label for="phone" class="form-label">Phone <span class="text-danger">*</span></label>
@@ -174,22 +191,29 @@
                             <label for="age" class="form-label">Age <span class="text-danger">*</span></label>
                             <input type="number" class="form-control" id="age" name="age" required />
                         </div>
+                        <!-- New field for comments -->
                         <div class="col-sm-6 mb-3">
-                            <label for="appointmentDate" class="form-label">Preferred Day for Appointment <span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" id="appointmentDate" name="appointmentDate" min="" required />
+                            <label for="comments" class="form-label">Comments (Optional)</label>
+                            <textarea class="form-control" id="comments" name="comments" rows="3" placeholder="Any additional information or instructions"></textarea>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6 mb-3">
-                            <label for="appointmentTime" class="form-label">Preferred Time for Appointment <span class="text-danger">*</span></label>
+                            <label for="appointmentDate" class="form-label">Appointment Date <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="appointmentDate" name="appointmentDate" required />
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <label for="appointmentTime" class="form-label">Appointment Time <span class="text-danger">*</span></label>
                             <input type="time" class="form-control" id="appointmentTime" name="appointmentTime" required />
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit Appointment Request</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
     </div>
+
+    <script src="_assets/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
