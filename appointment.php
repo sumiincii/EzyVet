@@ -176,7 +176,7 @@
                         </div>
                         <div class="col-sm-6 mb-3">
                             <label for="appointmentDate" class="form-label">Preferred Day for Appointment <span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" id="appointmentDate" name="appointmentDate" required />
+                            <input type="date" class="form-control" id="appointmentDate" name="appointmentDate" min="" required />
                         </div>
                     </div>
                     <div class="row">
