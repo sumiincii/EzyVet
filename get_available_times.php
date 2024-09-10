@@ -4,12 +4,12 @@ include 'connection.php';
 function getAvailableTimes($date, $conn)
 {
     $clinic_hours = [
-        'Monday' => ['08:00:00', '18:00:00'],
-        'Tuesday' => ['08:00:00', '18:00:00'],
-        'Wednesday' => ['08:00:00', '18:00:00'],
-        'Thursday' => ['08:00:00', '18:00:00'],
-        'Friday' => ['08:00:00', '18:00:00'],
-        'Saturday' => ['08:00:00', '18:00:00'],
+        'Monday' => ['08:00:00', '17:00:00'],
+        'Tuesday' => ['08:00:00', '17:00:00'],
+        'Wednesday' => ['08:00:00', '17:00:00'],
+        'Thursday' => ['08:00:00', '17:00:00'],
+        'Friday' => ['08:00:00', '17:00:00'],
+        'Saturday' => ['08:00:00', '17:00:00'],
         'Sunday' => null
     ];
 
@@ -28,6 +28,12 @@ function getAvailableTimes($date, $conn)
 
         foreach ($period as $time) {
             $formatted_time = $time->format('H:i:s');
+
+            // Exclude 12:00 and 12:30 from available times
+            if ($formatted_time == '12:00:00' || $formatted_time == '12:30:00') {
+                continue;
+            }
+
             $sql = "SELECT COUNT(*) FROM appointments WHERE appointment_date = '$date' AND appointment_time = '$formatted_time'";
             $result = $conn->query($sql);
             $count = $result->fetch_row()[0];
