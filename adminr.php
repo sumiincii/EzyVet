@@ -6,7 +6,7 @@ ob_start();
 include 'connection.php';
 
 // Fetch appointments data
-$sql = "SELECT a.id, o.fullname, p.species, a.appointment_date, a.appointment_time, a.status, a.appointment_for, a.comments 
+$sql = "SELECT a.id, o.fullname, p.species, a.appointment_date, a.appointment_time, a.status 
         FROM appointments a
         JOIN owners o ON a.owner_id = o.id
         JOIN pets p ON a.pet_id = p.id
@@ -30,36 +30,18 @@ $accepted_sql = "SELECT COUNT(*) AS accepted FROM appointments WHERE status = 'A
 $accepted_result = $conn->query($accepted_sql);
 $accepted_count = $accepted_result->fetch_assoc();
 
-// Handle button clicks for accept, decline, and archive
+// Handle button clicks for accept and decline
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $appointment_id = $conn->real_escape_string($_POST['appointment_id']);
-    $action = $conn->real_escape_string($_POST['action']);
+    $appointment_id = $_POST['appointment_id'];
+    $action = $_POST['action'];
 
     if ($action == 'accept') {
         $update_sql = "UPDATE appointments SET status='Accepted' WHERE id=$appointment_id";
     } elseif ($action == 'decline') {
         $update_sql = "UPDATE appointments SET status='Declined' WHERE id=$appointment_id";
-    } elseif ($action == 'archive') {
-        // Fetch the appointment details
-        $fetch_sql = "SELECT id, owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments 
-                      FROM appointments WHERE id=$appointment_id";
-        $fetch_result = $conn->query($fetch_sql);
-        $appointment = $fetch_result->fetch_assoc();
-
-        // Insert into archived_appointments
-        $insert_sql = "INSERT INTO archived_appointments (id, owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments)
-                       VALUES ('{$appointment['id']}', '{$appointment['owner_id']}', '{$appointment['pet_id']}', '{$appointment['appointment_date']}', '{$appointment['appointment_time']}', '{$appointment['status']}', '{$appointment['appointment_for']}', '{$appointment['comments']}')";
-        $conn->query($insert_sql);
-
-        // Delete from appointments
-        $delete_sql = "DELETE FROM appointments WHERE id=$appointment_id";
-        $conn->query($delete_sql);
-    } else {
-        echo "<div class='alert alert-danger'>Invalid action.</div>";
-        exit();
     }
 
-    if ($conn->affected_rows > 0) {
+    if ($conn->query($update_sql) === TRUE) {
         echo "<div class='alert alert-success'>Appointment updated successfully.</div>";
     } else {
         echo "<div class='alert alert-danger'>Error updating appointment: " . $conn->error . "</div>";
@@ -175,31 +157,9 @@ ob_end_flush();
             text-align: center;
         }
 
-        .table td {
-            word-wrap: break-word;
-            max-width: 150px;
-            /* Adjust as needed */
-            white-space: normal;
-        }
-
         .table tbody tr:hover {
             background-color: #f1f1f1;
             cursor: pointer;
-        }
-
-        .status-pending {
-            background-color: orange;
-            color: white;
-        }
-
-        .status-declined {
-            background-color: red;
-            color: white;
-        }
-
-        .status-accepted {
-            background-color: green;
-            color: white;
         }
 
         .action-buttons button {
@@ -224,16 +184,6 @@ ob_end_flush();
         .btn-dark {
             background-color: #343a40;
             border-color: #343a40;
-        }
-
-        .btn-secondary {
-            background-color: #6c757d;
-            border-color: #6c757d;
-        }
-
-        .btn-secondary:hover {
-            background-color: #5a6268;
-            border-color: #545b62;
         }
 
         /* Modal Styling */
@@ -280,73 +230,59 @@ ob_end_flush();
         <div class="stats-card">
             <div>
                 <h5>Total Appointments Today</h5>
-                <p><?php echo isset($today_count['total_today']) ? $today_count['total_today'] : 'N/A'; ?></p>
+                <p><?php echo $today_count['total_today']; ?></p>
             </div>
             <div>
                 <h5>Pending Appointments</h5>
-                <p><?php echo isset($pending_count['pending']) ? $pending_count['pending'] : 'N/A'; ?></p>
+                <p><?php echo $pending_count['pending']; ?></p>
             </div>
             <div>
                 <h5>Accepted Appointments</h5>
-                <p><?php echo isset($accepted_count['accepted']) ? $accepted_count['accepted'] : 'N/A'; ?></p>
+                <p><?php echo $accepted_count['accepted']; ?></p>
             </div>
         </div>
 
         <!-- Appointments Table -->
         <div class="table-wrapper">
-            <table class="table table-striped">
+            <h4>Scheduled Appointments</h4>
+            <input class="form-control mb-3" id="search" type="text" placeholder="Search...">
+
+            <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Owner Name</th>
-                        <th>Pet Species</th>
-                        <th>Appointment Date</th>
-                        <th>Appointment Time</th>
+                        <th>Pet Owner</th>
+                        <th>Species</th>
+                        <th>Date</th>
+                        <th>Time</th>
                         <th>Status</th>
-                        <th>For</th>
-                        <th>Comments</th>
-                        <th>Actions</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="appointmentTable">
                     <?php
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
-                            // Determine the status class
-                            $status_class = '';
-                            if ($row['status'] == 'Pending') {
-                                $status_class = 'status-pending';
-                            } elseif ($row['status'] == 'Declined') {
-                                $status_class = 'status-declined';
-                            } elseif ($row['status'] == 'Accepted') {
-                                $status_class = 'status-accepted';
-                            }
-
                             echo "<tr>";
-                            echo "<td>{$row['fullname']}</td>";
-                            echo "<td>{$row['species']}</td>";
-                            echo "<td>{$row['appointment_date']}</td>";
-                            echo "<td>{$row['appointment_time']}</td>";
-                            echo "<td class='{$status_class}'>{$row['status']}</td>";
-                            echo "<td>{$row['appointment_for']}</td>";
-                            echo "<td>{$row['comments']}</td>";
+                            echo "<td>" . $row["fullname"] . "</td>";
+                            echo "<td>" . $row["species"] . "</td>";
+                            echo "<td>" . date("m/d/Y", strtotime($row["appointment_date"])) . "</td>";
+                            echo "<td>" . date("h:i A", strtotime($row["appointment_time"])) . "</td>";
+                            echo "<td>" . $row["status"] . "</td>";
                             echo "<td class='action-buttons'>
-                                    <form method='post' class='d-inline'>
-                                        <input type='hidden' name='appointment_id' value='{$row['id']}'>
-                                        <button type='submit' name='action' value='accept' class='btn btn-success'>Accept</button>
+                                    <form method='POST' style='display:inline;'>
+                                        <input type='hidden' name='appointment_id' value='" . $row["id"] . "'>
+                                        <button type='submit' name='action' value='accept' class='btn btn-success btn-sm'>Accept</button>
                                     </form>
-                                    <form method='post' class='d-inline'>
-                                        <input type='hidden' name='appointment_id' value='{$row['id']}'>
-                                        <button type='submit' name='action' value='decline' class='btn btn-danger'>Decline</button>
+                                    <form method='POST' style='display:inline;'>
+                                        <input type='hidden' name='appointment_id' value='" . $row["id"] . "'>
+                                        <button type='submit' name='action' value='decline' class='btn btn-danger btn-sm'>Decline</button>
                                     </form>
-                                    <form method='post' class='d-inline'>
-                                        <input type='hidden' name='appointment_id' value='{$row['id']}'>
-                                        <button type='submit' name='action' value='archive' class='btn btn-secondary'>Archive</button>
-                                    </form>
-                                </td>";
+                                    <button class='btn btn-dark btn-sm' data-toggle='modal' data-target='#archiveModal'>Archive</button>
+                                  </td>";
                             echo "</tr>";
                         }
                     } else {
-                        echo "<tr><td colspan='8'>No appointments found.</td></tr>";
+                        echo "<tr><td colspan='6'>No appointments found</td></tr>";
                     }
                     ?>
                 </tbody>
@@ -354,8 +290,31 @@ ob_end_flush();
         </div>
     </div>
 
-    <!-- Bootstrap JS (Include if needed) -->
+    <!-- Bootstrap JS -->
     <script src="_assets/bootstrap.bundle.min.js"></script>
+
+    <!-- Search Functionality -->
+    <script>
+        document.getElementById("search").addEventListener("keyup", function() {
+            var value = this.value.toLowerCase();
+            var rows = document.querySelectorAll("#appointmentTable tr");
+
+            rows.forEach(function(row) {
+                var isMatch = false;
+                row.querySelectorAll("td").forEach(function(cell) {
+                    if (cell.textContent.toLowerCase().includes(value)) {
+                        isMatch = true;
+                    }
+                });
+
+                if (isMatch) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

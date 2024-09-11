@@ -1,122 +1,191 @@
+<?php
+// Start output buffering
+ob_start();
+
+// Database connection
+include 'connection.php';
+
+// Fetch archived appointments data
+$sql = "SELECT a.id, o.fullname, p.species, a.appointment_date, a.appointment_time, a.status, a.appointment_for, a.comments 
+        FROM archived_appointments a
+        JOIN owners o ON a.owner_id = o.id
+        JOIN pets p ON a.pet_id = p.id
+        ORDER BY a.appointment_date ASC";
+
+$result = $conn->query($sql);
+
+// End output buffering and flush output
+ob_end_flush();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <!-- <link rel="stylesheet" href="contactus.css"> -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ezyvet</title>
-    <!-- this is my fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="_assets/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <title>Ezyvet Archives</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="_assets/bootstrap.min.css">
+
+    <!-- FontAwesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
     <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
         .dashboard-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
+            padding: 15px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 8px;
+        }
+
+        .dashboard-header h2 {
+            font-weight: 600;
         }
 
         .dashboard-header img {
             border-radius: 50%;
         }
 
-        .table-wrapper {
-            margin-top: 20px;
+        .dashboard-header a {
+            color: #fff;
+            margin-left: 15px;
+            padding: 8px 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background-color 0.3s;
         }
 
-        .table-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
+        .dashboard-header a:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .table-wrapper {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .table thead {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .table th,
+        .table td {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .table td {
+            word-wrap: break-word;
+            max-width: 150px;
+            /* Adjust as needed */
+            white-space: normal;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+
+        /* Modal Styling */
+        .modal-header {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .modal-footer .btn-secondary {
+            background-color: #343a40;
+            border-color: #343a40;
+        }
+
+        /* Media Queries for Mobile */
+        @media (max-width: 768px) {
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
 
 <body>
     <div class="container">
+        <!-- Dashboard Header -->
         <div class="dashboard-header">
             <div class="d-flex align-items-center">
                 <img src="your-image-url" alt="Dr. Ron" width="50" height="50">
-                <h2 class="ml-3">Dr. Ron</h2>
+                <h2>Dr. Ron</h2>
             </div>
             <div>
-                <a href="admin.php" class="btn btn-light">Dashboard</a>
-                <a href="#" class="btn btn-light">Archives</a>
-                <a href="#" class="btn btn-light">Log Out</a>
+                <a href="admin.php">Dashboard</a>
+                <a href="#">Archives</a>
+                <a href="#">Log Out</a>
             </div>
         </div>
 
-        <div class="text-center mt-4">
-            <h3>Paws and Appointments:</h3>
-            <h4>Veterinary Clinic Records</h4>
-        </div>
-
+        <!-- Appointments Table -->
         <div class="table-wrapper">
-            <div class="table-header">
-                <h4>Archives</h4>
-                <input class="form-control w-25" id="search" type="text" placeholder="Search...">
-            </div>
-
-            <table class="table table-bordered">
+            <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Pet Owner</th>
-                        <th>Type of Pet</th>
-                        <th>Date (mm/dd/yyyy)</th>
-                        <th>Time-AM/PM</th>
+                        <th>Owner Name</th>
+                        <th>Pet Species</th>
+                        <th>Appointment Date</th>
+                        <th>Appointment Time</th>
                         <th>Status</th>
-                        <th>Preferred Veterinarian</th>
+                        <th>For</th>
+                        <th>Comments</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>David Lucero</td>
-                        <td>Cat</td>
-                        <td>01/10/2024</td>
-                        <td>8:00 AM - 11:00 AM</td>
-                        <td>Completed</td>
-                        <td>Dr. Ron</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Derick Del Pilar</td>
-                        <td>Dog</td>
-                        <td>01/22/2024</td>
-                        <td>8:00 AM - 11:00 AM</td>
-                        <td>Completed</td>
-                        <td>Dr. Ron</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Angelo Marquez</td>
-                        <td>Cat</td>
-                        <td>02/08/2024</td>
-                        <td>1:00 PM - 6:00 PM</td>
-                        <td>Completed</td>
-                        <td>Dr. Morales</td>
-                    </tr>
+                    <?php
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>{$row['fullname']}</td>";
+                            echo "<td>{$row['species']}</td>";
+                            echo "<td>{$row['appointment_date']}</td>";
+                            echo "<td>{$row['appointment_time']}</td>";
+                            echo "<td>{$row['status']}</td>";
+                            echo "<td>{$row['appointment_for']}</td>";
+                            echo "<td>{$row['comments']}</td>";
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='7'>No archived appointments found.</td></tr>";
+                    }
+                    ?>
                 </tbody>
             </table>
-
-            <nav>
-                <ul class="pagination justify-content-center">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-            </nav>
         </div>
     </div>
 
+    <!-- Bootstrap JS (Include if needed) -->
+    <script src="_assets/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
