@@ -5,11 +5,15 @@ ob_start();
 // Database connection
 include 'connection.php';
 
-// Fetch appointments data
+// Initialize search query
+$search = isset($_GET['search']) ? $conn->real_escape_string($_GET['search']) : '';
+
+// Fetch appointments data with search functionality
 $sql = "SELECT a.id, o.fullname, p.species, a.appointment_date, a.appointment_time, a.status, a.appointment_for, a.comments 
         FROM appointments a
         JOIN owners o ON a.owner_id = o.id
         JOIN pets p ON a.pet_id = p.id
+        WHERE o.fullname LIKE '%$search%' OR p.species LIKE '%$search%'
         ORDER BY a.appointment_date ASC";
 
 $result = $conn->query($sql);
@@ -32,42 +36,50 @@ $accepted_count = $accepted_result->fetch_assoc();
 
 // Handle button clicks for accept, decline, and archive
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $appointment_id = $conn->real_escape_string($_POST['appointment_id']);
-    $action = $conn->real_escape_string($_POST['action']);
+    if (isset($_POST['appointment_id']) && isset($_POST['action'])) {
+        $appointment_id = $conn->real_escape_string($_POST['appointment_id']);
+        $action = $conn->real_escape_string($_POST['action']);
 
-    if ($action == 'accept') {
-        $update_sql = "UPDATE appointments SET status='Accepted' WHERE id=$appointment_id";
-    } elseif ($action == 'decline') {
-        $update_sql = "UPDATE appointments SET status='Declined' WHERE id=$appointment_id";
-    } elseif ($action == 'archive') {
-        // Fetch the appointment details
-        $fetch_sql = "SELECT id, owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments 
-                      FROM appointments WHERE id=$appointment_id";
-        $fetch_result = $conn->query($fetch_sql);
-        $appointment = $fetch_result->fetch_assoc();
+        // Check for action type
+        if ($action == 'accept') {
+            $update_sql = "UPDATE appointments SET status='Accepted' WHERE id=$appointment_id";
+        } elseif ($action == 'decline') {
+            $update_sql = "UPDATE appointments SET status='Declined' WHERE id=$appointment_id";
+        } elseif ($action == 'archive') {
+            // Fetch the appointment details
+            $fetch_sql = "SELECT id, owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments 
+                          FROM appointments WHERE id=$appointment_id";
+            $fetch_result = $conn->query($fetch_sql);
+            $appointment = $fetch_result->fetch_assoc();
 
-        // Insert into archived_appointments
-        $insert_sql = "INSERT INTO archived_appointments (id, owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments)
-                       VALUES ('{$appointment['id']}', '{$appointment['owner_id']}', '{$appointment['pet_id']}', '{$appointment['appointment_date']}', '{$appointment['appointment_time']}', '{$appointment['status']}', '{$appointment['appointment_for']}', '{$appointment['comments']}')";
-        $conn->query($insert_sql);
+            // Insert into archived_appointments
+            $insert_sql = "INSERT INTO archived_appointments (id, owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments)
+                           VALUES ('{$appointment['id']}', '{$appointment['owner_id']}', '{$appointment['pet_id']}', '{$appointment['appointment_date']}', '{$appointment['appointment_time']}', '{$appointment['status']}', '{$appointment['appointment_for']}', '{$appointment['comments']}')";
+            $conn->query($insert_sql);
 
-        // Delete from appointments
-        $delete_sql = "DELETE FROM appointments WHERE id=$appointment_id";
-        $conn->query($delete_sql);
-    } else {
-        echo "<div class='alert alert-danger'>Invalid action.</div>";
+            // Delete from appointments
+            $delete_sql = "DELETE FROM appointments WHERE id=$appointment_id";
+            $conn->query($delete_sql);
+        } else {
+            echo "<div class='alert alert-danger'>Invalid action.</div>";
+            exit();
+        }
+
+        // Execute the query and check for success
+        if (isset($update_sql) && $conn->query($update_sql)) {
+            echo "<div class='alert alert-success'>Appointment updated successfully.</div>";
+        } elseif ($conn->affected_rows > 0) {
+            echo "<div class='alert alert-success'>Appointment archived successfully.</div>";
+        } else {
+            echo "<div class='alert alert-danger'>Error updating appointment: " . $conn->error . "</div>";
+        }
+
+        // Redirect to avoid form resubmission issues
+        header("Location: " . $_SERVER['PHP_SELF']);
         exit();
-    }
-
-    if ($conn->affected_rows > 0) {
-        echo "<div class='alert alert-success'>Appointment updated successfully.</div>";
     } else {
-        echo "<div class='alert alert-danger'>Error updating appointment: " . $conn->error . "</div>";
+        echo "<div class='alert alert-danger'>Form data missing. Please try again.</div>";
     }
-
-    // Redirect to avoid form resubmission issues
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit();
 }
 
 // End output buffering and flush output
@@ -178,7 +190,6 @@ ob_end_flush();
         .table td {
             word-wrap: break-word;
             max-width: 150px;
-            /* Adjust as needed */
             white-space: normal;
         }
 
@@ -279,83 +290,69 @@ ob_end_flush();
         <!-- Stats Card -->
         <div class="stats-card">
             <div>
-                <h5>Total Appointments Today</h5>
-                <p><?php echo isset($today_count['total_today']) ? $today_count['total_today'] : 'N/A'; ?></p>
+                <h5>Today's Appointments</h5>
+                <h3><?php echo $today_count['total_today']; ?></h3>
             </div>
             <div>
                 <h5>Pending Appointments</h5>
-                <p><?php echo isset($pending_count['pending']) ? $pending_count['pending'] : 'N/A'; ?></p>
+                <h3><?php echo $pending_count['pending']; ?></h3>
             </div>
             <div>
                 <h5>Accepted Appointments</h5>
-                <p><?php echo isset($accepted_count['accepted']) ? $accepted_count['accepted'] : 'N/A'; ?></p>
+                <h3><?php echo $accepted_count['accepted']; ?></h3>
             </div>
         </div>
 
-        <!-- Appointments Table -->
+        <!-- Search Form -->
+        <div class="mb-4">
+            <input type="text" id="search" class="form-control" style="width: 300px;" placeholder="Search by owner's name or pet species">
+        </div>
+
+        <!-- Appointment Table -->
         <div class="table-wrapper">
-            <table class="table table-striped">
+            <table class="table table-striped" id="appointments-table">
                 <thead>
                     <tr>
-                        <th>Owner Name</th>
-                        <th>Pet Species</th>
-                        <th>Appointment Date</th>
-                        <th>Appointment Time</th>
+                        <th>Owner's Name</th>
+                        <th>Pet's Species</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Purpose</th>
                         <th>Status</th>
-                        <th>For</th>
                         <th>Comments</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            // Determine the status class
-                            $status_class = '';
-                            if ($row['status'] == 'Pending') {
-                                $status_class = 'status-pending';
-                            } elseif ($row['status'] == 'Declined') {
-                                $status_class = 'status-declined';
-                            } elseif ($row['status'] == 'Accepted') {
-                                $status_class = 'status-accepted';
-                            }
-
-                            echo "<tr>";
-                            echo "<td>{$row['fullname']}</td>";
-                            echo "<td>{$row['species']}</td>";
-                            echo "<td>{$row['appointment_date']}</td>";
-                            echo "<td>{$row['appointment_time']}</td>";
-                            echo "<td class='{$status_class}'>{$row['status']}</td>";
-                            echo "<td>{$row['appointment_for']}</td>";
-                            echo "<td>{$row['comments']}</td>";
-                            echo "<td class='action-buttons'>
-                                    <form method='post' class='d-inline'>
-                                        <input type='hidden' name='appointment_id' value='{$row['id']}'>
-                                        <button type='submit' name='action' value='accept' class='btn btn-success'>Accept</button>
-                                    </form>
-                                    <form method='post' class='d-inline'>
-                                        <input type='hidden' name='appointment_id' value='{$row['id']}'>
-                                        <button type='submit' name='action' value='decline' class='btn btn-danger'>Decline</button>
-                                    </form>
-                                    <form method='post' class='d-inline'>
-                                        <input type='hidden' name='appointment_id' value='{$row['id']}'>
-                                        <button type='submit' name='action' value='archive' class='btn btn-secondary'>Archive</button>
-                                    </form>
-                                </td>";
-                            echo "</tr>";
-                        }
-                    } else {
-                        echo "<tr><td colspan='8'>No appointments found.</td></tr>";
-                    }
-                    ?>
+                    <!-- Data will be injected here by JavaScript -->
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- Bootstrap JS (Include if needed) -->
+    <!-- Bootstrap JS (Optional) -->
     <script src="_assets/bootstrap.bundle.min.js"></script>
+    <script>
+        // Function to fetch and display appointments
+        function fetchAppointments(query = '') {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'fetch_appointments.php?search=' + encodeURIComponent(query), true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    document.querySelector('#appointments-table tbody').innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+
+        // Initial fetch
+        fetchAppointments();
+
+        // Fetch appointments on search input change
+        document.querySelector('#search').addEventListener('input', function() {
+            fetchAppointments(this.value);
+        });
+    </script>
 </body>
 
 </html>

@@ -183,7 +183,7 @@
                         </div>
                         <div class="col-sm-6">
                             <label for="appointmentDate" class="form-label">Appointment Date <span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" id="appointmentDate" name="appointmentDate" min="<?php echo date('Y-m-d', strtotime('+1 day')); ?>" />
+                            <input type="date" class="form-control" id="appointmentDate" name="appointmentDate" min="<?php echo date('Y-m-d', strtotime('+0 day')); ?>" />
                         </div>
                     </div>
                     <div class="row mb-3">

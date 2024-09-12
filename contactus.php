@@ -120,15 +120,15 @@
                 <h4>DR. RON VETERINARY CLINIC</h4>
                 <p>Mulawin St. Brgy.Bitas,<br>Cabanatuan City, Nueva Ecija</p>
                 <p>Phone: (+63) 955-617-9958</p>
-                <p>Email: dronclinic@gmail.com</p>
+                <p>Email: Ezyvet.neust@gmail.com</p>
                 <h5>Clinic Hours:</h5>
                 <p>
-                    Monday: 8:00 am - 6:00 pm<br>
-                    Tuesday: 8:00 am - 6:00 pm<br>
-                    Wednesday: 8:00 am - 6:00 pm<br>
-                    Thursday: 8:00 am - 6:00 pm<br>
-                    Friday: 8:00 am - 6:00 pm<br>
-                    Saturday: 8:00 am - 6:00 pm<br>
+                    Monday: 8:00 am - 5:00 pm<br>
+                    Tuesday: 8:00 am - 5:00 pm<br>
+                    Wednesday: 8:00 am - 5:00 pm<br>
+                    Thursday: 8:00 am - 5:00 pm<br>
+                    Friday: 8:00 am - 5:00 pm<br>
+                    Saturday: 8:00 am - 5:00 pm<br>
                     Sunday: Closed
                 </p>
                 <h5>Payment Options:</h5>

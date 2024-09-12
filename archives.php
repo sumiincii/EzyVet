@@ -157,7 +157,7 @@ ob_end_flush();
                         <th>Appointment Date</th>
                         <th>Appointment Time</th>
                         <th>Status</th>
-                        <th>For</th>
+                        <th>Purpose</th>
                         <th>Comments</th>
                     </tr>
                 </thead>
