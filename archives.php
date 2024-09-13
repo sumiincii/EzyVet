@@ -1,23 +1,3 @@
-<?php
-// Start output buffering
-ob_start();
-
-// Database connection
-include 'connection.php';
-
-// Fetch archived appointments data
-$sql = "SELECT a.id, o.fullname, p.species, a.appointment_date, a.appointment_time, a.status, a.appointment_for, a.comments 
-        FROM archived_appointments a
-        JOIN owners o ON a.owner_id = o.id
-        JOIN pets p ON a.pet_id = p.id
-        ORDER BY a.appointment_date ASC";
-
-$result = $conn->query($sql);
-
-// End output buffering and flush output
-ob_end_flush();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,6 +61,40 @@ ob_end_flush();
             background-color: rgba(255, 255, 255, 0.4);
         }
 
+        .search-form {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 10px;
+            margin-left: 20px;
+            /* Add some space to the left */
+        }
+
+        .search-form input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .search-form button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-form button:hover {
+            background-color: #0056b3;
+        }
+
         .table-wrapper {
             background-color: #fff;
             padding: 20px;
@@ -102,7 +116,6 @@ ob_end_flush();
         .table td {
             word-wrap: break-word;
             max-width: 150px;
-            /* Adjust as needed */
             white-space: normal;
         }
 
@@ -111,25 +124,26 @@ ob_end_flush();
             cursor: pointer;
         }
 
-        /* Modal Styling */
-        .modal-header {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        .modal-footer .btn-secondary {
-            background-color: #343a40;
-            border-color: #343a40;
-        }
-
         /* Media Queries for Mobile */
         @media (max-width: 768px) {
             .dashboard-header {
                 flex-direction: column;
                 align-items: flex-start;
             }
+
+            .search-form {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .search-form input[type="text"] {
+                width: 100%;
+            }
         }
     </style>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -147,6 +161,11 @@ ob_end_flush();
             </div>
         </div>
 
+        <!-- Search Form -->
+        <div class="search-form">
+            <input type="text" id="search-input" placeholder="Search archived appointments">
+        </div>
+
         <!-- Appointments Table -->
         <div class="table-wrapper">
             <table class="table table-striped">
@@ -161,31 +180,39 @@ ob_end_flush();
                         <th>Comments</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <?php
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            echo "<tr>";
-                            echo "<td>{$row['fullname']}</td>";
-                            echo "<td>{$row['species']}</td>";
-                            echo "<td>{$row['appointment_date']}</td>";
-                            echo "<td>{$row['appointment_time']}</td>";
-                            echo "<td>{$row['status']}</td>";
-                            echo "<td>{$row['appointment_for']}</td>";
-                            echo "<td>{$row['comments']}</td>";
-                            echo "</tr>";
-                        }
-                    } else {
-                        echo "<tr><td colspan='7'>No archived appointments found.</td></tr>";
-                    }
-                    ?>
+                <tbody id="table-body">
+                    <!-- Data will be injected here by AJAX -->
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- Bootstrap JS (Include if needed) -->
-    <script src="_assets/bootstrap.bundle.min.js"></script>
+    <script>
+        // Function to fetch search results via AJAX
+        function fetchResults(query = '') {
+            $.ajax({
+                url: 'search_archives.php', // The PHP script that handles the search query
+                method: 'POST',
+                data: {
+                    search_query: query
+                },
+                success: function(data) {
+                    $('#table-body').html(data); // Insert the returned HTML into the table body
+                }
+            });
+        }
+
+        // Call fetchResults whenever the user types in the search box
+        $('#search-input').on('input', function() {
+            const query = $(this).val();
+            fetchResults(query); // Fetch the search results dynamically
+        });
+
+        // Fetch all results on page load
+        $(document).ready(function() {
+            fetchResults(); // Fetch all results when the page loads
+        });
+    </script>
 </body>
 
 </html>
