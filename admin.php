@@ -197,6 +197,28 @@ ob_end_flush();
             border-radius: 8px;
         }
 
+        .dashboard-header h2 {
+            font-weight: 600;
+        }
+
+        .dashboard-header img {
+            border-radius: 50%;
+        }
+
+        .dashboard-header a {
+            color: #fff;
+            margin-left: 15px;
+            padding: 8px 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .dashboard-header a:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
         .stats-card {
             display: flex;
             justify-content: space-around;
@@ -252,7 +274,15 @@ ob_end_flush();
     <div class="container">
         <!-- Dashboard Header -->
         <div class="dashboard-header">
-            <h2>EzyVet Admin</h2>
+            <div class="d-flex align-items-center">
+                <img src="your-image-url" alt="Dr. Ron" width="50" height="50">
+                <h2>Dr. Ron</h2>
+            </div>
+            <div>
+                <a href="admin.php">Dashboard</a>
+                <a href="archives.php">Archives</a>
+                <a href="#">Log Out</a>
+            </div>
         </div>
 
         <!-- Stats Card -->
