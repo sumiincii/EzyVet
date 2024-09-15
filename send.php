@@ -16,8 +16,8 @@ if (isset($_POST["send"])) {
     $mail->SMTPAuth = true;
     $mail->Username = 'ezyvet.neust@gmail.com'; // your gmail
     $mail->Password = 'gjyk hyze xust szfv'; // app password
-    $mail->SMTPSecure = 'ssl'; // Use TLS
-    $mail->Port = 465; // Use port 587 instead of 465
+    $mail->SMTPSecure = 'ssl';
+    $mail->Port = 465; // can Use port 587 instead of 465
     $mail->setFrom('ezyvet.neust@gmail.com');
     $mail->addAddress($_POST["email"]);
     $mail->isHTML(true);

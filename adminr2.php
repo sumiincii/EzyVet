@@ -2,14 +2,22 @@
 // Start output buffering
 ob_start();
 
-// Database connection
+// Include database connection
 include 'connection.php';
+
+// PHPMailer
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer-master/src/Exception.php';
+require 'PHPMailer-master/src/PHPMailer.php';
+require 'PHPMailer-master/src/SMTP.php';
 
 // Initialize search query
 $search = isset($_GET['search']) ? $conn->real_escape_string($_GET['search']) : '';
 
 // Fetch appointments data with search functionality
-$sql = "SELECT a.id, o.fullname, p.species, a.appointment_date, a.appointment_time, a.status, a.appointment_for, a.comments 
+$sql = "SELECT a.id, o.fullname, o.email, p.species, a.appointment_date, a.appointment_time, a.status, a.appointment_for, a.comments 
         FROM appointments a
         JOIN owners o ON a.owner_id = o.id
         JOIN pets p ON a.pet_id = p.id
@@ -40,38 +48,58 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $appointment_id = $conn->real_escape_string($_POST['appointment_id']);
         $action = $conn->real_escape_string($_POST['action']);
 
+        // Fetch the owner's email for sending notifications
+        $owner_email_sql = "SELECT o.email, o.fullname, a.appointment_date, a.appointment_time, a.appointment_for 
+                            FROM appointments a
+                            JOIN owners o ON a.owner_id = o.id
+                            WHERE a.id = $appointment_id";
+        $owner_result = $conn->query($owner_email_sql);
+        $owner = $owner_result->fetch_assoc();
+
         // Check for action type
         if ($action == 'accept') {
             $update_sql = "UPDATE appointments SET status='Accepted' WHERE id=$appointment_id";
+            $conn->query($update_sql);
+
+            // Send email notification using PHPMailer
+            $mail = new PHPMailer(true);
+            try {
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'ezyvet.neust@gmail.com'; // your gmail
+                $mail->Password = 'gjyk hyze xust szfv'; // app password
+                $mail->SMTPSecure = 'ssl';
+                $mail->Port = 465;
+                $mail->setFrom('ezyvet.neust@gmail.com', 'EzyVet');
+                $mail->addAddress($owner['email']);
+                $mail->isHTML(true);
+                $mail->Subject = 'Appointment Accepted';
+                $mail->Body = 'Dear ' . $owner['fullname'] . ',<br>Your appointment on ' . $owner['appointment_date'] . ' at ' . $owner['appointment_time'] . ' for ' . $owner['appointment_for'] . ' has been accepted.<br>Thank you!';
+                $mail->SMTPOptions = array(
+                    'ssl' => array(
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                        'allow_self_signed' => true
+                    )
+                );
+                // Send the email
+                if ($mail->send()) {
+                    echo "<div class='alert alert-success'>Appointment accepted and email sent successfully.</div>";
+                } else {
+                    echo "<div class='alert alert-danger'>Appointment accepted but email could not be sent.</div>";
+                }
+            } catch (Exception $e) {
+                echo "<div class='alert alert-danger'>Error sending email: " . $mail->ErrorInfo . "</div>";
+            }
         } elseif ($action == 'decline') {
             $update_sql = "UPDATE appointments SET status='Declined' WHERE id=$appointment_id";
+            $conn->query($update_sql);
+            echo "<div class='alert alert-danger'>Appointment declined.</div>";
         } elseif ($action == 'archive') {
-            // Fetch the appointment details
-            $fetch_sql = "SELECT id, owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments 
-                          FROM appointments WHERE id=$appointment_id";
-            $fetch_result = $conn->query($fetch_sql);
-            $appointment = $fetch_result->fetch_assoc();
-
-            // Insert into archived_appointments
-            $insert_sql = "INSERT INTO archived_appointments (id, owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments)
-                           VALUES ('{$appointment['id']}', '{$appointment['owner_id']}', '{$appointment['pet_id']}', '{$appointment['appointment_date']}', '{$appointment['appointment_time']}', '{$appointment['status']}', '{$appointment['appointment_for']}', '{$appointment['comments']}')";
-            $conn->query($insert_sql);
-
-            // Delete from appointments
-            $delete_sql = "DELETE FROM appointments WHERE id=$appointment_id";
-            $conn->query($delete_sql);
-        } else {
-            echo "<div class='alert alert-danger'>Invalid action.</div>";
-            exit();
-        }
-
-        // Execute the query and check for success
-        if (isset($update_sql) && $conn->query($update_sql)) {
-            echo "<div class='alert alert-success'>Appointment updated successfully.</div>";
-        } elseif ($conn->affected_rows > 0) {
-            echo "<div class='alert alert-success'>Appointment archived successfully.</div>";
-        } else {
-            echo "<div class='alert alert-danger'>Error updating appointment: " . $conn->error . "</div>";
+            $update_sql = "UPDATE appointments SET status='Archived' WHERE id=$appointment_id";
+            $conn->query($update_sql);
+            echo "<div class='alert alert-secondary'>Appointment archived.</div>";
         }
 
         // Redirect to avoid form resubmission issues
@@ -103,9 +131,7 @@ ob_end_flush();
     <!-- FontAwesome for Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-    <!-- Animate CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-
+    <!-- Custom Styles -->
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
@@ -127,28 +153,6 @@ ob_end_flush();
             border-radius: 8px;
         }
 
-        .dashboard-header h2 {
-            font-weight: 600;
-        }
-
-        .dashboard-header img {
-            border-radius: 50%;
-        }
-
-        .dashboard-header a {
-            color: #fff;
-            margin-left: 15px;
-            padding: 8px 15px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-
-        .dashboard-header a:hover {
-            background-color: rgba(255, 255, 255, 0.4);
-        }
-
         .stats-card {
             display: flex;
             justify-content: space-around;
@@ -156,7 +160,6 @@ ob_end_flush();
             padding: 20px;
             background-color: #fff;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
 
@@ -164,38 +167,15 @@ ob_end_flush();
             text-align: center;
         }
 
-        .stats-card h5 {
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
         .table-wrapper {
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .table thead {
             background-color: #007bff;
             color: #fff;
-        }
-
-        .table th,
-        .table td {
-            vertical-align: middle;
-            text-align: center;
-        }
-
-        .table td {
-            word-wrap: break-word;
-            max-width: 150px;
-            white-space: normal;
-        }
-
-        .table tbody tr:hover {
-            background-color: #f1f1f1;
-            cursor: pointer;
         }
 
         .status-pending {
@@ -213,61 +193,13 @@ ob_end_flush();
             color: white;
         }
 
+        .status-archived {
+            background-color: gray;
+            color: white;
+        }
+
         .action-buttons button {
             margin-right: 5px;
-            transition: all 0.3s;
-        }
-
-        .action-buttons button:hover {
-            transform: scale(1.05);
-        }
-
-        .btn-success {
-            background-color: #28a745;
-            border-color: #28a745;
-        }
-
-        .btn-danger {
-            background-color: #dc3545;
-            border-color: #dc3545;
-        }
-
-        .btn-dark {
-            background-color: #343a40;
-            border-color: #343a40;
-        }
-
-        .btn-secondary {
-            background-color: #6c757d;
-            border-color: #6c757d;
-        }
-
-        .btn-secondary:hover {
-            background-color: #5a6268;
-            border-color: #545b62;
-        }
-
-        /* Modal Styling */
-        .modal-header {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        .modal-footer .btn-secondary {
-            background-color: #343a40;
-            border-color: #343a40;
-        }
-
-        /* Media Queries for Mobile */
-        @media (max-width: 768px) {
-            .stats-card {
-                flex-direction: column;
-            }
-
-            .dashboard-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
         }
     </style>
 </head>
@@ -276,15 +208,7 @@ ob_end_flush();
     <div class="container">
         <!-- Dashboard Header -->
         <div class="dashboard-header">
-            <div class="d-flex align-items-center">
-                <img src="your-image-url" alt="Dr. Ron" width="50" height="50">
-                <h2>Dr. Ron</h2>
-            </div>
-            <div>
-                <a href="#">Dashboard</a>
-                <a href="archives.php">Archives</a>
-                <a href="#">Log Out</a>
-            </div>
+            <h2>EzyVet Admin</h2>
         </div>
 
         <!-- Stats Card -->
@@ -314,6 +238,7 @@ ob_end_flush();
                 <thead>
                     <tr>
                         <th>Owner's Name</th>
+                        <th>Email</th>
                         <th>Pet's Species</th>
                         <th>Date</th>
                         <th>Time</th>
@@ -324,33 +249,50 @@ ob_end_flush();
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Data will be injected here by JavaScript -->
+                    <?php while ($row = $result->fetch_assoc()) { ?>
+                        <tr>
+                            <td><?php echo $row['fullname']; ?></td>
+                            <td><?php echo $row['email']; ?></td>
+                            <td><?php echo $row['species']; ?></td>
+                            <td><?php echo $row['appointment_date']; ?></td>
+                            <td><?php echo $row['appointment_time']; ?></td>
+                            <td><?php echo $row['appointment_for']; ?></td>
+                            <td class="<?php echo ($row['status'] == 'Pending') ? 'status-pending' : ($row['status'] == 'Accepted' ? 'status-accepted' : ($row['status'] == 'Archived' ? 'status-archived' : 'status-declined')); ?>">
+                                <?php echo $row['status']; ?>
+                            </td>
+                            <td><?php echo $row['comments']; ?></td>
+                            <td class="action-buttons">
+                                <form method="POST" action="">
+                                    <input type="hidden" name="appointment_id" value="<?php echo $row['id']; ?>">
+                                    <button type="submit" name="action" value="accept" class="btn btn-success">Accept</button>
+                                    <button type="submit" name="action" value="decline" class="btn btn-danger">Decline</button>
+                                    <button type="submit" name="action" value="archive" class="btn btn-secondary">Archive</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php } ?>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- Bootstrap JS (Optional) -->
+    <!-- Bootstrap JS -->
     <script src="_assets/bootstrap.bundle.min.js"></script>
+
+    <!-- Search Filter Script -->
     <script>
-        // Function to fetch and display appointments
-        function fetchAppointments(query = '') {
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', 'fetch_appointments.php?search=' + encodeURIComponent(query), true);
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    document.querySelector('#appointments-table tbody').innerHTML = xhr.responseText;
+        document.getElementById('search').addEventListener('input', function() {
+            var search = this.value.toLowerCase();
+            var rows = document.querySelectorAll('#appointments-table tbody tr');
+            rows.forEach(function(row) {
+                var fullname = row.cells[0].textContent.toLowerCase();
+                var species = row.cells[2].textContent.toLowerCase();
+                if (fullname.includes(search) || species.includes(search)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
                 }
-            };
-            xhr.send();
-        }
-
-        // Initial fetch
-        fetchAppointments();
-
-        // Fetch appointments on search input change
-        document.querySelector('#search').addEventListener('input', function() {
-            fetchAppointments(this.value);
+            });
         });
     </script>
 </body>
