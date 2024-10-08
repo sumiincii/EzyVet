@@ -11,7 +11,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="_assets/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.
+    min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -100,46 +102,47 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <form>
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name: <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email: <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control" id="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="message" class="form-label">Message: <span class="text-danger">*</span></label>
-                        <textarea class="form-control" id="message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                <div class="contact-card">
+                    <h4>Send Us a Message</h4>
+                    <form method="POST" action="submit_feedback.php">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" class="form-control" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea name="message" class="form-control" id="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-submit">Submit</button>
+                    </form>
+                </div>
             </div>
             <div class="col-md-6">
-                <h4>DR. RON VETERINARY CLINIC</h4>
-                <p>Mulawin St. Brgy.Bitas,<br>Cabanatuan City, Nueva Ecija</p>
-                <p>Phone: (+63) 955-617-9958</p>
-                <p>Email: Ezyvet.neust@gmail.com</p>
-                <h5>Clinic Hours:</h5>
-                <p>
-                    Monday: 8:00 am - 5:00 pm<br>
-                    Tuesday: 8:00 am - 5:00 pm<br>
-                    Wednesday: 8:00 am - 5:00 pm<br>
-                    Thursday: 8:00 am - 5:00 pm<br>
-                    Friday: 8:00 am - 5:00 pm<br>
-                    Saturday: 8:00 am - 5:00 pm<br>
-                    Sunday: Closed
-                </p>
-                <h5>Payment Options:</h5>
-                <p>
-                    G-cash<br>
-                    All major credit cards<br>
-                    Cash
-                </p>
+                <div class="contact-card">
+                    <h4>DR. RON VETERINARY CLINIC</h4>
+                    <p>Mulawin St. Brgy.Bitas,<br>Cabanatuan City, Nueva Ecija</p>
+                    <p>Phone: (+63) 955-617-9958</p>
+                    <p>Email: Ezyvet.neust@gmail.com</p>
+                    <h5>Clinic Hours:</h5>
+                    <p>
+                        Monday - Saturday: 8:00 am - 5:00 pm<br>
+                        Sunday: Closed
+                    </p>
+                    <h5>Payment Options:</h5>
+                    <p>
+                        G-cash<br>
+                        All major credit cards<br>
+                        Cash
+                    </p>
+                </div>
             </div>
         </div>
     </div>
+
 
 
     <!-- this is the divider -->
@@ -157,6 +160,27 @@
         </div>
     </div>
     <!-- end of divider -->
+
+
+    <?php
+    include 'connection.php';
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $name = $conn->real_escape_string($_POST['name']);
+        $email = $conn->real_escape_string($_POST['email']);
+        $message = $conn->real_escape_string($_POST['message']);
+
+        $sql = "INSERT INTO feedback (name, email, message) VALUES ('$name', '$email', '$message')";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "<script>Swal.fire('Success!', 'Feedback submitted successfully!', 'success');</script>";
+        } else {
+            echo "<script>Swal.fire('Error!', 'Error: " . $conn->error . "', 'error');</script>";
+        }
+
+        $conn->close();
+    }
+    ?>
 
     <!-- this is the footer  -->
     <div class="container my-5">

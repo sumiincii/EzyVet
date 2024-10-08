@@ -350,6 +350,40 @@ ob_end_flush();
         </div>
     </div>
 
+
+    <?php
+    // Fetch feedback data
+    $feedback_sql = "SELECT * FROM feedback ORDER BY submitted_at DESC";
+    $feedback_result = $conn->query($feedback_sql);
+    ?>
+
+    <div class="table-wrapper">
+        <h3>Client Feedback</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>Date Submitted</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while ($feedback = $feedback_result->fetch_assoc()) { ?>
+                    <tr>
+                        <td><?php echo $feedback['name']; ?></td>
+                        <td><?php echo $feedback['email']; ?></td>
+                        <td><?php echo $feedback['message']; ?></td>
+                        <td><?php echo $feedback['submitted_at']; ?></td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+
+
+
+
     <!-- Bootstrap JS -->
     <script src="_assets/bootstrap.bundle.min.js"></script>
 
@@ -369,6 +403,9 @@ ob_end_flush();
             });
         });
     </script>
+
+
+
 </body>
 
 </html>
