@@ -155,9 +155,10 @@
                 <h2>Dr. Ron</h2>
             </div>
             <div>
+                <a href="feedback.php">Feedback</a>
                 <a href="admin.php">Dashboard</a>
                 <a href="#">Archives</a>
-                <a href="#">Log Out</a>
+                <a href="login.php">Log Out</a>
             </div>
         </div>
 
