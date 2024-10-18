@@ -281,7 +281,7 @@ ob_end_flush();
             <div>
                 <a href="admin.php">Dashboard</a>
                 <a href="archives.php">Archives</a>
-                <a href="#">Log Out</a>
+                <a href="login.php">Log Out</a>
             </div>
         </div>
 
@@ -381,9 +381,6 @@ ob_end_flush();
         </table>
     </div>
 
-
-
-
     <!-- Bootstrap JS -->
     <script src="_assets/bootstrap.bundle.min.js"></script>
 
@@ -403,9 +400,6 @@ ob_end_flush();
             });
         });
     </script>
-
-
-
 </body>
 
 </html>

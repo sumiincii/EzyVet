@@ -80,7 +80,7 @@
             <div class="col" id="wc">Welcome to <b>Dr. Ron Veterinary Clinic</b>, your trusted partner in providing top-notch veterinary care for your beloved pets.</div>
         </div>
     </div>
-    <a href="testpage.php"><img class="logo img-fluid float-start" src="images/ezyvetnewlogo.png" alt="logo"></a>
+    <a href="landing.php"><img class="logo img-fluid float-start" src="images/ezyvetnewlogo.png" alt="logo"></a>
 
     <div class="container-fluid text-center">
         <div class="dropdown">
