@@ -23,43 +23,55 @@
             font-family: 'Montserrat', sans-serif;
             background-color: #f7f9fc;
             color: #333;
+            display: flex;
         }
+
+        .sidebar {
+            width: 250px;
+            /* background-color: #5ce1e6; */
+            background-color: #8b61c2;
+            /* Changed to a deeper blue */
+            color: #fff;
+            height: auto;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            /* Added shadow for depth */
+        }
+
+        .sidebar h3 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+            /* Increased font size */
+        }
+
+        .sidebar a {
+            display: block;
+            color: #fff;
+            padding: 15px 20px;
+            text-decoration: none;
+            transition: background 0.3s, padding 0.3s;
+            /* border-radius: 2px; */
+            /* Rounded corners */
+        }
+
+        .sidebar a:hover {
+            background-color: #5ce1e6;
+            /* Darker shade on hover */
+            padding-left: 25px;
+            /* Slight padding change on hover */
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 30px;
+        }
+
 
         .container {
             margin-top: 30px;
         }
 
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            background-color: #007bff;
-            color: #fff;
-            border-radius: 8px;
-        }
-
-        .dashboard-header h2 {
-            font-weight: 600;
-        }
-
-        .dashboard-header img {
-            border-radius: 50%;
-        }
-
-        .dashboard-header a {
-            color: #fff;
-            margin-left: 15px;
-            padding: 8px 15px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-
-        .dashboard-header a:hover {
-            background-color: rgba(255, 255, 255, 0.4);
-        }
 
         .search-form {
             margin-top: 10px;
@@ -99,7 +111,10 @@
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+            /* Light border for the table wrapper */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            /* Added shadow */
         }
 
         .table thead {
@@ -124,21 +139,24 @@
             cursor: pointer;
         }
 
-        /* Media Queries for Mobile */
-        @media (max-width: 768px) {
-            .dashboard-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+        .table-wrapper {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            /* Light border for the table wrapper */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            /* Added shadow */
+        }
 
-            .search-form {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .search-form input[type="text"] {
-                width: 100%;
-            }
+        .sidebar .logo {
+            display: block;
+            margin: 0 auto 20px;
+            /* Center the logo and add margin below */
+            width: 80%;
+            /* Adjust width as needed */
+            height: auto;
+            /* Maintain aspect ratio */
         }
     </style>
 
@@ -147,20 +165,15 @@
 </head>
 
 <body>
+    <div class="sidebar">
+        <img src="path/to/your/logo.png" alt="EzyVet Logo" class="logo">
+        <h3>EzyVet Dashboard</h3>
+        <a href="#">Dashboard</a>
+        <a href="#">Archives</a>
+        <a href="#">Feedback</a>
+        <a href="#">Log Out</a>
+    </div>
     <div class="container">
-        <!-- Dashboard Header -->
-        <div class="dashboard-header">
-            <div class="d-flex align-items-center">
-                <img src="your-image-url" alt="Dr. Ron" width="50" height="50">
-                <h2>Dr. Ron</h2>
-            </div>
-            <div>
-                <a href="feedback.php">Feedback</a>
-                <a href="admin.php">Dashboard</a>
-                <a href="#">Archives</a>
-                <a href="login.php">Log Out</a>
-            </div>
-        </div>
 
         <!-- Search Form -->
         <div class="search-form">
@@ -172,8 +185,8 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Owner Name</th>
-                        <th>Pet Species</th>
+                        <th>Owner's Name</th>
+                        <th>Pet's Species</th>
                         <th>Appointment Date</th>
                         <th>Appointment Time</th>
                         <th>Status</th>

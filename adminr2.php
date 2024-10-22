@@ -60,85 +60,75 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($action == 'accept') {
             $update_sql = "UPDATE appointments SET status='Accepted' WHERE id=$appointment_id";
             $conn->query($update_sql);
-
-            // Send email notification using PHPMailer
-            $mail = new PHPMailer(true);
-            try {
-                $mail->isSMTP();
-                $mail->Host = 'smtp.gmail.com';
-                $mail->SMTPAuth = true;
-                $mail->Username = 'ezyvet.neust@gmail.com'; // your gmail
-                $mail->Password = 'gjyk hyze xust szfv'; // app password
-                $mail->SMTPSecure = 'ssl';
-                $mail->Port = 465;
-                $mail->setFrom('ezyvet.neust@gmail.com', 'EzyVet');
-                $mail->addAddress($owner['email']);
-                $mail->isHTML(true);
-                $mail->Subject = 'Appointment Accepted';
-                $mail->Body = 'Dear ' . $owner['fullname'] . ',<br>Your appointment on ' . $owner['appointment_date '] . ' at ' . $owner['appointment_time'] . ' for ' . $owner['appointment_for'] . ' has been accepted.<br>Thank you!';
-                $mail->SMTPOptions = array(
-                    'ssl' => array(
-                        'verify_peer' => false,
-                        'verify_peer_name' => false,
-                        'allow_self_signed' => true
-                    )
-                );
-                // Send the email
-                if ($mail->send()) {
-                    echo "<div class='alert alert-success'>Appointment accepted and email sent successfully.</div>";
-                } else {
-                    echo "<div class='alert alert-danger'>Appointment accepted but email could not be sent.</div>";
-                }
-            } catch (Exception $e) {
-                echo "<div class='alert alert-danger'>Error sending email: " . $mail->ErrorInfo . "</div>";
-            }
+            sendEmail($mail, $owner, 'Appointment Accepted', 'Your appointment has been accepted.');
         } elseif ($action == 'decline') {
-            $update_sql = "UPDATE appointments SET status ='Declined' WHERE id=$appointment_id";
+            $update_sql = "UPDATE appointments SET status='Declined' WHERE id=$appointment_id";
             $conn->query($update_sql);
-
-            // Send email notification using PHPMailer
-            $mail = new PHPMailer(true);
-            try {
-                $mail->isSMTP();
-                $mail->Host = 'smtp.gmail.com';
-                $mail->SMTPAuth = true;
-                $mail->Username = 'ezyvet.neust@gmail.com'; // your gmail
-                $mail->Password = 'gjyk hyze xust szfv'; // app password
-                $mail->SMTPSecure = 'ssl';
-                $mail->Port = 465;
-                $mail->setFrom('ezyvet.neust@gmail.com', 'EzyVet');
-                $mail->addAddress($owner['email']);
-                $mail->isHTML(true);
-                $mail->Subject = 'Appointment Declined';
-                $mail->Body = 'Dear ' . $owner['fullname'] . ',<br>Your appointment on ' . $owner['appointment_date'] . ' at ' . $owner['appointment_time'] . ' for ' . $owner['appointment_for'] . ' has been declined.<br>Thank you!';
-                $mail->SMTPOptions = array(
-                    'ssl' => array(
-                        'verify_peer' => false,
-                        'verify_peer_name' => false,
-                        'allow_self_signed' => true
-                    )
-                );
-                // Send the email
-                if ($mail->send()) {
-                    echo "<div class='alert alert-success'>Appointment declined and email sent successfully.</div>";
-                } else {
-                    echo "<div class='alert alert-danger'>Appointment declined but email could not be sent.</div>";
-                }
-            } catch (Exception $e) {
-                echo "<div class='alert alert-danger'>Error sending email: " . $mail->ErrorInfo . "</div>";
-            }
+            sendEmail($mail, $owner, 'Appointment Declined', 'Your appointment has been declined.');
         } elseif ($action == 'archive') {
-            $update_sql = "UPDATE appointments SET status='Archived' WHERE id=$appointment_id";
-            $conn->query($update_sql);
-            echo "<div class='alert alert-success'>Appointment archived successfully.</div>";
+            // Fetch the appointment details
+            $fetch_sql = "SELECT id, owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments
+                          FROM appointments WHERE id=$appointment_id";
+            $fetch_result = $conn->query($fetch_sql);
+            $appointment = $fetch_result->fetch_assoc();
+
+            // Insert into archived_appointments
+            $insert_sql = "INSERT INTO archived_appointments (id, owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments)
+                           VALUES ('{$appointment['id']}', '{$appointment['owner_id']}', '{$appointment['pet_id']}', '{$appointment['appointment_date']}', '{$appointment['appointment_time']}', '{$appointment['status']}', '{$appointment['appointment_for']}', '{$appointment['comments']}')";
+            $conn->query($insert_sql);
+
+            // Delete from appointments
+            $delete_sql = "DELETE FROM appointments WHERE id=$appointment_id";
+            $conn->query($delete_sql);
+
+            echo "<div class='alert alert-secondary'>Appointment archived successfully.</div>";
         }
+
+        // Redirect to avoid form resubmission issues
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit();
+    } else {
+        echo "<div class='alert alert-danger'>Form data missing. Please try again.</div>";
     }
 }
 
-// Close database connection
-$conn->close();
+// Function to send email
+function sendEmail($mail, $owner, $subject, $message)
+{
+    global $conn; // Access the connection variable
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'ezyvet.neust@gmail.com'; // your gmail
+        $mail->Password = 'gjyk hyze xust szfv'; // app password
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port = 465;
+        $mail->setFrom('ezyvet.neust@gmail.com', 'EzyVet');
+        $mail->addAddress($owner['email']);
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body = 'Dear ' . $owner['fullname'] . ',<br>' . $message . '<br>Thank you!';
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
+        // Send the email
+        if ($mail->send()) {
+            echo "<div class='alert alert-success'>$subject and email sent successfully.</div>";
+        } else {
+            echo "<div class='alert alert-danger'>$subject but email could not be sent.</div>";
+        }
+    } catch (Exception $e) {
+        echo "<div class='alert alert-danger'>Error sending email: " . $mail->ErrorInfo . "</div>";
+    }
+}
 
-// End output buffering
+// End output buffering and flush output
 ob_end_flush();
 ?>
 
@@ -148,10 +138,10 @@ ob_end_flush();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EzyVet Admin Dashboard</title>
+    <title>Ezyvet Admin</title>
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="_assets/bootstrap.min.css">
@@ -162,227 +152,166 @@ ob_end_flush();
     <!-- Custom Styles -->
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f4f7fc;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f7f9fc;
             color: #333;
         }
 
-        .dashboard-container {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .sidebar {
-            width: 250px;
-            background-color: #2c3e50;
-            color: #ecf0f1;
-            padding: 20px;
-        }
-
-        .sidebar-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .sidebar-header img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin-bottom: 10px;
-        }
-
-        .sidebar-menu {
-            list-style: none;
-            padding: 0;
-        }
-
-        .sidebar-menu li {
-            margin-bottom: 15px;
-        }
-
-        .sidebar-menu a {
-            color: #ecf0f1;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-
-        .sidebar-menu a i {
-            margin-right: 10px;
-        }
-
-        .main-content {
-            flex-grow: 1;
-            padding: 30px;
-        }
-
-        .dashboard-header {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
+        .container {
+            margin-top: 30px;
         }
 
         .stats-card {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
             background-color: #fff;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
-        .stats-card h5 {
-            color: #7f8c8d;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-
-        .stats-card h3 {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 0;
+        .stats-card div {
+            text-align: center;
         }
 
         .table-wrapper {
             background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
+            border-radius: 10px;
         }
 
         .table thead {
-            background-color: #3498db;
+            background-color: #007bff;
             color: #fff;
         }
 
-        .table th,
-        .table td {
-            vertical-align: middle;
-        }
-
         .status-pending {
-            background-color: #f39c12;
+            background-color: orange;
             color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
         }
 
         .status-declined {
-            background-color: #e74c3c;
+            background-color: red;
             color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
         }
 
-        .status-approved {
-            background-color: #2ecc71;
+        .status-accepted {
+            background-color: green;
             color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
+        }
+
+        .btn {
+            margin: 5px;
+        }
+
+        .alert {
+            margin-top: 20px;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .stats-card {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="dashboard-container">
-        <div class="sidebar">
-            <div class="sidebar-header">
-                <img src="https://via.placeholder.com/80" alt="Logo">
-                <h4>EzyVet Admin</h4>
+
+    <div class="container">
+        <h2 class="text-center">Appointment Management</h2>
+
+        <div class="stats-card">
+            <div>
+                <h3><?php echo $today_count['total_today']; ?></h3>
+                <p>Total Appointments Today</p>
             </div>
-            <ul class="sidebar-menu">
-                <li><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
-                <li><a href="users.php"><i class="fas fa-user"></i> Users</a></li>
-                <li><a href="pets.php"><i class="fas fa-paw"></i> Pets</a></li>
-                <li><a href="appointments.php"><i class="fas fa-calendar"></i> Appointments</a></li>
-                <li><a href="archived_appointments.php"><i class="fas fa-archive"></i> Archived Appointments</a></li>
-                <li><a href="login.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-            </ul>
+            <div>
+                <h3><?php echo $pending_count['pending']; ?></h3>
+                <p>Pending Appointments</p>
+            </div>
+            <div>
+                <h3><?php echo $accepted_count['accepted']; ?></h3>
+                <p>Accepted Appointments</p>
+            </div>
         </div>
-        <div class="main-content">
-            <div class="dashboard-header">
-                <h2>Welcome to EzyVet Admin Dashboard</h2>
-                <p>Manage your veterinary clinic with ease.</p>
-                <form>
-                    <input type="search" name="search" placeholder="Search...">
-                    <button type="submit">Search</button>
-                </form>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="stats-card">
-                        <h5>Total Appointments Today</h5>
-                        <h3><?php echo $today_count['total_today']; ?></h3>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stats-card">
-                        <h5>Pending Appointments</h5>
-                        <h3><?php echo $pending_count['pending']; ?></h3>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stats-card">
-                        <h5>Accepted Appointments</h5>
-                        <h3><?php echo $accepted_count['accepted']; ?></h3>
-                    </div>
-                </div>
-            </div>
-            <div class="table-wrapper">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Pet Name</th>
-                            <th>Owner Name</th>
-                            <th>Appointment Date</th>
-                            <th>Appointment Time</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
+
+        <div class="search-container">
+            <input type="text" id="search" class="form-control" placeholder="Search by Owner Name or Pet Species" value="<?php echo $search; ?>">
+        </div>
+
+        <div class="table-wrapper">
+            <table class="table table-striped" id="appointmentsTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Owner Name</th>
+                        <th>Email</th>
+                        <th>Pet Species</th>
+                        <th>Appointment Date</th>
+                        <th>Appointment Time</th>
+                        <th>Status</th>
+                        <th>Comments</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
-                        ?>
-                            <tr>
-                                <td><?php echo $row['id']; ?></td>
-                                <td><?php echo $row['species']; ?></td>
-                                <td><?php echo $row['fullname']; ?></td>
-                                <td><?php echo $row['appointment_date']; ?></td>
-                                <td><?php echo $row['appointment_time']; ?></td>
-                                <td>
-                                    <?php
-                                    if ($row['status'] == 'Pending') {
-                                        echo "<span class='status-pending'>Pending</span>";
-                                    } elseif ($row['status'] == 'Accepted') {
-                                        echo "<span class='status-approved'>Accepted</span>";
-                                    } elseif ($row['status'] == 'Declined') {
-                                        echo "<span class='status-declined'>Declined</span>";
-                                    }
-                                    ?>
-                                </td>
-                                <td>
-                                    <form method="post">
-                                        <input type="hidden" name="appointment_id" value="<?php echo $row['id']; ?>">
-                                        <button type="submit" name="action" value="accept" class="btn btn-success">Accept</button>
-                                        <button type="submit" name="action" value="decline" class="btn btn-danger">Decline</button>
-                                        <button type="submit" name="action" value="archive" class="btn btn-secondary">Archive</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        <?php
+                            echo "<tr>
+                            <td>{$row['id']}</td>
+                            <td>{$row['fullname']}</td>
+                            <td>{$row['email']}</td>
+                            <td>{$row['species']}</td>
+                            <td>{$row['appointment_date']}</td>
+                            <td>{$row['appointment_time']}</td>
+                            <td class='status-{$row['status']}'>" . ucfirst($row['status']) . "</td>
+                            <td>{$row['comments']}</td>
+                            <td>
+                                <form method='POST' class='d-inline'>
+                                    <input type='hidden' name='appointment_id' value='{$row['id']}'>
+                                    <button type='submit' name='action' value='accept' class='btn btn-success'>Accept</button>
+                                    <button type='submit' name='action' value='decline' class='btn btn-danger'>Decline</button>
+                                    <button type='submit' name='action' value='archive' class='btn btn-secondary'>Archive</button>
+                                </form>
+                            </td>
+                        </tr>";
                         }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
+                    } else {
+                        echo "<tr><td colspan='9' class='text-center'>No appointments found</td></tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="_assets/bootstrap.min.js"></script>
+    <script src="_assets/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#search').on('keyup', function() {
+                var searchValue = $(this).val();
+                $.ajax({
+                    url: '', // Use the same file to handle AJAX request
+                    type: 'GET',
+                    data: {
+                        search: searchValue
+                    },
+                    success: function(response) {
+                        // Update the table with the response
+                        $('#appointmentsTable tbody').html($(response).find('#appointmentsTable tbody').html());
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
