@@ -1,3 +1,10 @@
+<?php
+// Start output buffering
+ob_start();
+
+// Include database connection
+include 'connection.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,13 +28,15 @@
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            /* Add this line for light font */
             background-color: #f7f9fc;
             color: #333;
             display: flex;
         }
 
         .sidebar {
-            width: 250px;
+            width: 230px;
             /* background-color: #5ce1e6; */
             background-color: #8b61c2;
             /* Changed to a deeper blue */
@@ -64,7 +73,8 @@
 
         .main-content {
             flex-grow: 1;
-            padding: 30px;
+            padding: 29px;
+            text-align: center;
         }
 
 
@@ -153,10 +163,44 @@
             display: block;
             margin: 0 auto 20px;
             /* Center the logo and add margin below */
-            width: 80%;
+            width: 45%;
             /* Adjust width as needed */
             height: auto;
             /* Maintain aspect ratio */
+            border-radius: 100px;
+        }
+
+        .welcome-logo {
+            margin: -65px 15px;
+            /* Adjust margin as needed */
+            width: 600px;
+            /* Adjust width as needed */
+            height: auto;
+            /* Maintain aspect ratio */
+            /* margin-right: 15px; */
+            /* Space between logo and text */
+            vertical-align: middle;
+            /* Aligns the logo with text */
+        }
+
+        .sidebar a {
+            display: flex;
+            /* Use flexbox for alignment */
+            align-items: center;
+            /* Center items vertically */
+            color: #fff;
+            padding: 15px 20px;
+            text-decoration: none;
+            transition: background 0.3s, padding 0.3s;
+        }
+
+        .sidebar a img.sidebar-icon {
+            width: 20px;
+            /* Adjust icon size as needed */
+            height: auto;
+            /* Maintain aspect ratio */
+            margin-right: 10px;
+            /* Space between icon and text */
         }
     </style>
 
@@ -165,41 +209,44 @@
 </head>
 
 <body>
+
+    <!-- sidebar -->
     <div class="sidebar">
-        <img src="path/to/your/logo.png" alt="EzyVet Logo" class="logo">
-        <h3>EzyVet Dashboard</h3>
-        <a href="adminr.php">Dashboard</a>
-        <a href="archives.php">Archives</a>
-        <a href="feedback.php">Feedback</a>
-        <a href="login.php">Log Out</a>
+        <img src="images/main-logo.png" alt="EzyVet Logo" class="logo">
+        <h3><strong>EzyVet Dashboard</strong></h3>
+        <a href="adminr.php"><img src="icons/dash.png" alt="Dashboard" class="sidebar-icon"> <strong>Dashboard</strong></a>
+        <a href="archives.php"><img src="icons/archive.png" alt="Archives" class="sidebar-icon"> <strong>Archives</strong></a>
+        <a href="feedback.php"><img src="icons/feedback.png" alt="Feedback" class="sidebar-icon"> <strong>Feedbacks</strong></a>
+        <a href="login.php"><img src="icons/logout.png" alt="Log Out" class="sidebar-icon"> <strong>Log Out</strong></a>
     </div>
-    <div class="container">
 
-        <!-- Search Form -->
-        <div class="search-form">
-            <input type="text" id="search-input" placeholder="Search archived appointments">
-        </div>
-
-        <!-- Appointments Table -->
-        <div class="table-wrapper">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Owner's Name</th>
-                        <th>Pet's Species</th>
-                        <th>Appointment Date</th>
-                        <th>Appointment Time</th>
-                        <th>Status</th>
-                        <th>Purpose</th>
-                        <th>Comments</th>
-                    </tr>
-                </thead>
-                <tbody id="table-body">
-                    <!-- Data will be injected here by AJAX -->
-                </tbody>
-            </table>
+    <div class="main-content">
+        <div class="container">
+            <div class="search-form">
+                <input type="text" id="search-input" placeholder="Search archived appointments">
+            </div>
+            <!-- Appointments Table -->
+            <div class="table-wrapper">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Owner's Name</th>
+                            <th>Pet's Species</th>
+                            <th>Appointment Date</th>
+                            <th>Appointment Time</th>
+                            <th>Status</th>
+                            <th>Purpose</th>
+                            <th>Comments</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Data will be injected here by AJAX -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+
 
     <script>
         // Function to fetch search results via AJAX
@@ -227,6 +274,9 @@
             fetchResults(); // Fetch all results when the page loads
         });
     </script>
+
+
+
 </body>
 
 </html>

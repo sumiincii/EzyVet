@@ -6,6 +6,7 @@ $feedback_sql = "SELECT * FROM feedback ORDER BY submitted_at DESC";
 $feedback_result = $conn->query($feedback_sql);
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,110 +28,168 @@ $feedback_result = $conn->query($feedback_sql);
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            /* Add this line for light font */
             background-color: #f7f9fc;
             color: #333;
+            display: flex;
         }
 
         .container {
-            margin-top: 30px;
+            padding: 20px;
         }
 
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            background-color: #007bff;
+        .sidebar {
+            width: 210px;
+            /* background-color: #5ce1e6; */
+            background-color: #8b61c2;
+            /* Changed to a deeper blue */
             color: #fff;
-            border-radius: 8px;
+            height: auto;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            /* Added shadow for depth */
         }
 
-        .dashboard-header h2 {
-            font-weight: 600;
+        .sidebar h3 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+            /* Increased font size */
         }
 
-        .dashboard-header img {
-            border-radius: 50%;
-        }
-
-        .dashboard-header a {
+        .sidebar a {
+            display: block;
             color: #fff;
-            margin-left: 15px;
-            padding: 8px 15px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
+            padding: 15px 20px;
             text-decoration: none;
-            transition: background-color 0.3s;
+            transition: background 0.3s, padding 0.3s;
+            /* border-radius: 2px; */
+            /* Rounded corners */
         }
 
-        .dashboard-header a:hover {
-            background-color: rgba(255, 255, 255, 0.4);
+        .sidebar a:hover {
+            background-color: #5ce1e6;
+            /* Darker shade on hover */
+            padding-left: 25px;
+            /* Slight padding change on hover */
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 29px;
+            text-align: center;
         }
 
         .table-wrapper {
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
+            border: 1px solid #ddd;
+            /* Light border for the table wrapper */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            /* Added shadow */
         }
 
-        .table thead {
-            background-color: #007bff;
-            color: #fff;
+        .sidebar .logo {
+            display: block;
+            margin: 0 auto 20px;
+            /* Center the logo and add margin below */
+            width: 45%;
+            /* Adjust width as needed */
+            height: auto;
+            /* Maintain aspect ratio */
+            border-radius: 100px;
         }
 
-        .table th,
-        .table td {
+        .welcome-section {
+            text-align: center;
+            /* Center the text */
+            background-color: #e9ecef;
+            /* Light background color */
+            padding: 20px;
+            /* Padding around the content */
+            border-radius: 8px;
+            /* Rounded corners */
+        }
+
+        .welcome-logo {
+            margin: -65px 15px;
+            /* Adjust margin as needed */
+            width: 600px;
+            /* Adjust width as needed */
+            height: auto;
+            /* Maintain aspect ratio */
+            /* margin-right: 15px; */
+            /* Space between logo and text */
             vertical-align: middle;
+            /* Aligns the logo with text */
+        }
+
+        .sidebar a {
+            display: flex;
+            /* Use flexbox for alignment */
+            align-items: center;
+            /* Center items vertically */
+            color: #fff;
+            padding: 15px 20px;
+            text-decoration: none;
+            transition: background 0.3s, padding 0.3s;
+        }
+
+        .sidebar a img.sidebar-icon {
+            width: 20px;
+            /* Adjust icon size as needed */
+            height: auto;
+            /* Maintain aspect ratio */
+            margin-right: 10px;
+            /* Space between icon and text */
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <!-- Dashboard Header -->
-        <div class="dashboard-header">
-            <div class="d-flex align-items-center">
-                <img src="your-image-url" alt="Dr. Ron" width="50" height="50">
-                <h2>Dr. Ron</h2>
-            </div>
-            <div>
-                <a href="feedback.php">Feedback</a>
-                <a href="admin.php">Dashboard</a>
-                <a href="archives.php">Archives</a>
-                <a href="login.php">Log Out</a>
-            </div>
-        </div>
-
-        <!-- Feedback Table -->
-        <div class="table-wrapper">
-            <h3>Client Feedback</h3>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Message</th>
-                        <th>Date Submitted</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php while ($feedback = $feedback_result->fetch_assoc()) { ?>
-                        <tr>
-                            <td><?= $feedback['name']; ?></td>
-                            <td><?= $feedback['email']; ?></td>
-                            <td><?= $feedback['message']; ?></td>
-                            <td><?= $feedback['submitted_at']; ?></td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-        </div>
+    <div class="sidebar">
+        <img src="images/main-logo.png" alt="EzyVet Logo" class="logo">
+        <h3><strong>EzyVet Dashboard</strong></h3>
+        <a href="adminr.php"><img src="icons/dash.png" alt="Dashboard" class="sidebar-icon"> <strong>Dashboard</strong></a>
+        <a href="archives.php"><img src="icons/archive.png" alt="Archives" class="sidebar-icon"> <strong>Archives</strong></a>
+        <a href="feedback.php"><img src="icons/feedback.png" alt="Feedback" class="sidebar-icon"> <strong>Feedbacks</strong></a>
+        <a href="login.php"><img src="icons/logout.png" alt="Log Out" class="sidebar-icon"> <strong>Log Out</strong></a>
     </div>
 
-    <!-- Bootstrap JavaScript -->
-    <script src="_assets/bootstrap.min.js"></script>
+    <div class="main-content">
+        <div class="container">
+            <!-- Feedback Table -->
+            <div class="table-wrapper">
+                <h3>Client Feedback</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Message</th>
+                            <th>Date Submitted</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($feedback = $feedback_result->fetch_assoc()) { ?>
+                            <tr>
+                                <td><?= $feedback['name']; ?></td>
+                                <td><?= $feedback['email']; ?></td>
+                                <td><?= $feedback['message']; ?></td>
+                                <td><?= $feedback['submitted_at']; ?></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Bootstrap JavaScript -->
+        <script src="_assets/bootstrap.min.js"></script>
+    </div>
+
 </body>
 
 </html>
