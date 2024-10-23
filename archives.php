@@ -168,10 +168,10 @@
     <div class="sidebar">
         <img src="path/to/your/logo.png" alt="EzyVet Logo" class="logo">
         <h3>EzyVet Dashboard</h3>
-        <a href="#">Dashboard</a>
-        <a href="#">Archives</a>
-        <a href="#">Feedback</a>
-        <a href="#">Log Out</a>
+        <a href="adminr.php">Dashboard</a>
+        <a href="archives.php">Archives</a>
+        <a href="feedback.php">Feedback</a>
+        <a href="login.php">Log Out</a>
     </div>
     <div class="container">
 

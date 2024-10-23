@@ -162,6 +162,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ob_end_flush();
 ?>
 
+<?php
+// Start output buffering
+ob_start();
+
+// Include database connection
+include 'connection.php';
+
+// Initialize search query and filter variables
+$search = isset($_GET['search']) ? $conn->real_escape_string($_GET['search']) : '';
+$statusFilter = isset($_GET['status']) ? $conn->real_escape_string($_GET['status']) : '';
+$dateFilter = isset($_GET['date']) ? $conn->real_escape_string($_GET['date']) : '';
+$timeFilter = isset($_GET['time']) ? $conn->real_escape_string($_GET['time']) : '';
+
+// Base SQL query
+$sql = "SELECT a.id, o.fullname, o.email, p.species, a.appointment_date, a.appointment_time, a.status, a.appointment_for, a.comments 
+        FROM appointments a
+        JOIN owners o ON a.owner_id = o.id
+        JOIN pets p ON a.pet_id = p.id
+        WHERE (o.fullname LIKE '%$search%' 
+           OR o.email LIKE '%$search%' 
+           OR p.species LIKE '%$search%' 
+           OR a.appointment_for LIKE '%$search%' 
+           OR a.status LIKE '%$search%')";
+
+// Add status filter if selected
+if ($statusFilter) {
+    $sql .= " AND a.status = '$statusFilter'";
+}
+
+// Add date filter if provided
+if ($dateFilter) {
+    $sql .= " AND a.appointment_date = '$dateFilter'";
+}
+
+$sql .= " ORDER BY a.appointment_date ASC";
+
+// Execute the query
+$result = $conn->query($sql);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -180,10 +219,15 @@ ob_end_flush();
     <!-- FontAwesome for Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
     <!-- Custom Styles -->
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            /* Add this line for light font */
             background-color: #f7f9fc;
             color: #333;
             display: flex;
@@ -253,6 +297,8 @@ ob_end_flush();
             /* Adjusted font size */
             color: #555;
             /* Darker text for better contrast */
+            /* font-weight: bold; */
+            /* Make the text bold */
         }
 
         .stats-card h3 {
@@ -278,27 +324,118 @@ ob_end_flush();
             display: block;
             margin: 0 auto 20px;
             /* Center the logo and add margin below */
-            width: 80%;
+            width: 45%;
             /* Adjust width as needed */
             height: auto;
             /* Maintain aspect ratio */
+            border-radius: 100px;
+        }
+
+        .input-group {
+            max-width: 400px;
+            /* Limit the width of the search bar */
+            margin: 0 0 0 0;
+            /* Center the search bar */
+        }
+
+        .welcome-section {
+            text-align: center;
+            /* Center the text */
+            background-color: #e9ecef;
+            /* Light background color */
+            padding: 20px;
+            /* Padding around the content */
+            border-radius: 8px;
+            /* Rounded corners */
+        }
+
+        .welcome-logo {
+            margin: -65px 15px;
+            /* Adjust margin as needed */
+            width: 600px;
+            /* Adjust width as needed */
+            height: auto;
+            /* Maintain aspect ratio */
+            /* margin-right: 15px; */
+            /* Space between logo and text */
+            vertical-align: middle;
+            /* Aligns the logo with text */
+        }
+
+        .filter-button {
+            background-color: #8b61c2;
+            /* Main color */
+            color: white;
+            /* Text color */
+            border: none;
+            /* No border */
+            border-radius: 5px;
+            /* Rounded corners */
+            padding: 10px 20px;
+            /* Padding for size */
+            font-size: 16px;
+            /* Font size */
+            cursor: pointer;
+            /* Pointer cursor on hover */
+            transition: background-color 0.3s, transform 0.3s;
+            /* Smooth transition */
+        }
+
+        .filter-button:hover {
+            background-color: #5ce1e6;
+            /* Lighter color on hover */
+            transform: scale(1.05);
+            /* Slightly enlarge on hover */
+        }
+
+        .filter-button:focus {
+            outline: none;
+            /* Remove default outline */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            /* Add shadow on focus */
+        }
+
+        .sidebar a {
+            display: flex;
+            /* Use flexbox for alignment */
+            align-items: center;
+            /* Center items vertically */
+            color: #fff;
+            padding: 15px 20px;
+            text-decoration: none;
+            transition: background 0.3s, padding 0.3s;
+        }
+
+        .sidebar a img.sidebar-icon {
+            width: 20px;
+            /* Adjust icon size as needed */
+            height: auto;
+            /* Maintain aspect ratio */
+            margin-right: 10px;
+            /* Space between icon and text */
         }
     </style>
 </head>
 
 <body>
+    <!-- sidebar -->
     <div class="sidebar">
-        <img src="path/to/your/logo.png" alt="EzyVet Logo" class="logo">
-        <h3>EzyVet Dashboard</h3>
-        <a href="#">Dashboard</a>
-        <a href="#">Archives</a>
-        <a href="#">Feedback</a>
-        <a href="#">Log Out</a>
+        <img src="images/main-logo.png" alt="EzyVet Logo" class="logo">
+        <h3><strong>EzyVet Dashboard</strong></h3>
+        <a href="#"><img src="icons/dash.png" alt="Dashboard" class="sidebar-icon"> <strong>Dashboard</strong></a>
+        <a href="#"><img src="icons/archive.png" alt="Archives" class="sidebar-icon"> <strong>Archives</strong></a>
+        <a href="#"><img src="icons/feedback.png" alt="Feedback" class="sidebar-icon"> <strong>Feedbacks</strong></a>
+        <a href="#"><img src="icons/logout.png" alt="Log Out" class="sidebar-icon"> <strong>Log Out</strong></a>
     </div>
 
     <div class="main-content">
         <div class="container">
-            <!-- Dashboard Header -->
+            <!-- Additional Content -->
+            <img src="images/taglogo.png" alt="EzyVet Logo" class="welcome-logo">
+            <div class="welcome-section mb-4">
+                <h1>Welcome to EzyVet Dashboard</h1>
+                <p>Your one-stop solution for managing pet appointments efficiently.</p>
+            </div>
 
             <!-- Stats Card -->
             <div class="stats-card">
@@ -316,10 +453,30 @@ ob_end_flush();
                 </div>
             </div>
 
-            <!-- Search Form -->
+            <!-- Search and Filter Form -->
             <div class="mb-4">
-                <input type="text" id="search" class="form-control" style="width: 300px;" placeholder="Search by owner's name or pet species">
+                <form method="GET" action="" class="d-flex align-items-center">
+                    <div class="input-group me-2" style="flex-grow: 1;">
+                        <input type="text" id="search" name="search" class="form-control" placeholder="Search by owner's name or pet species" value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>">
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    </div>
+
+                    <label for="statusFilter" class="me-2">Filter by Status:</label>
+                    <select id="statusFilter" name="status" class="form-control me-2" style="width: auto;">
+                        <option value="">All</option>
+                        <option value="Pending" <?php echo (isset($_GET['status']) && $_GET['status'] == 'Pending') ? 'selected' : ''; ?>>Pending</option>
+                        <option value="Accepted" <?php echo (isset($_GET['status']) && $_GET['status'] == 'Accepted') ? 'selected' : ''; ?>>Accepted</option>
+                        <option value="Declined" <?php echo (isset($_GET['status']) && $_GET['status'] == 'Declined') ? 'selected' : ''; ?>>Declined</option>
+                        <!-- Removed Archived option -->
+                    </select>
+
+                    <label for="dateFilter" class="me-2">Filter by Date:</label>
+                    <input type="date" id="dateFilter" name="date" value="<?php echo isset($_GET['date']) ? $_GET['date'] : ''; ?>" class="form-control me-2" style="width: auto;">
+
+                    <button type="submit" class="filter-button">Filter</button>
+                </form>
             </div>
+
 
             <!-- Appointment Table -->
             <div class="table-wrapper">
