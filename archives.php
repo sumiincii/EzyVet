@@ -221,6 +221,7 @@ include 'connection.php';
     </div>
 
     <div class="main-content">
+        <img src="images/taglogo.png" alt="EzyVet Logo" class="welcome-logo">
         <div class="container">
             <div class="search-form">
                 <input type="text" id="search-input" placeholder="Search archived appointments">

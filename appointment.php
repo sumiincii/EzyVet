@@ -178,7 +178,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-6">
-                            <label for="age" class="form-label">Age <span class="text-danger">*</span></label>
+                            <label for="age" class="form-label">Age in months <span class="text-danger">*</span></label>
                             <input type="number" class="form-control" id="age" name="age" />
                         </div>
                         <div class="col-sm-6">

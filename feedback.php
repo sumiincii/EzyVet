@@ -159,10 +159,11 @@ $feedback_result = $conn->query($feedback_sql);
     </div>
 
     <div class="main-content">
+        <img src="images/taglogo.png" alt="EzyVet Logo" class="welcome-logo">
         <div class="container">
             <!-- Feedback Table -->
             <div class="table-wrapper">
-                <h3>Client Feedback</h3>
+                <!-- <h3>Client Feedback</h3> -->
                 <table class="table table-striped">
                     <thead>
                         <tr>

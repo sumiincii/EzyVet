@@ -414,6 +414,58 @@ $result = $conn->query($sql);
             margin-right: 10px;
             /* Space between icon and text */
         }
+
+        /* Style for the search input field */
+        .input-group input[type="text"] {
+            padding: 10px;
+            /* Add padding */
+            border: 1px solid #ccc;
+            /* Light border */
+            border-radius: 5px;
+            /* Rounded corners */
+            transition: border-color 0.3s;
+            /* Smooth transition for border color */
+        }
+
+        /* Change border color on focus */
+        .input-group input[type="text"]:focus {
+            border-color: #8b61c2;
+            /* Change border color to match theme */
+            outline: none;
+            /* Remove default outline */
+        }
+
+        /* Style for the search button */
+        .input-group button {
+            background-color: #8b61c2;
+            /* Main color */
+            color: white;
+            /* Text color */
+            border: none;
+            /* No border */
+            border-radius: 5px;
+            /* Rounded corners */
+            padding: 10px 20px;
+            /* Padding for size */
+            cursor: pointer;
+            /* Pointer cursor on hover */
+            transition: background-color 0.3s, transform 0.3s;
+            /* Smooth transition */
+        }
+
+        /* Change background color on hover */
+        .input-group button:hover {
+            background-color: #5ce1e6;
+            /* Lighter color on hover */
+        }
+
+        /* Change background color on focus */
+        .input-group button:focus {
+            outline: none;
+            /* Remove default outline */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            /* Add shadow on focus */
+        }
     </style>
 </head>
 

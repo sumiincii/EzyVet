@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="checkup.css">
+    <link rel="stylesheet" href="contactus.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ezyvet</title>
@@ -19,10 +19,12 @@
 <body>
     <div class="container1 container-fluid text-center">
         <div class="row">
-            <div class="col" id="wc">Welcome to <b>Dr. Ron Veterinary Clinic</b> , your trusted partner in providing top-notch veterinary care for your beloved pets.</div>
+            <div class="col" id="wc">
+                Welcome to <b>Dr. Ron Veterinary Clinic</b> , your trusted partner in providing top-notch veterinary care for your beloved pets.
+            </div>
         </div>
     </div>
-    <a href="landing.php"><img class="logo img-fluid float-start" src="images/ezyvetnewlogo.png" alt="logo"></a>
+    <a href="landing.php"><img class="logo img-fluid float-start" src="images/main-logo.png" alt="logo"></a>
 
     <div class="container-fluid text-center">
         <div class="dropdown">
