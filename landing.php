@@ -13,6 +13,13 @@
   <link rel="stylesheet" type="text/css" href="_assets/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
   <style>
+    button:hover {
+      background-color: #5ce1e6;
+      /* Set the hover color to #5ce1e6 */
+      color: #fff;
+      /* Keep the text color white on hover */
+    }
+
     #wc {
       /* background-color: #c1cad3; */
       background-color: #8b61c2;
@@ -38,6 +45,26 @@
       /* background: #c1cad3; */
       background: #8b61c2;
       transition: 0.3s;
+    }
+
+    .container4 button {
+      font-family: "Montserrat" !important;
+      text-align: center;
+      font-size: 12px;
+      letter-spacing: 3px;
+      /* margin-left: 140px; */
+      /* margin-top: 50px; */
+      background-color: #5ce1e6;
+      color: #fff;
+      padding: 10px, 25px;
+      border-radius: 20px;
+    }
+
+    button:hover {
+      background-color: #5ce1e6;
+      /* Set the hover color to #5ce1e6 */
+      color: #fff;
+      /* Keep the text color white on hover */
     }
   </style>
 </head>
@@ -93,7 +120,7 @@
         <p id="vetcare">YOUR PET'S SANCTUARY <br>FOR COMPASSIONATE<br>
         <p style="font-family:Allura !important;font-size: 80px;line-height:49px; font-weight:350;"><b>Veterinary Care</b></p>
         </p>
-        <button type="button" class="btn btn-success button1">REQUEST AN APPOINTMENT</button>
+        <button type="button" class="">REQUEST AN APPOINTMENT</button>
       </div>
       <div class="col-6 align-self-right">
         <img src="images/asologo.png" alt="asologo" class="asologo float-start img-fluid">
@@ -116,7 +143,7 @@
         </div>
         <div class="col-8 align-self-center gitna">
           <img src="images/Paws.png" class="rounded mx-auto d-block paws-logo" alt="PawsLogo">
-          <p id="p1">DR. RON VETERINARY ANIMAL CLUB</p>
+          <p id="p1">DR. RON VETERINARY CLINIC</p>
           <p id="p2">Discover Expert Care And Compassionate Service</p>
           <hr style="margin-top:5px; margin-bottom:5px;">
           <p id="p3">Being a pet owner, you are aware of the importance of regular veterinary checkups for your animal's health. But sometimes you might wonder whether the stress of visiting the veterinarian is really worth your pet's fear and anxiety. You don't have to choose between your pet's mental health and veterinary care at Dr. Ron Veterinary Clinic because we are committed to providing high-quality, holistic veterinarian care with an intense focus on a fear-free approach.</p>
@@ -132,7 +159,7 @@
     <div class="border">
       <img src="images/Paws.png" class="rounded mx-auto d-block paws-logo" alt="PawsLogo">
       <p>Visit Us.</p>
-      <button type="button" class="btn btn-success button2">REQUEST AN APPOINTMENT</button>
+      <button type="button" class="">REQUEST AN APPOINTMENT</button>
     </div>
   </div>
 
@@ -140,22 +167,6 @@
   <script src="_assets/jquery.min.js"></script>
 </body>
 
-<div class="container my-5">
-  <div class="row align-items-center">
-    <div class="col-lg-6 text-center text-lg-left mb-4 mb-lg-0">
-
-      <iframe src="https://www.google.com/maps/embed?pb=!3m2!1sen!2sph!4v1713428538080!5m2!1sen!2sph!6m8!1m7!1s1UPyzrm-fB9QmunjaXDomg!2m2!1d15.49962680830744!2d120.9768442687773!3f244.72785217855838!4f1.4193708654089647!5f0.7820865974627469" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-    </div>
-    <div class="col-lg-6 text-center text-lg-left">
-      <h3>EZVET</h3>
-      <p>Dr. Ron Veterinary Clinic</p>
-      <p>Mulao St. Brgy. Batas,<br> Cabantuan City, Nueva Ecija</p>
-      <p>Phone: (+63) 955-617-9963</p>
-      <p>Email: dronclinic@gmail.com</p>
-      <p>Opening Hours: 8:00 AM - 6:00 PM</p>
-    </div>
-  </div>
-</div>
 
 
 

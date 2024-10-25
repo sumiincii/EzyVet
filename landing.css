@@ -2,7 +2,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Rancho&family=Rock+Salt&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
 
-
 body {
   background-color: #ffffff;
   font-family: "Montserrat", sans-serif, "Allura", "Playfair Display" !important;
@@ -164,8 +163,15 @@ nav ul ul li {
   margin-left: 85px;
   margin-top: 50px;
   border-radius: 20px;
-  background-color: #89a194;
+  background-color: #8b61c2;
   color: #fff;
+}
+
+button:hover {
+  background-color: #5ce1e6;
+  /* Set the hover color to #5ce1e6 */
+  color: #fff;
+  /* Keep the text color white on hover */
 }
 
 
@@ -203,18 +209,7 @@ nav ul ul li {
   letter-spacing: 5px;
 }
 
-.container4 button {
-  font-family: "Montserrat" !important;
-  text-align: center;
-  font-size: 12px;
-  letter-spacing: 3px;
-  /* margin-left: 140px; */
-  /* margin-top: 50px; */
-  background-color: #89a194;
-  color: #fff;
-  padding: 10px, 25px;
-  border-radius: 20px;
-}
+
 
 /* FOOTER TO  */
 

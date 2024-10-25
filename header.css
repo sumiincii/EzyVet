@@ -8,27 +8,12 @@ body {
 
 }
 
-[class*="col"] {
-    padding: 0;
-    background-color: #ffffff;
-    border: 2px solid #fff;
-}
-
-[class*="container1"] {
-    margin-top: -2px;
-
-}
-
-[class*="container2"] {
-    /* border: 2px solid red; */
-    overflow: hidden;
-}
-
-
 #wc {
-    background-color: #c1cad3;
+    /* background-color: #c1cad3; */
+    background-color: #8b61c2;
     padding: 7px;
-    color: #3e444b;
+    /* color: #3e444b; */
+    color: white;
 }
 
 nav a::before {
@@ -38,7 +23,8 @@ nav a::before {
     left: 0;
     width: 0;
     height: 2.5px;
-    background: #c1cad3;
+    /* background: #c1cad3; */
+    background: #8b61c2;
     transition: 0.3s;
 }
 
@@ -83,7 +69,9 @@ nav ul li a {
 }
 
 .hober a:hover {
-    background: rgb(150, 150, 150);
+    /* background: rgb(150, 150, 150); */
+    background: #8b61c2;
+    color: white;
 
 }
 
