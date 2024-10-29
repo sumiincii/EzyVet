@@ -15,6 +15,34 @@
 
     <!-- sweet alert  -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        #wc {
+            /* background-color: #c1cad3; */
+            background-color: #8b61c2;
+            padding: 7px;
+            /* color: #3e444b; */
+            color: white;
+        }
+
+        nav a::before {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 0;
+            height: 2.5px;
+            /* background: #c1cad3; */
+            background: #8b61c2;
+            transition: 0.3s;
+        }
+
+        .hober a:hover {
+            /* background: rgb(150, 150, 150); */
+            background: #8b61c2;
+            color: white;
+
+        }
+    </style>
 </head>
 
 <body>
@@ -80,7 +108,7 @@
             <div class="col" id="wc">Welcome to <b>Dr. Ron Veterinary Clinic</b>, your trusted partner in providing top-notch veterinary care for your beloved pets.</div>
         </div>
     </div>
-    <a href="testpage.php"><img class="logo img-fluid float-start" src="images/ezyvetnewlogo.png" alt="logo"></a>
+    <a href="landing.php"><img class="logo img-fluid float-start" src="images/mainlogo.png" alt="logo"></a>
 
     <div class="container-fluid text-center">
         <div class="dropdown">
@@ -139,7 +167,7 @@
                                 <option value="Check-up">Check-up</option>
                                 <option value="Vaccination">Vaccination</option>
                                 <option value="Grooming">Grooming</option>
-                                <option value="Follow-up">Follow-up</option>
+                                <!-- <option value="Follow-up">Follow-up</option> -->
                             </select>
                         </div>
                         <div class="col-sm-6">
@@ -178,7 +206,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-6">
-                            <label for="age" class="form-label">Age <span class="text-danger">*</span></label>
+                            <label for="age" class="form-label">Age in months <span class="text-danger">*</span></label>
                             <input type="number" class="form-control" id="age" name="age" />
                         </div>
                         <div class="col-sm-6">

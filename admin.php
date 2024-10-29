@@ -21,7 +21,11 @@ $sql = "SELECT a.id, o.fullname, o.email, p.species, a.appointment_date, a.appoi
         FROM appointments a
         JOIN owners o ON a.owner_id = o.id
         JOIN pets p ON a.pet_id = p.id
-        WHERE o.fullname LIKE '%$search%' OR p.species LIKE '%$search%'
+        WHERE o.fullname LIKE '%$search%' 
+           OR o.email LIKE '%$search%' 
+           OR p.species LIKE '%$search%' 
+           OR a.appointment_for LIKE '%$search%' 
+           OR a.status LIKE '%$search%'
         ORDER BY a.appointment_date ASC";
 
 $result = $conn->query($sql);
@@ -158,6 +162,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ob_end_flush();
 ?>
 
+<?php
+// Start output buffering
+ob_start();
+
+// Include database connection
+include 'connection.php';
+
+// Initialize search query and filter variables
+$search = isset($_GET['search']) ? $conn->real_escape_string($_GET['search']) : '';
+$statusFilter = isset($_GET['status']) ? $conn->real_escape_string($_GET['status']) : '';
+$dateFilter = isset($_GET['date']) ? $conn->real_escape_string($_GET['date']) : '';
+$timeFilter = isset($_GET['time']) ? $conn->real_escape_string($_GET['time']) : '';
+
+// Base SQL query
+$sql = "SELECT a.id, o.fullname, o.email, p.species, a.appointment_date, a.appointment_time, a.status, a.appointment_for, a.comments 
+        FROM appointments a
+        JOIN owners o ON a.owner_id = o.id
+        JOIN pets p ON a.pet_id = p.id
+        WHERE (o.fullname LIKE '%$search%' 
+           OR o.email LIKE '%$search%' 
+           OR p.species LIKE '%$search%' 
+           OR a.appointment_for LIKE '%$search%' 
+           OR a.status LIKE '%$search%')";
+
+// Add status filter if selected
+if ($statusFilter) {
+    $sql .= " AND a.status = '$statusFilter'";
+}
+
+// Add date filter if provided
+if ($dateFilter) {
+    $sql .= " AND a.appointment_date = '$dateFilter'";
+}
+
+$sql .= " ORDER BY a.appointment_date ASC";
+
+// Execute the query
+$result = $conn->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -175,48 +219,60 @@ ob_end_flush();
     <!-- FontAwesome for Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
     <!-- Custom Styles -->
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            /* Add this line for light font */
             background-color: #f7f9fc;
             color: #333;
-        }
-
-        .container {
-            margin-top: 30px;
-        }
-
-        .dashboard-header {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            background-color: #007bff;
+        }
+
+        .sidebar {
+            width: 250px;
+            /* background-color: #5ce1e6; */
+            background-color: #8b61c2;
+            /* Changed to a deeper blue */
             color: #fff;
-            border-radius: 8px;
+            height: auto;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            /* Added shadow for depth */
         }
 
-        .dashboard-header h2 {
-            font-weight: 600;
+        .sidebar h3 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+            /* Increased font size */
         }
 
-        .dashboard-header img {
-            border-radius: 50%;
-        }
-
-        .dashboard-header a {
+        .sidebar a {
+            display: block;
             color: #fff;
-            margin-left: 15px;
-            padding: 8px 15px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
+            padding: 15px 20px;
             text-decoration: none;
-            transition: background-color 0.3s;
+            transition: background 0.3s, padding 0.3s;
+            /* border-radius: 2px; */
+            /* Rounded corners */
         }
 
-        .dashboard-header a:hover {
-            background-color: rgba(255, 255, 255, 0.4);
+        .sidebar a:hover {
+            background-color: #5ce1e6;
+            /* Darker shade on hover */
+            padding-left: 25px;
+            /* Slight padding change on hover */
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 10px;
+            text-align: center;
         }
 
         .stats-card {
@@ -224,134 +280,300 @@ ob_end_flush();
             justify-content: space-around;
             align-items: center;
             padding: 20px;
-            background-color: #fff;
+            background-color: #ffffff;
+            /* White background */
             border-radius: 10px;
             margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            /* Added shadow */
         }
 
         .stats-card div {
             text-align: center;
         }
 
+        .stats-card h5 {
+            font-size: 16px;
+            /* Adjusted font size */
+            color: #555;
+            /* Darker text for better contrast */
+            /* font-weight: bold; */
+            /* Make the text bold */
+        }
+
+        .stats-card h3 {
+            font-size: 36px;
+            /* Increased font size for numbers */
+            color: #8b61c2;
+            /* Color for numbers */
+            margin: 0;
+            /* Remove default margin */
+        }
+
         .table-wrapper {
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
+            border: 1px solid #ddd;
+            /* Light border for the table wrapper */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            /* Added shadow */
         }
 
-        .table thead {
-            background-color: #007bff;
+        .sidebar .logo {
+            display: block;
+            margin: 0 auto 20px;
+            /* Center the logo and add margin below */
+            width: 45%;
+            /* Adjust width as needed */
+            height: auto;
+            /* Maintain aspect ratio */
+            border-radius: 100px;
+        }
+
+        .input-group {
+            max-width: 400px;
+            /* Limit the width of the search bar */
+            margin: 0 0 0 0;
+            /* Center the search bar */
+        }
+
+        .welcome-section {
+            text-align: center;
+            /* Center the text */
+            background-color: #e9ecef;
+            /* Light background color */
+            padding: 20px;
+            /* Padding around the content */
+            border-radius: 8px;
+            /* Rounded corners */
+        }
+
+        .welcome-logo {
+            margin: -65px 15px;
+            /* Adjust margin as needed */
+            width: 600px;
+            /* Adjust width as needed */
+            height: auto;
+            /* Maintain aspect ratio */
+            /* margin-right: 15px; */
+            /* Space between logo and text */
+            vertical-align: middle;
+            /* Aligns the logo with text */
+        }
+
+        .filter-button {
+            background-color: #8b61c2;
+            /* Main color */
+            color: white;
+            /* Text color */
+            border: none;
+            /* No border */
+            border-radius: 5px;
+            /* Rounded corners */
+            padding: 10px 20px;
+            /* Padding for size */
+            font-size: 16px;
+            /* Font size */
+            cursor: pointer;
+            /* Pointer cursor on hover */
+            transition: background-color 0.3s, transform 0.3s;
+            /* Smooth transition */
+        }
+
+        .filter-button:hover {
+            background-color: #5ce1e6;
+            /* Lighter color on hover */
+            transform: scale(1.05);
+            /* Slightly enlarge on hover */
+        }
+
+        .filter-button:focus {
+            outline: none;
+            /* Remove default outline */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            /* Add shadow on focus */
+        }
+
+        .sidebar a {
+            display: flex;
+            /* Use flexbox for alignment */
+            align-items: center;
+            /* Center items vertically */
             color: #fff;
+            padding: 15px 20px;
+            text-decoration: none;
+            transition: background 0.3s, padding 0.3s;
         }
 
-        .status-pending {
-            background-color: orange;
+        .sidebar a img.sidebar-icon {
+            width: 20px;
+            /* Adjust icon size as needed */
+            height: auto;
+            /* Maintain aspect ratio */
+            margin-right: 10px;
+            /* Space between icon and text */
+        }
+
+        /* Style for the search input field */
+        .input-group input[type="text"] {
+            padding: 10px;
+            /* Add padding */
+            border: 1px solid #ccc;
+            /* Light border */
+            border-radius: 5px;
+            /* Rounded corners */
+            transition: border-color 0.3s;
+            /* Smooth transition for border color */
+        }
+
+        /* Change border color on focus */
+        .input-group input[type="text"]:focus {
+            border-color: #8b61c2;
+            /* Change border color to match theme */
+            outline: none;
+            /* Remove default outline */
+        }
+
+        /* Style for the search button */
+        .input-group button {
+            background-color: #8b61c2;
+            /* Main color */
             color: white;
+            /* Text color */
+            border: none;
+            /* No border */
+            border-radius: 5px;
+            /* Rounded corners */
+            padding: 10px 20px;
+            /* Padding for size */
+            cursor: pointer;
+            /* Pointer cursor on hover */
+            transition: background-color 0.3s, transform 0.3s;
+            /* Smooth transition */
         }
 
-        .status-declined {
-            background-color: red;
-            color: white;
+        /* Change background color on hover */
+        .input-group button:hover {
+            background-color: #5ce1e6;
+            /* Lighter color on hover */
         }
 
-        .status-accepted {
-            background-color: green;
-            color: white;
-        }
-
-        .status-archived {
-            background-color: gray;
-            color: white;
-        }
-
-        .action-buttons button {
-            margin-right: 5px;
+        /* Change background color on focus */
+        .input-group button:focus {
+            outline: none;
+            /* Remove default outline */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            /* Add shadow on focus */
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <!-- Dashboard Header -->
-        <div class="dashboard-header">
-            <div class="d-flex align-items-center">
-                <img src="your-image-url" alt="Dr. Ron" width="50" height="50">
-                <h2>Dr. Ron</h2>
-            </div>
-            <div>
-                <a href="feedback.php">Feedback</a>
-                <a href="admin.php">Dashboard</a>
-                <a href="archives.php">Archives</a>
-                <a href="login.php">Log Out</a>
-            </div>
-        </div>
-
-        <!-- Stats Card -->
-        <div class="stats-card">
-            <div>
-                <h5>Today's Appointments</h5>
-                <h3><?php echo $today_count['total_today']; ?></h3>
-            </div>
-            <div>
-                <h5>Pending Appointments</h5>
-                <h3><?php echo $pending_count['pending']; ?></h3>
-            </div>
-            <div>
-                <h5>Accepted Appointments</h5>
-                <h3><?php echo $accepted_count['accepted']; ?></h3>
-            </div>
-        </div>
-
-        <!-- Search Form -->
-        <div class="mb-4">
-            <input type="text" id="search" class="form-control" style="width: 300px;" placeholder="Search by owner's name or pet species">
-        </div>
-
-        <!-- Appointment Table -->
-        <div class="table-wrapper">
-            <table class="table table-striped" id="appointments-table">
-                <thead>
-                    <tr>
-                        <th>Owner's Name</th>
-                        <th>Email</th>
-                        <th>Pet's Species</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Purpose</th>
-                        <th>Status</th>
-                        <th>Comments</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php while ($row = $result->fetch_assoc()) { ?>
-                        <tr>
-                            <td><?php echo $row['fullname']; ?></td>
-                            <td><?php echo $row['email']; ?></td>
-                            <td><?php echo $row['species']; ?></td>
-                            <td><?php echo $row['appointment_date']; ?></td>
-                            <td><?php echo $row['appointment_time']; ?></td>
-                            <td><?php echo $row['appointment_for']; ?></td>
-                            <td class="<?php echo ($row['status'] == 'Pending') ? 'status-pending' : ($row['status'] == 'Accepted' ? 'status-accepted' : ($row['status'] == 'Archived' ? 'status-archived' : 'status-declined')); ?>">
-                                <?php echo $row['status']; ?>
-                            </td>
-                            <td><?php echo $row['comments']; ?></td>
-                            <td class="action-buttons">
-                                <form method="POST" action="">
-                                    <input type="hidden" name="appointment_id" value="<?php echo $row['id']; ?>">
-                                    <button type="submit" name="action" value="accept" class="btn btn-success">Accept</button>
-                                    <button type="submit" name="action" value="decline" class="btn btn-danger">Decline</button>
-                                    <button type="submit" name="action" value="archive" class="btn btn-secondary">Archive</button>
-                                </form>
-                            </td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-        </div>
+    <!-- sidebar -->
+    <div class="sidebar">
+        <img src="images/main-logo.png" alt="EzyVet Logo" class="logo">
+        <h3><strong>EzyVet Dashboard</strong></h3>
+        <a href="adminr.php"><img src="icons/dash.png" alt="Dashboard" class="sidebar-icon"> <strong>Dashboard</strong></a>
+        <a href="archives.php"><img src="icons/archive.png" alt="Archives" class="sidebar-icon"> <strong>Archives</strong></a>
+        <a href="feedback.php"><img src="icons/feedback.png" alt="Feedback" class="sidebar-icon"> <strong>Feedbacks</strong></a>
+        <a href="login.php"><img src="icons/logout.png" alt="Log Out" class="sidebar-icon"> <strong>Log Out</strong></a>
     </div>
 
+    <div class="main-content">
+        <div class="container">
+            <!-- Additional Content -->
+            <img src="images/taglogo.png" alt="EzyVet Logo" class="welcome-logo">
+            <div class="welcome-section mb-4">
+                <h1>Welcome to EzyVet Dashboard</h1>
+                <p>Your one-stop solution for managing pet appointments efficiently.</p>
+            </div>
 
+            <!-- Stats Card -->
+            <div class="stats-card">
+                <div>
+                    <h5>Today's Appointments</h5>
+                    <h3><?php echo $today_count['total_today']; ?></h3>
+                </div>
+                <div>
+                    <h5>Pending Appointments</h5>
+                    <h3><?php echo $pending_count['pending']; ?></h3>
+                </div>
+                <div>
+                    <h5>Accepted Appointments</h5>
+                    <h3><?php echo $accepted_count['accepted']; ?></h3>
+                </div>
+            </div>
+
+            <!-- Search and Filter Form -->
+            <div class="mb-4">
+                <form method="GET" action="" class="d-flex align-items-center">
+                    <div class="input-group me-2" style="flex-grow: 1;">
+                        <input type="text" id="search" name="search" class="form-control" placeholder="Search by owner's name or pet species" value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>">
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    </div>
+
+                    <label for="statusFilter" class="me-2">Filter by Status:</label>
+                    <select id="statusFilter" name="status" class="form-control me-2" style="width: auto;">
+                        <option value="">All</option>
+                        <option value="Pending" <?php echo (isset($_GET['status']) && $_GET['status'] == 'Pending') ? 'selected' : ''; ?>>Pending</option>
+                        <option value="Accepted" <?php echo (isset($_GET['status']) && $_GET['status'] == 'Accepted') ? 'selected' : ''; ?>>Accepted</option>
+                        <option value="Declined" <?php echo (isset($_GET['status']) && $_GET['status'] == 'Declined') ? 'selected' : ''; ?>>Declined</option>
+                        <!-- Removed Archived option -->
+                    </select>
+
+                    <label for="dateFilter" class="me-2">Filter by Date:</label>
+                    <input type="date" id="dateFilter" name="date" value="<?php echo isset($_GET['date']) ? $_GET['date'] : ''; ?>" class="form-control me-2" style="width: auto;">
+
+                    <button type="submit" class="filter-button">Filter</button>
+                </form>
+            </div>
+
+
+            <!-- Appointment Table -->
+            <div class="table-wrapper">
+                <table class="table table-striped" id="appointments-table">
+                    <thead>
+                        <tr>
+                            <th>Owner's Name</th>
+                            <th>Email</th>
+                            <th>Pet's Species</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Purpose</th>
+                            <th>Status</th>
+                            <th>Comments</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($row = $result->fetch_assoc()) { ?>
+                            <tr>
+                                <td><?php echo $row['fullname']; ?></td>
+                                <td><?php echo $row['email']; ?></td>
+                                <td><?php echo $row['species']; ?></td>
+                                <td><?php echo $row['appointment_date']; ?></td>
+                                <td><?php echo $row['appointment_time']; ?></td>
+                                <td><?php echo $row['appointment_for']; ?></td>
+                                <td class="<?php echo ($row['status'] == 'Pending') ? 'status-pending' : ($row['status'] == 'Accepted' ? 'status-accepted' : ($row['status'] == 'Archived' ? 'status-archived' : 'status-declined')); ?>">
+                                    <?php echo $row['status']; ?>
+                                </td>
+                                <td><?php echo $row['comments']; ?></td>
+                                <td class="action-buttons">
+                                    <form method="POST" action="">
+                                        <input type="hidden" name="appointment_id" value="<?php echo $row['id']; ?>">
+                                        <button type="submit" name="action" value="accept" class="btn btn-success">Accept</button>
+                                        <button type="submit" name="action" value="decline" class="btn btn-danger">Decline</button>
+                                        <button type="submit" name="action" value="archive" class="btn btn-secondary">Archive</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
     <!-- Bootstrap JS -->
     <script src="_assets/bootstrap.bundle.min.js"></script>
@@ -363,8 +585,12 @@ ob_end_flush();
             var rows = document.querySelectorAll('#appointments-table tbody tr');
             rows.forEach(function(row) {
                 var fullname = row.cells[0].textContent.toLowerCase();
+                var email = row.cells[1].textContent.toLowerCase();
                 var species = row.cells[2].textContent.toLowerCase();
-                if (fullname.includes(search) || species.includes(search)) {
+                var purpose = row.cells[5].textContent.toLowerCase();
+                var status = row.cells[6].textContent.toLowerCase();
+
+                if (fullname.includes(search) || email.includes(search) || species.includes(search) || purpose.includes(search) || status.includes(search)) {
                     row.style.display = '';
                 } else {
                     row.style.display = 'none';

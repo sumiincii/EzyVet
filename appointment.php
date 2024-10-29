@@ -46,6 +46,7 @@
 </head>
 
 <body>
+
     <?php
     include 'connection.php';
 
@@ -167,7 +168,7 @@
                                 <option value="Check-up">Check-up</option>
                                 <option value="Vaccination">Vaccination</option>
                                 <option value="Grooming">Grooming</option>
-                                <option value="Follow-up">Follow-up</option>
+                                <!-- <option value="Follow-up">Follow-up</option> -->
                             </select>
                         </div>
                         <div class="col-sm-6">
@@ -241,27 +242,51 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const appointmentDateInput = document.getElementById('appointmentDate');
-            const appointmentTimeSelect = document.getElementById('appointmentTime');
+            const appointmentFor = document.getElementById('appointmentFor');
+            const appointmentDate = document.getElementById('appointmentDate');
+            const appointmentTime = document.getElementById('appointmentTime');
 
-            appointmentDateInput.addEventListener('change', function() {
-                const selectedDate = this.value;
-                if (!selectedDate) return;
+            const intervalMapping = {
+                'Grooming': 60,
+                'Check-up': 60,
+                'Vaccination': 30
+            };
 
-                fetch('get_available_times.php?date=' + encodeURIComponent(selectedDate))
+            function fetchAvailableTimes(date, interval) {
+                fetch(`get_available_times.php?date=${date}&interval=${interval}`)
                     .then(response => response.json())
-                    .then(data => {
-                        appointmentTimeSelect.innerHTML = '<option value="">Select</option>';
-                        data.forEach(time => {
+                    .then(slots => {
+                        appointmentTime.innerHTML = '<option value="">Select</option>';
+                        slots.forEach(slot => {
                             const option = document.createElement('option');
-                            option.value = time;
-                            option.textContent = time;
-                            appointmentTimeSelect.appendChild(option);
+                            option.value = slot.time;
+                            option.textContent = slot.available ? slot.time : `${slot.time} (Booked)`;
+                            if (!slot.available) {
+                                option.disabled = true; // Disable booked slots
+                                option.style.color = 'red'; // Optional: Change text color for booked slots
+                            }
+                            appointmentTime.appendChild(option);
                         });
                     });
+            }
+
+            appointmentFor.addEventListener('change', function() {
+                if (appointmentDate.value) {
+                    const interval = intervalMapping[this.value];
+                    fetchAvailableTimes(appointmentDate.value, interval);
+                }
+            });
+
+            appointmentDate.addEventListener('change', function() {
+                if (appointmentFor.value) {
+                    const interval = intervalMapping[appointmentFor.value];
+                    fetchAvailableTimes(this.value, interval);
+                }
             });
         });
     </script>
+
+
 </body>
 
 </html>
