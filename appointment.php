@@ -22,6 +22,7 @@
             padding: 7px;
             /* color: #3e444b; */
             color: white;
+            margin-left: -2px;
         }
 
         nav a::before {
@@ -41,6 +42,30 @@
             background: #8b61c2;
             color: white;
 
+        }
+
+        .submit-btn {
+            background-color: #8b61c2;
+            /* Violet background color */
+            color: white;
+            /* Text color */
+            border: none;
+            /* No border */
+            padding: 10px 20px;
+            /* Padding */
+            border-radius: 5px;
+            /* Rounded corners */
+            font-size: 16px;
+            /* Font size */
+            cursor: pointer;
+            /* Pointer cursor on hover */
+            transition: background-color 0.3s;
+            /* Smooth transition */
+        }
+
+        .submit-btn:hover {
+            background-color: #5ce1e6;
+            /* Teal background color on hover */
         }
     </style>
 </head>
@@ -234,7 +259,7 @@
                             <textarea class="form-control" id="comments" name="comments"></textarea>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="submit-btn">Submit</button>
                 </form>
             </div>
         </div>

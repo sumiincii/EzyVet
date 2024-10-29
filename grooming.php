@@ -21,6 +21,7 @@
             padding: 7px;
             /* color: #3e444b; */
             color: white;
+            margin-left: -2px;
         }
 
         nav a::before {
