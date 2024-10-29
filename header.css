@@ -16,18 +16,6 @@ body {
     color: white;
 }
 
-nav a::before {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 0;
-    height: 2.5px;
-    /* background: #c1cad3; */
-    background: #8b61c2;
-    transition: 0.3s;
-}
-
 nav a:hover::before {
     width: 100%;
 }

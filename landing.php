@@ -13,20 +13,16 @@
   <link rel="stylesheet" type="text/css" href="_assets/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
   <style>
-    button:hover {
-      background-color: #5ce1e6;
-      /* Set the hover color to #5ce1e6 */
-      color: #fff;
-      /* Keep the text color white on hover */
-    }
-
     #wc {
       /* background-color: #c1cad3; */
       background-color: #8b61c2;
       padding: 7px;
       /* color: #3e444b; */
       color: white;
+      margin: 0 -3px;
     }
+
+
 
     .hober a:hover {
       /* background: rgb(150, 150, 150); */

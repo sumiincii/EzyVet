@@ -8,39 +8,7 @@ body {
 
 }
 
-[class*="col"] {
-    padding: 0;
-    background-color: #ffffff;
-    border: 2px solid #fff;
-}
 
-[class*="container1"] {
-    margin-top: -2px;
-
-}
-
-[class*="container2"] {
-    /* border: 2px solid red; */
-    overflow: hidden;
-}
-
-
-#wc {
-    background-color: #c1cad3;
-    padding: 7px;
-    color: #3e444b;
-}
-
-nav a::before {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 0;
-    height: 2.5px;
-    background: #c1cad3;
-    transition: 0.3s;
-}
 
 nav a:hover::before {
     width: 100%;
@@ -82,10 +50,7 @@ nav ul li a {
     letter-spacing: 2px;
 }
 
-.hober a:hover {
-    background: rgb(150, 150, 150);
 
-}
 
 nav ul ul {
     position: absolute;

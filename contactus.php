@@ -16,33 +16,40 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- this is icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+    <!-- faqs -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
-        .btn-submit {
-            background-color: #007bff;
-            /* Bootstrap primary color */
+        #wc {
+            /* background-color: #c1cad3; */
+            background-color: #8b61c2;
+            padding: 7px;
+            /* color: #3e444b; */
             color: white;
-            /* Text color */
-            padding: 10px 20px;
-            /* Padding for button */
-            border: none;
-            /* Remove border */
-            border-radius: 5px;
-            /* Rounded corners */
-            font-size: 16px;
-            /* Font size */
-            cursor: pointer;
-            /* Pointer cursor on hover */
-            transition: background-color 0.3s ease, transform 0.2s;
-            /* Smooth transition */
         }
 
-        .btn-submit:hover {
-            background-color: #0056b3;
-            /* Darker shade on hover */
-            transform: scale(1.05);
-            /* Slightly enlarge on hover */
+        nav a::before {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 0;
+            height: 2.5px;
+            /* background: #c1cad3; */
+            background: #8b61c2;
+            transition: 0.3s;
         }
+
+        .hober a:hover {
+            /* background: rgb(150, 150, 150); */
+            background: #8b61c2;
+            color: white;
+
+        }
+
+
 
         .contact-card {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -190,6 +197,30 @@
                 margin: 1rem 0;
             }
         }
+
+        .submit-btn {
+            background-color: #8b61c2;
+            /* Violet background color */
+            color: white;
+            /* Text color */
+            border: none;
+            /* No border */
+            padding: 10px 20px;
+            /* Padding */
+            border-radius: 5px;
+            /* Rounded corners */
+            font-size: 16px;
+            /* Font size */
+            cursor: pointer;
+            /* Pointer cursor on hover */
+            transition: background-color 0.3s;
+            /* Smooth transition */
+        }
+
+        .submit-btn:hover {
+            background-color: #5ce1e6;
+            /* Teal background color on hover */
+        }
     </style>
 </head>
 
@@ -296,7 +327,7 @@
                             <label for="message">Message</label>
                             <textarea name="message" class="form-control" id="message" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-submit">Submit</button>
+                        <button type="submit" class="submit-btn">Submit</button>
                     </form>
                 </div>
             </div>
@@ -321,6 +352,113 @@
             </div>
         </div>
     </div>
+
+    <!-- this is faq  -->
+
+    <!-- Add this FAQ section below the existing content, before the footer -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12 text-center mb-4">
+                <h2>Frequently Asked Questions</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="contact-card">
+                    <h4>What services do you offer?</h4>
+                    <p>We offer a variety of veterinary services including checkups, vaccinations, grooming, and follow-up care.</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="contact-card">
+                    <h4>What are your clinic hours?</h4>
+                    <p>Our clinic is open Monday to Saturday from 8:00 am to 5:00 pm and closed on Sundays.</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="contact-card">
+                    <h4>How can I book an appointment?</h4>
+                    <p>You can book an appointment by visiting our 'Book Now' page or by contacting us directly via phone or email.</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="contact-card">
+                    <h4>What payment options do you accept?</h4>
+                    <p>We accept G-cash, all major credit cards, and cash payments.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Add this Emergency FAQ section below the existing content, before the footer -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12 text-center mb-4">
+                <h2>Emergency Services FAQ</h2>
+            </div>
+        </div>
+        <div class="accordion" id="emergencyFaqAccordion">
+            <div class="card">
+                <div class="card-header" id="emergencyFaqOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#emergencyCollapseOne" aria-expanded="true" aria-controls="emergencyCollapseOne">
+                            What should I do in case of a pet emergency?
+                        </button>
+                    </h5>
+                </div>
+                <div id="emergencyCollapseOne" class="collapse show" aria-labelledby="emergencyFaqOne" data-parent="#emergencyFaqAccordion">
+                    <div class="card-body">
+                        If you encounter a pet emergency, please call us immediately or visit our clinic. Ensure your pet is calm and secure during transport.
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="emergencyFaqTwo">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#emergencyCollapseTwo" aria-expanded="false" aria-controls="emergencyCollapseTwo">
+                            Do you offer emergency services after hours?
+                        </button>
+                    </h5>
+                </div>
+                <div id="emergencyCollapseTwo" class="collapse" aria-labelledby="emergencyFaqTwo" data-parent="#emergencyFaqAccordion">
+                    <div class="card-body">
+                        Our clinic operates during regular hours from Monday to Saturday. For emergencies outside these hours, we recommend contacting the nearest 24-hour veterinary clinic.
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="emergencyFaqThree">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#emergencyCollapseThree" aria-expanded="false" aria-controls="emergencyCollapseThree">
+                            How can I prepare for a pet emergency?
+                        </button>
+                    </h5>
+                </div>
+                <div id="emergencyCollapseThree" class="collapse" aria-labelledby="emergencyFaqThree" data-parent="#emergencyFaqAccordion">
+                    <div class="card-body">
+                        Keep a pet first aid kit at home, know the location of the nearest emergency vet, and have our contact information readily available.
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="emergencyFaqFour">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#emergencyCollapseFour" aria-expanded="false" aria-controls="emergencyCollapseFour">
+                            What are common signs of a pet emergency?
+                        </button>
+                    </h5>
+                </div>
+                <div id="emergencyCollapseFour" class="collapse" aria-labelledby="emergencyFaqFour" data-parent="#emergencyFaqAccordion">
+                    <div class="card-body">
+                        Common signs include difficulty breathing, excessive bleeding, seizures, or sudden changes in behavior. If you notice any of these, seek help immediately.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
 

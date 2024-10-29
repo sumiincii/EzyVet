@@ -12,6 +12,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="_assets/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        #wc {
+            /* background-color: #c1cad3; */
+            background-color: #8b61c2;
+            padding: 7px;
+            /* color: #3e444b; */
+            color: white;
+        }
+
+        nav a::before {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 0;
+            height: 2.5px;
+            /* background: #c1cad3; */
+            background: #8b61c2;
+            transition: 0.3s;
+        }
+
+        .hober a:hover {
+            /* background: rgb(150, 150, 150); */
+            background: #8b61c2;
+            color: white;
+
+        }
+    </style>
 </head>
 
 <body>
@@ -20,7 +48,7 @@
             <div class="col" id="wc">Welcome to <b>Dr. Ron Veterinary Clinic</b> , your trusted partner in providing top-notch veterinary care for your beloved pets.</div>
         </div>
     </div>
-    <a href="landing.php"><img class="logo img-fluid float-start" src="images/ezyvetnewlogo.png" alt="logo"></a>
+    <a href="landing.php"><img class="logo img-fluid float-start" src="images/mainlogo.png" alt="logo"></a>
 
     <div class="container-fluid text-center">
         <div class="dropdown">
