@@ -1,54 +1,48 @@
 <?php
 include 'connection.php';
 
-if (isset($_GET['date']) && isset($_GET['interval'])) {
-    $date = $_GET['date'];
-    $interval = $_GET['interval'];
+header('Content-Type: application/json');
 
-    // Define clinic hours
-    $clinic_hours = [
-        'Monday' => ['08:00:00', '17:00:00'],
-        'Tuesday' => ['08:00:00', '17:00:00'],
-        'Wednesday' => ['08:00:00', '17:00:00'],
-        'Thursday' => ['08:00:00', '17:00:00'],
-        'Friday' => ['08:00:00', '17:00:00'],
-        'Saturday' => ['08:00:00', '17:00:00'],
-        'Sunday' => null
-    ];
+$date = $_GET['date'] ?? date('Y-m-d');
+$interval = $_GET['interval'] ?? 30;
 
-    $day_of_week = date('l', strtotime($date));
-    $slots = [];
+// Clinic hours
+$start_time = '08:00:00';
+$end_time = '17:00:00';
 
-    if (isset($clinic_hours[$day_of_week]) && $clinic_hours[$day_of_week] !== null) {
-        $start_time = new DateTime($clinic_hours[$day_of_week][0]);
-        $end_time = new DateTime($clinic_hours[$day_of_week][1]);
-        $interval_object = new DateInterval('PT' . $interval . 'M');
+// Get booked appointments for the selected date
+$sql = "SELECT appointment_time FROM appointments WHERE appointment_date = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $date);
+$stmt->execute();
+$result = $stmt->get_result();
 
-        while ($start_time < $end_time) {
-            $formatted_time = $start_time->format('H:i:s');
+$booked_times = [];
+while ($row = $result->fetch_assoc()) {
+    $booked_times[] = date('H:i', strtotime($row['appointment_time']));
+}
 
-            // Skip lunch break
-            if ($formatted_time == '12:00:00' || $formatted_time == '12:30:00') {
-                $start_time->add($interval_object);
-                continue;
-            }
+// Generate all possible time slots
+$current_time = strtotime($start_time);
+$end_timestamp = strtotime($end_time);
+$slots = [];
 
-            // Check if the time slot is already booked
-            $sql = "SELECT COUNT(*) FROM appointments WHERE appointment_date = '$date' AND appointment_time = '$formatted_time'";
-            $result = $conn->query($sql);
-            $count = $result->fetch_row()[0];
+while ($current_time < $end_timestamp) {
+    $time_string = date('H:i', $current_time);
+    $display_time = date('h:i A', $current_time); // 12-hour format for display
+    $is_available = !in_array($time_string, $booked_times);
 
-            if ($count == 0) {
-                // If the slot is not booked, add it as available
-                $slots[] = ['time' => $start_time->format('h:i A'), 'available' => true];
-            } else {
-                // If the slot is booked, add it as unavailable
-                $slots[] = ['time' => $start_time->format('h:i A'), 'available' => false];
-            }
-
-            $start_time->add($interval_object);
-        }
+    // Skip lunch break (12:00 - 13:00)
+    if ($time_string !== '12:00') {
+        $slots[] = [
+            'time' => $time_string, // 24-hour format for value
+            'display_time' => $display_time, // 12-hour format for display
+            'available' => $is_available
+        ];
     }
 
-    echo json_encode($slots);
+    $current_time = strtotime("+{$interval} minutes", $current_time);
 }
+
+echo json_encode($slots);
+$conn->close();

@@ -76,7 +76,6 @@
     include 'connection.php';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Collect form data
         $fullname = $_POST['fullname'];
         $email = $_POST['email'];
         $phone = $_POST['phone'];
@@ -91,44 +90,30 @@
         $appointment_time = $_POST['appointmentTime'];
         $comments = $_POST['comments'];
 
-        // Insert into owners table
         $owner_sql = "INSERT INTO owners (fullname, email, phone) VALUES ('$fullname', '$email', '$phone')";
         if ($conn->query($owner_sql) === TRUE) {
             $owner_id = $conn->insert_id;
-
-            // Insert into pets table
             $pet_sql = "INSERT INTO pets (owner_id, name, breed, species, color, sex, age) VALUES ('$owner_id', '$pet_name', '$breed', '$species', '$color', '$sex', '$age')";
             if ($conn->query($pet_sql) === TRUE) {
                 $pet_id = $conn->insert_id;
-
-                // Insert into appointments table
                 $appointment_sql = "INSERT INTO appointments (owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments) VALUES ('$owner_id', '$pet_id', '$appointment_date', '$appointment_time', 'Pending', '$appointment_for', '$comments')";
                 if ($conn->query($appointment_sql) === TRUE) {
                     echo "<script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Appointment request submitted successfully!',
-                                showConfirmButton: false,
-                                timer: 3000
-                            });
+                    document.addEventListener('DOMContentLoaded', function() {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Appointment request submitted successfully!',
+                            showConfirmButton: false,
+                            timer: 3000
                         });
-                    </script>";
-                } else {
-                    echo "Error: " . $appointment_sql . "<br>" . $conn->error;
+                    });
+                </script>";
                 }
-            } else {
-                echo "Error: " . $pet_sql . "<br>" . $conn->error;
             }
-        } else {
-            echo "Error: " . $owner_sql . "<br>" . $conn->error;
         }
-
-        // Close the database connection
         $conn->close();
     }
     ?>
-
     <div class="container1 container-fluid text-center">
         <div class="row">
             <div class="col" id="wc">Welcome to <b>Dr. Ron Veterinary Clinic</b>, your trusted partner in providing top-notch veterinary care for your beloved pets.</div>
@@ -259,7 +244,7 @@
                             <textarea class="form-control" id="comments" name="comments"></textarea>
                         </div>
                     </div>
-                    <button type="submit" class="submit-btn">Submit</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
@@ -270,6 +255,7 @@
             const appointmentFor = document.getElementById('appointmentFor');
             const appointmentDate = document.getElementById('appointmentDate');
             const appointmentTime = document.getElementById('appointmentTime');
+            const form = document.querySelector('form');
 
             const intervalMapping = {
                 'Grooming': 60,
@@ -284,15 +270,17 @@
                         appointmentTime.innerHTML = '<option value="">Select</option>';
                         slots.forEach(slot => {
                             const option = document.createElement('option');
-                            option.value = slot.time;
-                            option.textContent = slot.available ? slot.time : `${slot.time} (Booked)`;
+                            option.value = slot.time; // 24-hour format stored as value
+                            option.textContent = slot.display_time; // 12-hour format shown to user
                             if (!slot.available) {
-                                option.disabled = true; // Disable booked slots
-                                option.style.color = 'red'; // Optional: Change text color for booked slots
+                                option.disabled = true;
+                                option.textContent += ' (Booked)';
+                                option.style.color = 'red';
                             }
                             appointmentTime.appendChild(option);
                         });
-                    });
+                    })
+                    .catch(error => console.error('Error:', error));
             }
 
             appointmentFor.addEventListener('change', function() {
@@ -303,14 +291,55 @@
             });
 
             appointmentDate.addEventListener('change', function() {
-                if (appointmentFor.value) {
+                const selectedDate = new Date(this.value);
+                const dayOfWeek = selectedDate.getUTCDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+
+                if (dayOfWeek === 0) { // Check if it's Sunday
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid Date',
+                        text: 'Clinic is closed during Sundays. Please select a different date.'
+                    });
+                    this.value = ''; // Reset the date input
+                } else if (appointmentFor.value) {
                     const interval = intervalMapping[appointmentFor.value];
                     fetchAvailableTimes(this.value, interval);
                 }
             });
+
+            // Form validation
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Basic form validation
+                const required = ['fullname', 'email', 'phone', 'petName', 'breed',
+                    'species', 'color', 'sex', 'age', 'appointmentFor',
+                    'appointmentDate', 'appointmentTime'
+                ];
+
+                let isValid = true;
+                required.forEach(fieldName => {
+                    const field = document.getElementsByName(fieldName)[0];
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = 'red';
+                    } else {
+                        field.style.borderColor = '';
+                    }
+                });
+
+                if (isValid) {
+                    this.submit();
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Please fill in all required fields',
+                        text: 'Fields marked with * are required'
+                    });
+                }
+            });
         });
     </script>
-
 
 </body>
 

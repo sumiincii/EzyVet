@@ -26,7 +26,7 @@ $sql = "SELECT a.id, o.fullname, o.email, p.species, a.appointment_date, a.appoi
            OR p.species LIKE '%$search%' 
            OR a.appointment_for LIKE '%$search%' 
            OR a.status LIKE '%$search%')
-        ORDER BY a.appointment_date ASC"; // Original sorting
+        ORDER BY a.appointment_date DESC"; // Original sorting
 
 $result = $conn->query($sql);
 
@@ -183,7 +183,7 @@ if ($dateFilter) {
     $sql .= " AND a.appointment_date = '$dateFilter'";
 }
 
-$sql .= " ORDER BY a.appointment_date ASC";
+$sql .= " ORDER BY a.appointment_date DESC";
 
 // Execute the query
 $result = $conn->query($sql);
@@ -667,7 +667,7 @@ $result = $conn->query($sql);
                                 <td><?php echo $row['email']; ?></td>
                                 <td><?php echo $row['species']; ?></td>
                                 <td><?php echo $row['appointment_date']; ?></td>
-                                <td><?php echo $row['appointment_time']; ?></td>
+                                <td><?php echo date('h:i A', strtotime($row['appointment_time'])); ?></td>
                                 <td><?php echo $row['appointment_for']; ?></td>
                                 <td class="<?php echo ($row['status'] == 'Pending') ? 'status-pending' : ($row['status'] == 'Accepted' ? 'status-accepted' : ($row['status'] == 'Archived' ? 'status-archived' : 'status-declined')); ?>">
                                     <?php echo $row['status']; ?>
