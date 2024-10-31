@@ -21,12 +21,12 @@ $sql = "SELECT a.id, o.fullname, o.email, p.species, a.appointment_date, a.appoi
         FROM appointments a
         JOIN owners o ON a.owner_id = o.id
         JOIN pets p ON a.pet_id = p.id
-        WHERE (o.fullname LIKE '%$search%' 
+        WHERE o.fullname LIKE '%$search%' 
            OR o.email LIKE '%$search%' 
            OR p.species LIKE '%$search%' 
            OR a.appointment_for LIKE '%$search%' 
-           OR a.status LIKE '%$search%')
-        ORDER BY a.appointment_date ASC"; // Original sorting
+           OR a.status LIKE '%$search%'
+        ORDER BY a.appointment_date ASC";
 
 $result = $conn->query($sql);
 
@@ -61,21 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $owner = $owner_result->fetch_assoc();
 
         // Check for action type
-        if ($action == 'accept' || $action == 'decline') {
-            // Fetch the appointment details
-            $fetch_sql = "SELECT id, owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments 
-                          FROM appointments WHERE id=$appointment_id";
-            $fetch_result = $conn->query($fetch_sql);
-            $appointment = $fetch_result->fetch_assoc();
-
-            // Insert into archived_appointments
-            $insert_sql = "INSERT INTO archived_appointments (id, owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments)
-                           VALUES ('{$appointment['id']}', '{$appointment['owner_id']}', '{$appointment['pet_id']}', '{$appointment['appointment_date']}', '{$appointment['appointment_time']}', '$action', '{$appointment['appointment_for']}', '{$appointment['comments']}')";
-            $conn->query($insert_sql);
-
-            // Delete from appointments
-            $delete_sql = "DELETE FROM appointments WHERE id=$appointment_id";
-            $conn->query($delete_sql);
+        if ($action == 'accept') {
+            $update_sql = "UPDATE appointments SET status='Accepted' WHERE id=$appointment_id";
+            $conn->query($update_sql);
 
             // Send email notification using PHPMailer
             $mail = new PHPMailer(true);
@@ -90,17 +78,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $mail->setFrom('ezyvet.neust@gmail.com', 'EzyVet');
                 $mail->addAddress($owner['email']);
                 $mail->isHTML(true);
-
-                if ($action == 'accept') {
-                    $mail->Subject = 'Appointment Accepted';
-                    $mail->Body = 'Dear ' . $owner['fullname'] . ',<br>Your appointment on ' . $owner['appointment_date'] . ' at ' . $owner['appointment_time'] . ' for ' . $owner['appointment_for'] . ' has been accepted.<br>Thank you!';
-                } elseif ($action == 'decline') {
-                    // Get the decline reason from the POST request
-                    $decline_reason = isset($_POST['decline_reason']) ? $conn->real_escape_string($_POST['decline_reason']) : 'No reason provided.';
-                    $mail->Subject = 'Appointment Declined';
-                    $mail->Body = 'Dear ' . $owner['fullname'] . ',<br>Your appointment on ' . $owner['appointment_date'] . ' at ' . $owner['appointment_time'] . ' for ' . $owner['appointment_for'] . ' has been declined.<br>Reason: ' . $decline_reason . '<br>Thank you!';
-                }
-
+                $mail->Subject = 'Appointment Accepted';
+                $mail->Body = 'Dear ' . $owner['fullname'] . ',<br>Your appointment on ' . $owner['appointment_date'] . ' at ' . $owner['appointment_time'] . ' for ' . $owner['appointment_for'] . ' has been accepted.<br>Thank you!';
                 $mail->SMTPOptions = array(
                     'ssl' => array(
                         'verify_peer' => false,
@@ -108,12 +87,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         'allow_self_signed' => true
                     )
                 );
-
                 // Send the email
                 if ($mail->send()) {
-                    echo "<div class='alert alert-success'>Appointment $action and email sent successfully.</div>";
+                    echo "<div class='alert alert-success'>Appointment accepted and email sent successfully.</div>";
                 } else {
-                    echo "<div class='alert alert-danger'>Appointment $action but email could not be sent.</div>";
+                    echo "<div class='alert alert-danger'>Appointment accepted but email could not be sent.</div>";
+                }
+            } catch (Exception $e) {
+                echo "<div class='alert alert-danger'>Error sending email: " . $mail->ErrorInfo . "</div>";
+            }
+        } elseif ($action == 'decline') {
+            $update_sql = "UPDATE appointments SET status='Declined' WHERE id=$appointment_id";
+            $conn->query($update_sql);
+
+            // Send email notification using PHPMailer
+            $mail = new PHPMailer(true);
+            try {
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'ezyvet.neust@gmail.com'; // your gmail
+                $mail->Password = 'gjyk hyze xust szfv'; // app password
+                $mail->SMTPSecure = 'ssl';
+                $mail->Port = 465;
+                $mail->setFrom('ezyvet.neust@gmail.com', 'EzyVet');
+                $mail->addAddress($owner['email']);
+                $mail->isHTML(true);
+                $mail->Subject = 'Appointment Declined';
+                $mail->Body = 'Dear ' . $owner['fullname'] . ',<br>Your appointment on ' . $owner['appointment_date'] . ' at ' . $owner['appointment_time'] . ' for ' . $owner['appointment_for'] . ' has been declined.<br>Thank you!';
+                $mail->SMTPOptions = array(
+                    'ssl' => array(
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                        'allow_self_signed' => true
+                    )
+                );
+                // Send the email
+                if ($mail->send()) {
+                    echo "<div class='alert alert-success'>Appointment declined and email sent successfully.</div>";
+                } else {
+                    echo "<div class='alert alert-danger'>Appointment declined but email could not be sent.</div>";
                 }
             } catch (Exception $e) {
                 echo "<div class='alert alert-danger'>Error sending email: " . $mail->ErrorInfo . "</div>";
@@ -188,6 +201,7 @@ $sql .= " ORDER BY a.appointment_date ASC";
 // Execute the query
 $result = $conn->query($sql);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -452,122 +466,6 @@ $result = $conn->query($sql);
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
             /* Add shadow on focus */
         }
-
-        /* Overlay styling */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            /* Semi-transparent background */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            /* Ensures the overlay appears above other content */
-        }
-
-        /* Popup styling */
-        .popup {
-            background-color: #fff;
-            /* White background for the popup */
-            border-radius: 8px;
-            /* Rounded corners */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            /* Subtle shadow */
-            padding: 20px;
-            /* Inner padding */
-            width: 300px;
-            /* Fixed width */
-            text-align: center;
-            /* Center text */
-        }
-
-        /* Heading styling */
-        .popup h2 {
-            margin-bottom: 15px;
-            /* Space below the heading */
-            font-family: 'Montserrat', sans-serif;
-            /* Custom font */
-            color: #333;
-            /* Dark text color */
-        }
-
-        /* Textarea styling */
-        .decline-textarea {
-            width: 100%;
-            /* Full width */
-            height: 80px;
-            /* Fixed height */
-            padding: 10px;
-            /* Inner padding */
-            border-radius: 5px;
-            /* Rounded corners */
-            border: 1px solid #ccc;
-            /* Light border */
-            resize: none;
-            /* Disable resizing */
-            font-family: 'Montserrat', sans-serif;
-            /* Custom font */
-        }
-
-        /* Popup buttons container */
-        .popup-buttons {
-            display: flex;
-            /* Flexbox for horizontal layout */
-            justify-content: space-between;
-            /* Space between buttons */
-            margin-top: 20px;
-            /* Space above buttons */
-        }
-
-        /* Button styling */
-        .btn {
-            padding: 10px 15px;
-            /* Padding for buttons */
-            border: none;
-            /* No border */
-            border-radius: 5px;
-            /* Rounded corners */
-            cursor: pointer;
-            /* Pointer on hover */
-            font-family: 'Montserrat', sans-serif;
-            /* Custom font */
-        }
-
-        /* Primary button (Send) */
-        .btn-primary {
-            background-color: #8b61c2;
-            /* Violet background */
-            color: #fff;
-            /* White text */
-            transition: background-color 0.3s;
-            /* Smooth transition */
-        }
-
-        /* Primary button hover effect */
-        .btn-primary:hover {
-            background-color: #5ce1e6;
-            /* Teal background on hover */
-        }
-
-        /* Secondary button (Close) */
-        .btn-secondary {
-            background-color: #e0e0e0;
-            /* Light grey background */
-            color: #333;
-            /* Dark text */
-            transition: background-color 0.3s;
-            /* Smooth transition */
-        }
-
-        /* Secondary button hover effect */
-        .btn-secondary:hover {
-            background-color: #d5d5d5;
-            /* Slightly darker grey on hover */
-        }
     </style>
 </head>
 
@@ -576,7 +474,7 @@ $result = $conn->query($sql);
     <div class="sidebar">
         <img src="images/main-logo.png" alt="EzyVet Logo" class="logo">
         <h3><strong>EzyVet Dashboard</strong></h3>
-        <a href="admin.php"><img src="icons/dash.png" alt="Dashboard" class="sidebar-icon"> <strong>Dashboard</strong></a>
+        <a href="adminr.php"><img src="icons/dash.png" alt="Dashboard" class="sidebar-icon"> <strong>Dashboard</strong></a>
         <a href="archives.php"><img src="icons/archive.png" alt="Archives" class="sidebar-icon"> <strong>Archives</strong></a>
         <a href="feedback.php"><img src="icons/feedback.png" alt="Feedback" class="sidebar-icon"> <strong>Feedbacks</strong></a>
         <a href="login.php"><img src="icons/logout.png" alt="Log Out" class="sidebar-icon"> <strong>Log Out</strong></a>
@@ -632,7 +530,6 @@ $result = $conn->query($sql);
             </div>
 
 
-
             <!-- Appointment Table -->
             <div class="table-wrapper">
                 <table class="table table-striped" id="appointments-table">
@@ -652,17 +549,6 @@ $result = $conn->query($sql);
                     <tbody>
                         <?php while ($row = $result->fetch_assoc()) { ?>
                             <tr>
-                                <!-- Decline Reason Popup -->
-                                <div class="overlay" id="overlay" style="display:none;">
-                                    <div class="popup" id="popup">
-                                        <h2>Decline Reason</h2>
-                                        <textarea id="declineReason" placeholder="Type the reason for declining..." class="decline-textarea"></textarea>
-                                        <div class="popup-buttons">
-                                            <button id="sendDeclineReason" class="btn btn-primary">Send</button>
-                                            <button class="close-popup" onclick="closeDeclinePopup()" class="btn btn-secondary">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
                                 <td><?php echo $row['fullname']; ?></td>
                                 <td><?php echo $row['email']; ?></td>
                                 <td><?php echo $row['species']; ?></td>
@@ -677,69 +563,17 @@ $result = $conn->query($sql);
                                     <form method="POST" action="">
                                         <input type="hidden" name="appointment_id" value="<?php echo $row['id']; ?>">
                                         <button type="submit" name="action" value="accept" class="btn btn-success">Accept</button>
-                                        <button type="button" class="btn btn-danger" onclick="openDeclinePopup(<?php echo $row['id']; ?>)">Decline</button>
+                                        <button type="submit" name="action" value="decline" class="btn btn-danger">Decline</button>
                                         <button type="submit" name="action" value="archive" class="btn btn-secondary">Archive</button>
                                     </form>
                                 </td>
-
-                                <script>
-                                    function confirmAction(action) {
-                                        return confirm("Are you sure you want to " + action + " this appointment?");
-                                    }
-                                </script>
                             </tr>
                         <?php } ?>
                     </tbody>
                 </table>
             </div>
         </div>
-
     </div>
-    <script>
-        let currentAppointmentId;
-
-        function openDeclinePopup(appointmentId) {
-            currentAppointmentId = appointmentId;
-            document.getElementById('overlay').style.display = 'block';
-        }
-
-        function closeDeclinePopup() {
-            document.getElementById('overlay').style.display = 'none';
-        }
-
-        document.getElementById('sendDeclineReason').addEventListener('click', function() {
-            const declineReason = document.getElementById('declineReason').value;
-            if (declineReason) {
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = '';
-
-                const appointmentIdInput = document.createElement('input');
-                appointmentIdInput.type = 'hidden';
-                appointmentIdInput.name = 'appointment_id';
-                appointmentIdInput.value = currentAppointmentId;
-
-                const actionInput = document.createElement('input');
-                actionInput.type = 'hidden';
-                actionInput.name = 'action';
-                actionInput.value = 'decline';
-
-                const reasonInput = document.createElement('input');
-                reasonInput.type = 'hidden';
-                reasonInput.name = 'decline_reason';
-                reasonInput.value = declineReason;
-
-                form.appendChild(appointmentIdInput);
-                form.appendChild(actionInput);
-                form.appendChild(reasonInput);
-
-                document.body.appendChild(form);
-                form.submit();
-            } else {
-                alert('Please provide a reason for declining the appointment.');
-            }
-        });
-    </script>
 
     <!-- Bootstrap JS -->
     <script src="_assets/bootstrap.bundle.min.js"></script>
