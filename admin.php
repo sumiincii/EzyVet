@@ -96,9 +96,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $mail->Body = 'Dear ' . $owner['fullname'] . ',<br>Your appointment on ' . $owner['appointment_date'] . ' at ' . $owner['appointment_time'] . ' for ' . $owner['appointment_for'] . ' has been accepted.<br>Thank you!';
                 } elseif ($action == 'decline') {
                     // Get the decline reason from the POST request
+                    // Get the decline reason from the POST request 
                     $decline_reason = isset($_POST['decline_reason']) ? $conn->real_escape_string($_POST['decline_reason']) : 'No reason provided.';
                     $mail->Subject = 'Appointment Declined';
-                    $mail->Body = 'Dear ' . $owner['fullname'] . ',<br>Your appointment on ' . $owner['appointment_date'] . ' at ' . $owner['appointment_time'] . ' for ' . $owner['appointment_for'] . ' has been declined.<br>Reason: ' . $decline_reason . '<br>Thank you!';
+                    $mail->Body = 'Dear ' . $owner['fullname'] . ',<br>Thank you for reaching out to us regarding your appointment request for ' . $owner['appointment_for'] . ' on ' . $owner['appointment_date'] . ' at ' . $owner['appointment_time'] . '. After careful consideration, we regret to inform you that we are unable to accommodate your appointment at this time.<br>The reason for this decision is as follows: ' . $decline_reason . '.<br>We appreciate your understanding and encourage you to reach out for any future needs or to discuss alternative arrangements.<br><br>Best regards,<br>Dr. Ron veterinary clinic.';
                 }
 
                 $mail->SMTPOptions = array(
@@ -301,10 +302,102 @@ $result = $conn->query($sql);
             padding: 20px;
             border-radius: 10px;
             border: 1px solid #ddd;
-            /* Light border for the table wrapper */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            /* Added shadow */
+            overflow: hidden;
+            /* Hide overflow */
+            max-width: 100%;
+            /* Ensure it does not exceed the viewport */
         }
+
+        table {
+            width: 100%;
+            /* Table takes full width of the wrapper */
+            table-layout: auto;
+            /* Fixed layout for better control */
+        }
+
+        /* Adjust column widths */
+        th,
+        td {
+            padding: 8px;
+            /* Reduce padding */
+            font-size: 14px;
+            /* Smaller font size */
+        }
+
+        /* Set specific widths for columns if necessary */
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 15%;
+        }
+
+        /* Owner's Name */
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 15%;
+        }
+
+        /* Email */
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 10%;
+        }
+
+        /* Pet's Species */
+        th:nth-child(4),
+        td:nth-child(4) {
+            width: 10%;
+        }
+
+        /* Breed */
+        th:nth-child(5),
+        td:nth-child(5) {
+            width: 10%;
+        }
+
+        /* Color */
+        th:nth-child(6),
+        td:nth-child(6) {
+            width: 5%;
+        }
+
+        /* Age */
+        th:nth-child(7),
+        td:nth-child(7) {
+            width: 10%;
+        }
+
+        /* Date */
+        th:nth-child(8),
+        td:nth-child(8) {
+            width: 10%;
+        }
+
+        /* Time */
+        th:nth-child(9),
+        td:nth-child(9) {
+            width: 10%;
+        }
+
+        /* Purpose */
+        th:nth-child(10),
+        td:nth-child(10) {
+            width: 10%;
+        }
+
+        /* Status */
+        th:nth-child(11),
+        td:nth-child(11) {
+            width: 15%;
+        }
+
+        /* Comments */
+        th:nth-child(12),
+        td:nth-child(12) {
+            width: 15%;
+        }
+
+        /* Actions */
 
         .sidebar .logo {
             display: block;
