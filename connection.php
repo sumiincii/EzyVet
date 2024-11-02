@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
-$user_name = "ezyvet";
-$password = "capstoneproject";
+$user_name = "root";
+$password = "";
 $dbname = "ezyvet";
 
 $conn = new mysqli($servername, $user_name, $password, $dbname);
