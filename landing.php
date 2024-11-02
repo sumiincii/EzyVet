@@ -83,7 +83,7 @@
               <li class="hober"><a href="checkup.php">Checkups</a></li>
               <li class="hober"><a href="vaccinations.php">Vaccinations</a></li>
               <li class="hober"><a href="grooming.php">Grooming</a></li>
-              <li class="hober"><a href="followup.php">Follow Up</a></li>
+              <!-- <li class="hober"><a href="followup.php">Follow Up</a></li> -->
             </ul>
           </li>
           <li><a href="appointment.php">BOOK NOW</a>

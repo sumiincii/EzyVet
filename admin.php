@@ -41,10 +41,10 @@ $pending_sql = "SELECT COUNT(*) AS pending FROM appointments WHERE status = 'Pen
 $pending_result = $conn->query($pending_sql);
 $pending_count = $pending_result->fetch_assoc();
 
-// Fetch accepted appointments (formerly confirmed)
-$accepted_sql = "SELECT COUNT(*) AS accepted FROM appointments WHERE status = 'Accepted'";
-$accepted_result = $conn->query($accepted_sql);
-$accepted_count = $accepted_result->fetch_assoc();
+// Fetch archived appointments
+$archived_sql = "SELECT COUNT(*) AS archived FROM archived_appointments";
+$archived_result = $conn->query($archived_sql);
+$archived_count = $archived_result->fetch_assoc();
 
 // Handle button clicks for accept, decline, and archive
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -695,8 +695,8 @@ $result = $conn->query($sql);
                     <h3><?php echo $pending_count['pending']; ?></h3>
                 </div>
                 <div>
-                    <h5>Accepted Appointments</h5>
-                    <h3><?php echo $accepted_count['accepted']; ?></h3>
+                    <h5>Archived Appointments</h5>
+                    <h3><?php echo $archived_count['archived']; ?></h3>
                 </div>
             </div>
 
@@ -767,11 +767,11 @@ $result = $conn->query($sql);
                                 </td>
                                 <td><?php echo $row['comments']; ?></td>
                                 <td class="action-buttons">
-                                    <form method="POST" action="">
+                                    <form method="POST" action="" onsubmit="return confirmAction(this.action.value);">
                                         <input type="hidden" name="appointment_id" value="<?php echo $row['id']; ?>">
-                                        <button type="submit" name="action" value="accept" class="btn btn-success">Accept</button>
+                                        <button type="submit" name="action" value="accept" class="btn btn-success" id="acceptButton">Accept</button>
                                         <button type="button" class="btn btn-danger" onclick="openDeclinePopup(<?php echo $row['id']; ?>)">Decline</button>
-                                        <button type="submit" name="action" value="archive" class="btn btn-secondary">Archive</button>
+                                        <button type="submit" name="action" value="archive" class="btn btn-secondary" id="archiveButton">Archive</button>
                                     </form>
                                 </td>
 
