@@ -13,6 +13,8 @@
     <link rel="stylesheet" type="text/css" href="_assets/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
+    <!-- Google reCAPTCHA -->
+    <!-- <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script> -->
     <!-- sweet alert  -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
@@ -245,6 +247,7 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
+                    <!-- <div class="g-recaptcha" data-sitekey="6Le_gnMqAAAAANkjj9vf5dwN7suQ6AoRHh6w_I26"></div> -->
                 </form>
             </div>
         </div>
