@@ -73,13 +73,14 @@ include 'connection.php';
 
         .main-content {
             flex-grow: 1;
-            padding: 29px;
+            padding: 10px;
             text-align: center;
         }
 
 
         .container {
             margin-top: 30px;
+
         }
 
 
@@ -140,7 +141,7 @@ include 'connection.php';
 
         .table td {
             word-wrap: break-word;
-            max-width: 150px;
+            max-width: 70px;
             white-space: normal;
         }
 
@@ -202,6 +203,114 @@ include 'connection.php';
             margin-right: 10px;
             /* Space between icon and text */
         }
+
+        .table {
+            width: 100%;
+            /* Ensure the table takes the full width */
+            font-size: 14px;
+            /* Lower font size for the table */
+        }
+
+        .table th,
+        .table td {
+            padding: 8px;
+            /* Reduce padding for a more compact layout */
+        }
+
+        .table thead th {
+            font-size: 12px;
+            /* Lower font size for table headers */
+        }
+
+        .table tbody tr:hover {
+            background-color: #e9ecef;
+            /* Slightly darker hover color */
+        }
+
+        /* Adjust column widths to fit the page better */
+        .table th:nth-child(1),
+        .table td:nth-child(1) {
+            width: 15%;
+        }
+
+        /* Owner's Name */
+
+        .table th:nth-child(2),
+        .table td:nth-child(2) {
+            width: 15%;
+        }
+
+        /* Pet's Name */
+
+        .table th:nth-child(3),
+        .table td:nth-child(3) {
+            width: 20%;
+        }
+
+        /* Email */
+
+        .table th:nth-child(4),
+        .table td:nth-child(4) {
+            width: 15%;
+        }
+
+        /* Phone */
+
+        .table th:nth-child(5),
+        .table td:nth-child(5) {
+            width: 10%;
+        }
+
+        /* Species */
+
+        .table th:nth-child(6),
+        .table td:nth-child(6) {
+            width: 10%;
+        }
+
+        /* Breed */
+
+        .table th:nth-child(7),
+        .table td:nth-child(7) {
+            width: 10%;
+        }
+
+        /* Color */
+
+        .table th:nth-child(8),
+        .table td:nth-child(8) {
+            width: 15%;
+        }
+
+        /* Purpose */
+
+        .table th:nth-child(9),
+        .table td:nth-child(9) {
+            width: 15%;
+        }
+
+        /* Appointment Date */
+
+        .table th:nth-child(10),
+        .table td:nth-child(10) {
+            width: 15%;
+        }
+
+        /* Appointment Time */
+
+        .table th:nth-child(11),
+        .table td:nth-child(11) {
+            width: 10%;
+        }
+
+        /* Status */
+
+        .table th:nth-child(12),
+        .table td:nth-child(12) {
+            width: 20%;
+        }
+
+        /* Comments */
     </style>
 
     <!-- jQuery -->
@@ -232,11 +341,16 @@ include 'connection.php';
                     <thead>
                         <tr>
                             <th>Owner's Name</th>
-                            <th>Pet's Species</th>
+                            <th>Pet's Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Species</th>
+                            <th>Breed</th>
+                            <th>Color</th>
+                            <th>Purpose</th>
                             <th>Appointment Date</th>
                             <th>Appointment Time</th>
                             <th>Status</th>
-                            <th>Purpose</th>
                             <th>Comments</th>
                         </tr>
                     </thead>

@@ -17,7 +17,7 @@ require 'PHPMailer-master/src/SMTP.php';
 $search = isset($_GET['search']) ? $conn->real_escape_string($_GET['search']) : '';
 
 // Fetch appointments data with search functionality
-$sql = "SELECT a.id, o.fullname, o.email, p.species, a.appointment_date, a.appointment_time, a.status, a.appointment_for, a.comments 
+$sql = "SELECT a.id, o.fullname, o.email, o.phone, p.name AS pet_name, p.species, p.breed, p.color, a.appointment_date, a.appointment_time, a.status, a.appointment_for, a.comments 
         FROM appointments a
         JOIN owners o ON a.owner_id = o.id
         JOIN pets p ON a.pet_id = p.id
@@ -164,7 +164,19 @@ $dateFilter = isset($_GET['date']) ? $conn->real_escape_string($_GET['date']) : 
 $timeFilter = isset($_GET['time']) ? $conn->real_escape_string($_GET['time']) : '';
 
 // Base SQL query
-$sql = "SELECT a.id, o.fullname, o.email, p.species, a.appointment_date, a.appointment_time, a.status, a.appointment_for, a.comments 
+$sql = "SELECT a.id, 
+               o.fullname, 
+               o.email, 
+               o.phone, 
+               p.name AS pet_name, 
+               p.species, 
+               p.breed, 
+               p.color, 
+               a.appointment_date, 
+               a.appointment_time, 
+               a.status, 
+               a.appointment_for, 
+               a.comments 
         FROM appointments a
         JOIN owners o ON a.owner_id = o.id
         JOIN pets p ON a.pet_id = p.id
@@ -184,6 +196,7 @@ if ($dateFilter) {
     $sql .= " AND a.appointment_date = '$dateFilter'";
 }
 
+// Order by appointment date
 $sql .= " ORDER BY a.appointment_date DESC";
 
 // Execute the query
@@ -321,9 +334,11 @@ $result = $conn->query($sql);
         td {
             padding: 8px;
             /* Reduce padding */
-            font-size: 14px;
+            font-size: 11px;
             /* Smaller font size */
         }
+
+
 
         /* Set specific widths for columns if necessary */
         th:nth-child(1),
@@ -337,16 +352,16 @@ $result = $conn->query($sql);
             width: 15%;
         }
 
-        /* Email */
+        /* petname */
         th:nth-child(3),
         td:nth-child(3) {
             width: 10%;
         }
 
-        /* Pet's Species */
+        /* Email */
         th:nth-child(4),
         td:nth-child(4) {
-            width: 10%;
+            /* width: 10%; */
         }
 
         /* Breed */
@@ -388,7 +403,7 @@ $result = $conn->query($sql);
         /* Status */
         th:nth-child(11),
         td:nth-child(11) {
-            width: 15%;
+            width: 10%;
         }
 
         /* Comments */
@@ -732,8 +747,12 @@ $result = $conn->query($sql);
                     <thead>
                         <tr>
                             <th>Owner's Name</th>
+                            <th>Pet's Name</th> <!-- Added Pet's Name -->
                             <th>Email</th>
+                            <th>Phone</th> <!-- Added Phone Number -->
                             <th>Pet's Species</th>
+                            <th>Breed</th> <!-- Added Breed -->
+                            <th>Color</th> <!-- Added Color -->
                             <th>Date</th>
                             <th>Time</th>
                             <th>Purpose</th>
@@ -757,8 +776,12 @@ $result = $conn->query($sql);
                                     </div>
                                 </div>
                                 <td><?php echo $row['fullname']; ?></td>
+                                <td><?php echo $row['pet_name']; ?></td> <!-- Display Pet's Name -->
                                 <td><?php echo $row['email']; ?></td>
+                                <td><?php echo $row['phone']; ?></td> <!-- Display Phone Number -->
                                 <td><?php echo $row['species']; ?></td>
+                                <td><?php echo $row['breed']; ?></td> <!-- Display Breed -->
+                                <td><?php echo $row['color']; ?></td> <!-- Display Color -->
                                 <td><?php echo $row['appointment_date']; ?></td>
                                 <td><?php echo date('h:i A', strtotime($row['appointment_time'])); ?></td>
                                 <td><?php echo $row['appointment_for']; ?></td>
@@ -857,6 +880,7 @@ $result = $conn->query($sql);
             });
         });
     </script>
+
 </body>
 
 </html>
