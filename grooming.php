@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <!-- this is the icons  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <style>
         #wc {
             /* background-color: #c1cad3; */
@@ -215,7 +216,6 @@
                             <li class="hober"><a href="checkup.php">Checkups</a></li>
                             <li class="hober"><a href="vaccinations.php">Vaccinations</a></li>
                             <li class="hober"><a href="grooming.php">Grooming</a></li>
-                            <li class="hober"><a href="followup.php">Follow Up</a></li>
                         </ul>
                     </li>
                     <li><a href="appointment.php">BOOK NOW</a>

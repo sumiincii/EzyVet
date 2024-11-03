@@ -361,7 +361,7 @@ $result = $conn->query($sql);
         /* Email */
         th:nth-child(4),
         td:nth-child(4) {
-            /* width: 10%; */
+            width: 10%;
         }
 
         /* Breed */

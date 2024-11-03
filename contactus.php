@@ -50,8 +50,6 @@
 
         }
 
-
-
         .contact-card {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             /* Add shadow for depth */
@@ -65,17 +63,35 @@
             /* Space below each card */
         }
 
+        /* footer */
         .footer {
             background-color: #222;
             color: #ccc;
             padding: 3rem 0;
             font-family: Montserrat, sans-serif;
             text-align: center;
+            padding: 3rem 0;
+            padding: 3rem 0;
+            /* Adjust padding as necessary */
+            /* Adjust padding as necessary */
+        }
+
+        .footer-logo {
+            height: 100px;
+            /* Adjust this value based on your desired logo height */
+            display: flex;
+            /* Use flexbox to center the logo */
+            justify-content: center;
+            /* Center the logo horizontally */
+            align-items: center;
+            /* Center the logo vertically */
         }
 
         .footer-logo img {
-            max-width: 150px;
-            margin-bottom: 1.5rem;
+            max-width: 350px;
+            /* Adjust this value to make the logo bigger */
+            height: auto;
+            /* Maintain aspect ratio */
         }
 
         .footer-container {
@@ -222,6 +238,53 @@
             background-color: #5ce1e6;
             /* Teal background color on hover */
         }
+
+        .contact-card {
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-card h4 {
+            margin-top: 0;
+        }
+
+        .accordion .card {
+            margin-bottom: 10px;
+        }
+
+        .accordion .card-header {
+            /* background-color: #f7f7f7; */
+            background-color: #e7def2;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .accordion .card-header button {
+            width: 100%;
+            text-align: left;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: 550;
+            /* color: #337ab7; */
+            color: #212529;
+            border: none;
+            border-radius: 0;
+            background-color: transparent;
+        }
+
+        .accordion .card-header button:hover {
+            color: #23527c;
+        }
+
+        .accordion .card-body {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+        }
     </style>
 </head>
 
@@ -245,7 +308,6 @@
                             <li class="hober"><a href="checkup.php">Checkups</a></li>
                             <li class="hober"><a href="vaccinations.php">Vaccinations</a></li>
                             <li class="hober"><a href="grooming.php">Grooming</a></li>
-                            <li class="hober"><a href="followup.php">Follow Up</a></li>
                         </ul>
                     </li>
                     <li><a href="appointment.php">BOOK NOW</a>
@@ -355,48 +417,62 @@
     </div>
 
     <!-- this is faq  -->
-
-    <!-- Add this FAQ section below the existing content, before the footer -->
     <div class="container mt-5">
         <div class="row">
             <div class="col-12 text-center mb-4">
-                <h2>Frequently Asked Questions</h2>
+                <h2 class="display-4">Frequently Asked Questions</h2>
+                <p class="lead">Find answers to your common queries below.</p>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6 mb-4">
-                <div class="contact-card">
-                    <h4>What services do you offer?</h4>
+                <div class="contact-card shadow-sm p-4 rounded">
+                    <h4 class="text-primary">What services do you offer?</h4>
                     <p>We offer a variety of veterinary services including checkups, vaccinations, grooming, and follow-up care.</p>
                 </div>
             </div>
             <div class="col-md-6 mb-4">
-                <div class="contact-card">
-                    <h4>What are your clinic hours?</h4>
+                <div class="contact-card shadow-sm p-4 rounded">
+                    <h4 class="text-primary">What are your clinic hours?</h4>
                     <p>Our clinic is open Monday to Saturday from 8:00 am to 5:00 pm and closed on Sundays.</p>
                 </div>
             </div>
             <div class="col-md-6 mb-4">
-                <div class="contact-card">
-                    <h4>How can I book an appointment?</h4>
+                <div class="contact-card shadow-sm p-4 rounded">
+                    <h4 class="text-primary">How can I book an appointment?</h4>
                     <p>You can book an appointment by visiting our 'Book Now' page or by contacting us directly via phone or email.</p>
                 </div>
             </div>
             <div class="col-md-6 mb-4">
-                <div class="contact-card">
-                    <h4>What payment options do you accept?</h4>
+                <div class="contact-card shadow-sm p-4 rounded">
+                    <h4 class="text-primary">What payment options do you accept?</h4>
                     <p>We accept G-cash, all major credit cards, and cash payments.</p>
                 </div>
             </div>
+            <!-- Additional FAQs -->
+            <div class="col-md-6 mb-4">
+                <div class="contact-card shadow-sm p-4 rounded">
+                    <h4 class="text-primary">What vaccinations do you recommend for my pet?</h4>
+                    <p>We recommend core vaccinations such as rabies, distemper, parvovirus, and hepatitis. Additional vaccinations may be suggested based on your pet's lifestyle.</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="contact-card shadow-sm p-4 rounded">
+                    <h4 class="text-primary">How often should my pet have checkups?</h4>
+                    <p>We recommend annual checkups for healthy pets. Senior pets or those with health issues may require more frequent visits.</p>
+                </div>
+            </div>
+
+
         </div>
     </div>
-
 
     <!-- Add this Emergency FAQ section below the existing content, before the footer -->
     <div class="container mt-5">
         <div class="row">
             <div class="col-12 text-center mb-4">
-                <h2>Emergency Services FAQ</h2>
+                <h2 class="display-4">Emergency Services FAQ</h2>
+                <p class="lead">Be prepared for any pet emergencies with these guidelines.</p>
             </div>
         </div>
         <div class="accordion" id="emergencyFaqAccordion">
@@ -408,7 +484,7 @@
                         </button>
                     </h5>
                 </div>
-                <div id="emergencyCollapseOne" class="collapse show" aria-labelledby="emergencyFaqOne" data-parent="#emergencyFaqAccordion">
+                <div id="emergencyCollapseOne" class="collapse show" aria-labelledby="em ergancyFaqOne" data-parent="#emergencyFaqAccordion">
                     <div class="card-body">
                         If you encounter a pet emergency, please call us immediately or visit our clinic. Ensure your pet is calm and secure during transport.
                     </div>
@@ -438,27 +514,41 @@
                 </div>
                 <div id="emergencyCollapseThree" class="collapse" aria-labelledby="emergencyFaqThree" data-parent="#emergencyFaqAccordion">
                     <div class="card-body">
-                        Keep a pet first aid kit at home, know the location of the nearest emergency vet, and have our contact information readily available.
+                        Keep a pet emergency kit handy, including supplies like bandages, antiseptic wipes, and a muzzle. Also, ensure you have our clinic's contact information readily available.
                     </div>
                 </div>
             </div>
+            <!-- Additional Emergency FAQs -->
             <div class="card">
                 <div class="card-header" id="emergencyFaqFour">
                     <h5 class="mb-0">
                         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#emergencyCollapseFour" aria-expanded="false" aria-controls="emergencyCollapseFour">
-                            What are common signs of a pet emergency?
+                            What should I do if my pet is experiencing difficulty breathing?
                         </button>
                     </h5>
                 </div>
                 <div id="emergencyCollapseFour" class="collapse" aria-labelledby="emergencyFaqFour" data-parent="#emergencyFaqAccordion">
                     <div class="card-body">
-                        Common signs include difficulty breathing, excessive bleeding, seizures, or sudden changes in behavior. If you notice any of these, seek help immediately.
+                        If your pet is experiencing difficulty breathing, please contact us immediately or visit our clinic. Keep your pet calm and secure during transport.
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="emergencyFaqFive">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#emergencyCollapseFive" aria-expanded="false" aria-controls="emergencyCollapseFive">
+                            Can I give my pet medication without consulting a veterinarian?
+                        </button>
+                    </h5>
+                </div>
+                <div id="emergencyCollapseFive" class="collapse" aria-labelledby="emergencyFaqFive" data-parent="#emergencyFaqAccordion">
+                    <div class="card-body">
+                        No, never give your pet medication without consulting a veterinarian first. This can lead to serious health complications or even death.
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 
 
 
@@ -502,7 +592,8 @@
 
     <footer class="footer">
         <div class="footer-logo">
-            <img src="path/to/your-logo.png" alt="EcoPaws Logo">
+            <img src="images/taglogo.png" alt="EcoPaws Logo">
+
         </div>
         <div class="footer-container">
             <div class="footer-map">
