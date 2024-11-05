@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <input type="email" class="form-control" placeholder="E-mail" required name="email">
             <input type="password" class="form-control" placeholder="Password" required name="password">
             <button type="submit" class="btn btn-primary">Log In</button>
-            <a href="forgot-password.php" class="forgot-password">Forgot Password?</a>
+            <!-- <a href="forgot-password.php" class="forgot-password">Forgot Password?</a> -->
             <a href="landing.php" class="not-admin">Not an admin?</a>
             <?php if (isset($error)) { ?>
                 <div class="alert alert-danger"><?php echo $error; ?></div>

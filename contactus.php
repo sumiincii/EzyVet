@@ -113,7 +113,7 @@
     <div class="container-fluid text-center">
         <div class="dropdown">
             <nav>
-                <ul>
+                <ul style="z-index: 2000;">
                     <li><a href="#">ABOUT</a></li>
                     <li><a href="#">SERVICES</a>
                         <ul>
