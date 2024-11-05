@@ -200,6 +200,11 @@
                 margin: 1rem 0;
             }
         }
+
+        a img {
+            margin-top: -25px;
+            /* margin-left: -50px; */
+        }
     </style>
 </head>
 
@@ -245,9 +250,8 @@
     <br>
     <br>
     <br>
-    <br>
-    <br>
-    <br>
+
+
 
     <div class=" container1 container-fluid p-0" style="overflow:visible;">
         <div class="row g-0">

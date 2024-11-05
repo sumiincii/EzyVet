@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="contactus.css">
+    <link rel="stylesheet" href="css/contactus.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ezyvet</title>
@@ -22,199 +22,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
-        #wc {
-            /* background-color: #c1cad3; */
-            background-color: #8b61c2;
-            padding: 7px;
-            /* color: #3e444b; */
-            color: white;
-            margin-left: -2px;
-        }
-
-        nav a::before {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 0;
-            height: 2.5px;
-            /* background: #c1cad3; */
-            background: #8b61c2;
-            transition: 0.3s;
-        }
-
-        .hober a:hover {
-            /* background: rgb(150, 150, 150); */
-            background: #8b61c2;
-            color: white;
-
-        }
-
-        .contact-card {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            /* Add shadow for depth */
-            padding: 20px;
-            /* Padding inside the card */
-            border-radius: 10px;
-            /* Rounded corners for the card */
-            background-color: #f8f9fa;
-            /* Light background color */
-            margin-bottom: 20px;
-            /* Space below each card */
-        }
-
-        /* footer */
-        .footer {
-            background-color: #222;
-            color: #ccc;
-            padding: 3rem 0;
-            font-family: Montserrat, sans-serif;
-            text-align: center;
-            padding: 3rem 0;
-            padding: 3rem 0;
-            /* Adjust padding as necessary */
-            /* Adjust padding as necessary */
-        }
-
-        .footer-logo {
-            height: 100px;
-            /* Adjust this value based on your desired logo height */
-            display: flex;
-            /* Use flexbox to center the logo */
-            justify-content: center;
-            /* Center the logo horizontally */
-            align-items: center;
-            /* Center the logo vertically */
-        }
-
-        .footer-logo img {
-            max-width: 350px;
-            /* Adjust this value to make the logo bigger */
-            height: auto;
-            /* Maintain aspect ratio */
-        }
-
-        .footer-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            /* Adjusted for better spacing */
-            max-width: 1200px;
-            margin: auto;
-            padding: 0 1rem;
-        }
-
-        .footer-map {
-            flex: 2 2 200px;
-            margin: 1rem;
-            margin-bottom: 2rem;
-            /* Added bottom margin */
-            /* margin-left: 50px; */
-        }
-
-        .footer-map h4 {
-            color: #ffbf00;
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-map iframe {
-            margin-top: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 100%;
-        }
-
-        .footer-contact,
-        .footer-social {
-            flex: 1 1 200px;
-            margin: 1rem;
-            margin-bottom: 2rem;
-            /* Added bottom margin */
-        }
-
-        .footer h4 {
-            color: #5ce1e6;
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-contact p,
-        .footer-social a {
-            margin: 0.5rem 0;
-            color: #ccc;
-        }
-
-        .footer-contact i,
-        .footer-social i {
-            margin-right: 0.5rem;
-            color: white;
-            /* small */
-        }
-
-        .footer-contact {
-            flex: 1 1 200px;
-            margin: 1rem;
-            display: flex;
-            /* Enable flexbox */
-            flex-direction: column;
-            /* Stack items vertically */
-            align-items: flex-start;
-            /* Align items to the start */
-            margin-left: 100px;
-        }
-
-        .footer-contact p {
-            margin: 0.5rem 0;
-            color: #ccc;
-            display: flex;
-            /* Enable flexbox for individual items */
-            align-items: center;
-            /* Center items vertically */
-        }
-
-        .social-icon {
-            font-size: 1.5rem;
-            margin-right: 0.5rem;
-            text-decoration: none;
-            color: #ccc;
-            transition: color 0.3s;
-        }
-
-        .social-icon:hover {
-            color: #ffbf00;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            margin-top: 2rem;
-            border-top: 1px solid #444;
-            padding-top: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .footer-bottom a {
-            color: #ffbf00;
-            text-decoration: none;
-            /* margin: 0 0.5rem; */
-            transition: color 0.3s;
-        }
-
-        .footer-bottom a:hover {
-            color: #ccc;
-        }
-
-        @media (max-width: 768px) {
-            .footer-container {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .footer-map,
-            .footer-contact,
-            .footer-social {
-                margin: 1rem 0;
-            }
-        }
-
         .submit-btn {
             background-color: #8b61c2;
             /* Violet background color */
@@ -285,6 +92,11 @@
             border-top: none;
             border-radius: 0 0 10px 10px;
         }
+
+        a img {
+            margin-top: -25px;
+            /* margin-left: -50px; */
+        }
     </style>
 </head>
 
@@ -331,9 +143,7 @@
     <br>
     <br>
     <br>
-    <br>
-    <br>
-    <br>
+
 
     <div class=" container1 container-fluid p-0" style="overflow:visible;">
         <div class="row g-0">
@@ -397,19 +207,19 @@
             <div class="col-md-6">
                 <div class="contact-card">
                     <h4>DR. RON VETERINARY CLINIC</h4>
-                    <p>Mulawin St. Brgy.Bitas,<br>Cabanatuan City, Nueva Ecija</p>
-                    <p>Phone: (+63) 955-617-9958</p>
-                    <p>Email: Ezyvet.neust@gmail.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Mulawin St. Brgy.Bitas,<br>Cabanatuan City, Nueva Ecija</p>
+                    <p><i class="fas fa-phone"></i> Phone: (+63) 955-617-9958</p>
+                    <p><i class="fas fa-envelope"></i> Email: Ezyvet.neust@gmail.com</p>
                     <h5>Clinic Hours:</h5>
                     <p>
-                        Monday - Saturday: 8:00 am - 5:00 pm<br>
-                        Sunday: Closed
+                        <i class="fas fa-clock"></i> Monday - Saturday: 8:00 am - 5:00 pm<br>
+                        <i class="fas fa-clock"></i> Sunday: Closed
                     </p>
                     <h5>Payment Options:</h5>
                     <p>
-                        G-cash<br>
-                        All major credit cards<br>
-                        Cash
+                        <i class="fas fa-money-bill-wave"></i> G-cash<br>
+                        <i class="fas fa-credit-card"></i> All major credit cards<br>
+                        <i class="fas fa-cash-register"></i> Cash
                     </p>
                 </div>
             </div>
@@ -421,51 +231,50 @@
         <div class="row">
             <div class="col-12 text-center mb-4">
                 <h2 class="display-4">Frequently Asked Questions</h2>
-                <p class="lead">Find answers to your common queries below.</p>
+                <p class="lead">Get answers to common questions about our veterinary services.</p>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6 mb-4">
                 <div class="contact-card shadow-sm p-4 rounded">
-                    <h4 class="text-primary">What services do you offer?</h4>
+                    <h4>What services do you offer?</h4>
                     <p>We offer a variety of veterinary services including checkups, vaccinations, grooming, and follow-up care.</p>
                 </div>
             </div>
             <div class="col-md-6 mb-4">
                 <div class="contact-card shadow-sm p-4 rounded">
-                    <h4 class="text-primary">What are your clinic hours?</h4>
+                    <h4>What are your clinic hours?</h4>
                     <p>Our clinic is open Monday to Saturday from 8:00 am to 5:00 pm and closed on Sundays.</p>
                 </div>
             </div>
             <div class="col-md-6 mb-4">
                 <div class="contact-card shadow-sm p-4 rounded">
-                    <h4 class="text-primary">How can I book an appointment?</h4>
+                    <h4>How can I book an appointment?</h4>
                     <p>You can book an appointment by visiting our 'Book Now' page or by contacting us directly via phone or email.</p>
                 </div>
             </div>
             <div class="col-md-6 mb-4">
                 <div class="contact-card shadow-sm p-4 rounded">
-                    <h4 class="text-primary">What payment options do you accept?</h4>
+                    <h4>What payment options do you accept?</h4>
                     <p>We accept G-cash, all major credit cards, and cash payments.</p>
                 </div>
             </div>
-            <!-- Additional FAQs -->
             <div class="col-md-6 mb-4">
                 <div class="contact-card shadow-sm p-4 rounded">
-                    <h4 class="text-primary">What vaccinations do you recommend for my pet?</h4>
+                    <h4>What vaccinations do you recommend for my pet?</h4>
                     <p>We recommend core vaccinations such as rabies, distemper, parvovirus, and hepatitis. Additional vaccinations may be suggested based on your pet's lifestyle.</p>
                 </div>
             </div>
             <div class="col-md-6 mb-4">
                 <div class="contact-card shadow-sm p-4 rounded">
-                    <h4 class="text-primary">How often should my pet have checkups?</h4>
+                    <h4>How often should my pet have checkups?</h4>
                     <p>We recommend annual checkups for healthy pets. Senior pets or those with health issues may require more frequent visits.</p>
                 </div>
             </div>
-
-
         </div>
     </div>
+
+
 
     <!-- Add this Emergency FAQ section below the existing content, before the footer -->
     <div class="container mt-5">
@@ -484,7 +293,7 @@
                         </button>
                     </h5>
                 </div>
-                <div id="emergencyCollapseOne" class="collapse show" aria-labelledby="em ergancyFaqOne" data-parent="#emergencyFaqAccordion">
+                <div id="emergencyCollapseOne" class="collapse show" aria-labelledby="emergencyFaqOne" data-parent="#emergencyFaqAccordion">
                     <div class="card-body">
                         If you encounter a pet emergency, please call us immediately or visit our clinic. Ensure your pet is calm and secure during transport.
                     </div>
@@ -518,7 +327,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Additional Emergency FAQs -->
             <div class="card">
                 <div class="card-header" id="emergencyFaqFour">
                     <h5 class="mb-0">
@@ -547,11 +355,36 @@
                     </div>
                 </div>
             </div>
+            <div class="card">
+                <div class=" card-header" id="emergencyFaqSix">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#emergencyCollapseSix" aria-expanded="false" aria-controls="emergencyCollapseSix">
+                            What should I do if my pet is vomiting?
+                        </button>
+                    </h5>
+                </div>
+                <div id="emergencyCollapseSix" class="collapse" aria-labelledby="emergencyFaqSix" data-parent="#emergencyFaqAccordion">
+                    <div class="card-body">
+                        If your pet is vomiting, monitor them closely. Withhold food for 12 hours and provide fresh water. If vomiting persists or is accompanied by other symptoms like lethargy or diarrhea, contact us immediately.
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="emergencyFaqSeven">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#emergencyCollapseSeven" aria-expanded="false" aria-controls="emergencyCollapseSeven">
+                            What should I do if my pet cannot urinate or defecate?
+                        </button>
+                    </h5>
+                </div>
+                <div id="emergencyCollapseSeven" class="collapse" aria-labelledby="emergencyFaqSeven" data-parent="#emergencyFaqAccordion">
+                    <div class="card-body">
+                        If your pet is unable to urinate or defecate, this is a medical emergency. Please bring your pet to our clinic immediately, as this can lead to serious health issues.
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-
-
 
     <!-- this is the divider -->
     <div class="container text-center">
