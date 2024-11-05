@@ -23,8 +23,6 @@
       margin: 0 -3px;
     }
 
-
-
     .hober a:hover {
       /* background: rgb(150, 150, 150); */
       background: #8b61c2;

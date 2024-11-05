@@ -9,21 +9,6 @@ body {
 
 }
 
-[class*="col"] {
-  padding: 0;
-  background-color: #ffffff;
-  border: 2px solid #fff;
-}
-
-[class*="container1"] {
-  margin-top: -2px;
-
-}
-
-[class*="container2"] {
-  /* border: 2px solid red; */
-  overflow: hidden;
-}
 
 nav a:hover::before {
   width: 100%;
@@ -94,7 +79,7 @@ nav ul ul li {
   width: 13%;
   height: auto;
   margin-bottom: -5px;
-  /* border: 3px solid red; */
+
 }
 
 .container4 img {
@@ -108,7 +93,7 @@ nav ul ul li {
 }
 
 .gitna #p1 {
-  /* border: 3px solid red; */
+
   font-family: "Montserrat", sans-serif !important;
   font-size: 20px;
   line-height: 30px;
@@ -118,14 +103,14 @@ nav ul ul li {
 }
 
 .gitna #p2 {
-  /* border: 3px solid red; */
+
   font-family: "Playfair Display" !important;
   font-size: 36px;
   line-height: 40px;
 }
 
 .gitna #p3 {
-  /* border: 2px solid green; */
+
   font-family: "Montserrat" !important;
   letter-spacing: normal;
   font-size: 15px;
@@ -138,7 +123,6 @@ nav ul ul li {
 .asologo {
   width: 80%;
   height: auto;
-  /* border: 3px solid black; */
   position: relative;
 }
 
@@ -152,7 +136,7 @@ nav ul ul li {
   font-size: 24px;
   text-align: left;
   letter-spacing: 5px;
-  /* line-height: 26px; */
+
 }
 
 .containeruna button {
@@ -169,9 +153,8 @@ nav ul ul li {
 
 button:hover {
   background-color: #5ce1e6;
-  /* Set the hover color to #5ce1e6 */
   color: #fff;
-  /* Keep the text color white on hover */
+
 }
 
 
@@ -207,59 +190,4 @@ button:hover {
   font-family: "Allura" !important;
   font-size: 81px;
   letter-spacing: 5px;
-}
-
-
-
-/* FOOTER TO  */
-
-footer {
-  border: 2px red solid;
-  height: 400px;
-  padding: 0;
-
-}
-
-
-footer iframe {
-  margin-left: -15px;
-}
-
-.footerright .row {
-  background-color: #c1cad3;
-  color: #3e444b;
-  align-content: center;
-
-  /* border: 3px red solid; */
-}
-
-.footerright {
-  align-content: center;
-}
-
-.footerright {
-  background-color: #c1cad3;
-}
-
-.footerright,
-p,
-h1 {
-  font-family: "Montserrat" !important;
-  font-weight: 500;
-  letter-spacing: normal;
-  line-height: 20px;
-}
-
-.iconsto img {
-  width: 10%;
-  height: auto;
-}
-
-.iconsto {
-  align-content: center;
-  font-family: "Montserrat" !important;
-}
-
-footer h1 {
-  letter-spacing: 2px;
 }

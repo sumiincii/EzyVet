@@ -1,0 +1,265 @@
+@import url("https://fonts.googleapis.com/css2?family=Allura&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rancho&family=Rock+Salt&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+
+body {
+    background-color: #ffffff;
+    font-family: "Montserrat", sans-serif, "Allura", "Playfair Display" !important;
+    /* background-image: url(images/bgbgbg.png); */
+
+}
+
+[class*="col"] {
+    padding: 0;
+    background-color: #ffffff;
+    border: 2px solid #fff;
+}
+
+[class*="container1"] {
+    margin-top: -2px;
+
+}
+
+[class*="container2"] {
+    /* border: 2px solid red; */
+    overflow: hidden;
+}
+
+nav a:hover::before {
+    width: 100%;
+}
+
+nav {
+    margin-top: 10px;
+    background: #fff;
+}
+
+.logo {
+    margin-left: 125px;
+    width: 200px;
+    height: auto;
+}
+
+nav ul {
+    padding: 0;
+    margin: 0;
+    float: right;
+    margin-right: 102px;
+}
+
+nav ul li {
+    background: #fff;
+    position: relative;
+    list-style: none;
+    display: inline-block;
+}
+
+nav ul li a {
+    display: block;
+    padding: 0 25px;
+    color: #3e444b;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 60px;
+    letter-spacing: 2px;
+}
+
+
+
+nav ul ul {
+    position: absolute;
+    top: 65px;
+    display: none;
+}
+
+nav ul li:hover>ul {
+    display: block;
+    box-shadow: 0 7px 14px rgba(0, 0, 0, 1);
+    border: 1px solid #3e444b;
+}
+
+nav ul ul li {
+    width: 159px;
+    float: none;
+    display: list-item;
+    position: relative;
+}
+
+/* nav ul ul ul li {
+  position: relative;
+} */
+
+.paws-logo {
+    width: 13%;
+    height: auto;
+    margin-bottom: -5px;
+    /* border: 3px solid red; */
+}
+
+.container4 img {
+    width: 18%;
+}
+
+.gitna {
+    border: 3px solid #ebebeb;
+    background-color: #ebebeb;
+    padding: 20px;
+}
+
+.gitna #p1 {
+    /* border: 3px solid red; */
+    font-family: "Montserrat", sans-serif !important;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: 5px;
+    font-weight: 650;
+    margin-bottom: -7px;
+}
+
+.gitna #p2 {
+    /* border: 3px solid red; */
+    font-family: "Playfair Display" !important;
+    font-size: 36px;
+    line-height: 40px;
+}
+
+.gitna #p3 {
+    /* border: 2px solid green; */
+    font-family: "Montserrat" !important;
+    letter-spacing: normal;
+    font-size: 15px;
+    text-align: center;
+    line-height: 22px;
+    color: #3e444b;
+    font-weight: 300;
+}
+
+.asologo {
+    width: 80%;
+    height: auto;
+    /* border: 3px solid black; */
+    position: relative;
+}
+
+#vetcare {
+    margin-top: 145px;
+    font-weight: 500;
+}
+
+.sentence p {
+    margin-left: 85px;
+    font-size: 24px;
+    text-align: left;
+    letter-spacing: 5px;
+    /* line-height: 26px; */
+}
+
+.containeruna button {
+    font-family: "Montserrat" !important;
+    text-align: center;
+    font-size: 15px;
+    letter-spacing: 3px;
+    margin-left: 85px;
+    margin-top: 50px;
+    border-radius: 20px;
+    background-color: #8b61c2;
+    color: #fff;
+}
+
+button:hover {
+    background-color: #5ce1e6;
+    /* Set the hover color to #5ce1e6 */
+    color: #fff;
+    /* Keep the text color white on hover */
+}
+
+
+.pangalawa,
+.p1,
+.p2,
+.p3,
+.row,
+.col {
+    background-color: #ebebeb;
+}
+
+.row-number2 {
+    margin: 90px;
+    background-color: #ebebeb;
+}
+
+.wala {
+    margin: 30px;
+    border: 3px solid #ebebeb;
+}
+
+.container4 {
+    /* display: block; */
+    background-color: #ebebeb;
+    height: 40rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container4 p {
+    font-family: "Allura" !important;
+    font-size: 81px;
+    letter-spacing: 5px;
+}
+
+
+
+/* FOOTER TO  */
+
+footer {
+    border: 2px red solid;
+    height: 400px;
+    padding: 0;
+
+}
+
+
+footer iframe {
+    margin-left: -15px;
+}
+
+.footerright .row {
+    background-color: #c1cad3;
+    color: #3e444b;
+    align-content: center;
+
+    /* border: 3px red solid; */
+}
+
+.footerright {
+    align-content: center;
+}
+
+.footerright {
+    background-color: #c1cad3;
+}
+
+.footerright,
+p,
+h1 {
+    font-family: "Montserrat" !important;
+    font-weight: 500;
+    letter-spacing: normal;
+    line-height: 20px;
+}
+
+.iconsto img {
+    width: 10%;
+    height: auto;
+}
+
+.iconsto {
+    align-content: center;
+    font-family: "Montserrat" !important;
+}
+
+footer h1 {
+    letter-spacing: 2px;
+}

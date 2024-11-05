@@ -93,13 +93,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 if ($action == 'accept') {
                     $mail->Subject = 'Appointment Accepted';
-                    $mail->Body = 'Dear ' . $owner['fullname'] . ',<br>Your appointment on ' . $owner['appointment_date'] . ' at ' . $owner['appointment_time'] . ' for ' . $owner['appointment_for'] . ' has been accepted.<br>Thank you!';
+                    $mail->Body = 'Dear ' . $owner['fullname'] . ',<br>Your appointment on ' . $owner['appointment_date'] . ' at ' . date('h:i A', strtotime($owner['appointment_time'])) . ' for ' . $owner['appointment_for'] . ' has been accepted.<br>Thank you!';
                 } elseif ($action == 'decline') {
                     // Get the decline reason from the POST request
                     // Get the decline reason from the POST request 
                     $decline_reason = isset($_POST['decline_reason']) ? $conn->real_escape_string($_POST['decline_reason']) : 'No reason provided.';
                     $mail->Subject = 'Appointment Declined';
-                    $mail->Body = 'Dear ' . $owner['fullname'] . ',<br>Thank you for reaching out to us regarding your appointment request for ' . $owner['appointment_for'] . ' on ' . $owner['appointment_date'] . ' at ' . $owner['appointment_time'] . '. After careful consideration, we regret to inform you that we are unable to accommodate your appointment at this time.<br>The reason for this decision is as follows: ' . $decline_reason . '.<br>We appreciate your understanding and encourage you to reach out for any future needs or to discuss alternative arrangements.<br><br>Best regards,<br>Dr. Ron veterinary clinic.';
+                    $mail->Body = 'Dear ' . $owner['fullname'] . ',<br>Thank you for reaching out to us regarding your appointment request for ' . $owner['appointment_for'] . ' on ' . $owner['appointment_date'] . ' at ' . date('h:i A', strtotime($owner['appointment_time'])) . '. After careful consideration, we regret to inform you that we are unable to accommodate your appointment at this time.<br>The reason for this decision is as follows: ' . $decline_reason . '.<br>We appreciate your understanding and encourage you to reach out for any future needs or to discuss alternative arrangements.<br><br>Best regards,<br>Dr. Ron veterinary clinic.';
                 }
 
                 $mail->SMTPOptions = array(
