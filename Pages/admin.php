@@ -104,7 +104,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $mail->Body = 'Dear ' . $owner['fullname'] . ',<br>Your appointment on ' . $owner['appointment_date'] . ' at ' . date('h:i A', strtotime($owner['appointment_time'])) . ' for ' . $owner['appointment_for'] . ' has been accepted.<br>Thank you!';
                 } elseif ($action == 'decline') {
                     // Get the decline reason from the POST request
-                    // Get the decline reason from the POST request 
                     $decline_reason = isset($_POST['decline_reason']) ? $conn->real_escape_string($_POST['decline_reason']) : 'No reason provided.';
                     $mail->Subject = 'Appointment Declined';
                     $mail->Body = 'Dear ' . $owner['fullname'] . ',<br>Thank you for reaching out to us regarding your appointment request for ' . $owner['appointment_for'] . ' on ' . $owner['appointment_date'] . ' at ' . date('h:i A', strtotime($owner['appointment_time'])) . '. After careful consideration, we regret to inform you that we are unable to accommodate your appointment at this time.<br>The reason for this decision is as follows: ' . $decline_reason . '.<br>We appreciate your understanding and encourage you to reach out for any future needs or to discuss alternative arrangements.<br><br>Best regards,<br>Dr. Ron veterinary clinic.';
@@ -167,36 +166,40 @@ include 'connection.php';
 
 // Initialize search query and filter variables
 $search = isset($_GET['search']) ? $conn->real_escape_string($_GET['search']) : '';
-$statusFilter = isset($_GET['status']) ? $conn->real_escape_string($_GET['status']) : '';
+$speciesFilter = isset($_GET['species']) ? $conn->real_escape_string($_GET['species']) : '';
 $dateFilter = isset($_GET['date']) ? $conn->real_escape_string($_GET['date']) : '';
-$timeFilter = isset($_GET['time']) ? $conn->real_escape_string($_GET['time']) : '';
-
-// Base SQL query
+//base sql query
 $sql = "SELECT a.id, 
-               o.fullname, 
-               o.email, 
-               o.phone, 
-               p.name AS pet_name, 
-               p.species, 
-               p.breed, 
-               p.color, 
-               a.appointment_date, 
-               a.appointment_time, 
-               a.status, 
-               a.appointment_for, 
-               a.comments 
+           o.fullname, 
+           o.email, 
+           o.phone, 
+           p.name AS pet_name, 
+           p.species, 
+           p.breed, 
+           p.color, 
+           a.appointment_date, 
+           a.appointment_time, 
+           a.status, 
+           a.appointment_for, 
+           a.comments 
         FROM appointments a
         JOIN owners o ON a.owner_id = o.id
         JOIN pets p ON a.pet_id = p.id
         WHERE (o.fullname LIKE '%$search%' 
+           OR p.name LIKE '%$search%' 
            OR o.email LIKE '%$search%' 
+           OR o.phone LIKE '%$search%' 
            OR p.species LIKE '%$search%' 
+           OR p.breed LIKE '%$search%' 
+           OR p.color LIKE '%$search%' 
+           OR a.appointment_date LIKE '%$search%' 
+           OR a.appointment_time LIKE '%$search%' 
            OR a.appointment_for LIKE '%$search%' 
-           OR a.status LIKE '%$search%')";
-
-// Add status filter if selected
-if ($statusFilter) {
-    $sql .= " AND a.status = '$statusFilter'";
+           OR a.status LIKE '%$search%' 
+           OR a.comments LIKE '%$search%')";
+// Add species filter if selected
+if ($speciesFilter) {
+    $sql .= " AND p.species = '$speciesFilter'";
 }
 
 // Add date filter if provided
@@ -217,7 +220,7 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ezyvet Admin</title>
-
+    <link rel="stylesheet" href="css/admin.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -230,17 +233,7 @@ $result = $conn->query($sql);
     <!-- fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
-    <!-- Custom Styles -->
     <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 300;
-            /* Add this line for light font */
-            background-color: #f7f9fc;
-            color: #333;
-            display: flex;
-        }
-
         .sidebar {
             width: 250px;
             /* background-color: #5ce1e6; */
@@ -277,226 +270,6 @@ $result = $conn->query($sql);
             /* Slight padding change on hover */
         }
 
-        .main-content {
-            flex-grow: 1;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .stats-card {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 20px;
-            background-color: #ffffff;
-            /* White background */
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            /* Added shadow */
-        }
-
-        .stats-card div {
-            text-align: center;
-        }
-
-        .stats-card h5 {
-            font-size: 16px;
-            /* Adjusted font size */
-            color: #555;
-            /* Darker text for better contrast */
-            /* font-weight: bold; */
-            /* Make the text bold */
-        }
-
-        .stats-card h3 {
-            font-size: 36px;
-            /* Increased font size for numbers */
-            color: #8b61c2;
-            /* Color for numbers */
-            margin: 0;
-            /* Remove default margin */
-        }
-
-        .table-wrapper {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            /* Hide overflow */
-            max-width: 100%;
-            /* Ensure it does not exceed the viewport */
-        }
-
-        table {
-            width: 100%;
-            /* Table takes full width of the wrapper */
-            table-layout: auto;
-            /* Fixed layout for better control */
-        }
-
-        /* Adjust column widths */
-        th,
-        td {
-            padding: 8px;
-            /* Reduce padding */
-            font-size: 11px;
-            /* Smaller font size */
-        }
-
-
-
-        /* Set specific widths for columns if necessary */
-        th:nth-child(1),
-        td:nth-child(1) {
-            width: 15%;
-        }
-
-        /* Owner's Name */
-        th:nth-child(2),
-        td:nth-child(2) {
-            width: 15%;
-        }
-
-        /* petname */
-        th:nth-child(3),
-        td:nth-child(3) {
-            width: 10%;
-        }
-
-        /* Email */
-        th:nth-child(4),
-        td:nth-child(4) {
-            width: 10%;
-        }
-
-        /* Breed */
-        th:nth-child(5),
-        td:nth-child(5) {
-            width: 10%;
-        }
-
-        /* Color */
-        th:nth-child(6),
-        td:nth-child(6) {
-            width: 5%;
-        }
-
-        /* Age */
-        th:nth-child(7),
-        td:nth-child(7) {
-            width: 10%;
-        }
-
-        /* Date */
-        th:nth-child(8),
-        td:nth-child(8) {
-            width: 10%;
-        }
-
-        /* Time */
-        th:nth-child(9),
-        td:nth-child(9) {
-            width: 10%;
-        }
-
-        /* Purpose */
-        th:nth-child(10),
-        td:nth-child(10) {
-            width: 10%;
-        }
-
-        /* Status */
-        th:nth-child(11),
-        td:nth-child(11) {
-            width: 10%;
-        }
-
-        /* Comments */
-        th:nth-child(12),
-        td:nth-child(12) {
-            width: 15%;
-        }
-
-        /* Actions */
-
-        .sidebar .logo {
-            display: block;
-            margin: 0 auto 20px;
-            /* Center the logo and add margin below */
-            width: 45%;
-            /* Adjust width as needed */
-            height: auto;
-            /* Maintain aspect ratio */
-            border-radius: 100px;
-        }
-
-        .input-group {
-            max-width: 400px;
-            /* Limit the width of the search bar */
-            margin: 0 0 0 0;
-            /* Center the search bar */
-        }
-
-        .welcome-section {
-            text-align: center;
-            /* Center the text */
-            background-color: #e9ecef;
-            /* Light background color */
-            padding: 20px;
-            /* Padding around the content */
-            border-radius: 8px;
-            /* Rounded corners */
-        }
-
-        .welcome-logo {
-            margin: -65px 15px;
-            /* Adjust margin as needed */
-            width: 600px;
-            /* Adjust width as needed */
-            height: auto;
-            /* Maintain aspect ratio */
-            /* margin-right: 15px; */
-            /* Space between logo and text */
-            vertical-align: middle;
-            /* Aligns the logo with text */
-        }
-
-        .filter-button {
-            background-color: #8b61c2;
-            /* Main color */
-            color: white;
-            /* Text color */
-            border: none;
-            /* No border */
-            border-radius: 5px;
-            /* Rounded corners */
-            padding: 10px 20px;
-            /* Padding for size */
-            font-size: 16px;
-            /* Font size */
-            cursor: pointer;
-            /* Pointer cursor on hover */
-            transition: background-color 0.3s, transform 0.3s;
-            /* Smooth transition */
-        }
-
-        .filter-button:hover {
-            background-color: #5ce1e6;
-            /* Lighter color on hover */
-            transform: scale(1.05);
-            /* Slightly enlarge on hover */
-        }
-
-        .filter-button:focus {
-            outline: none;
-            /* Remove default outline */
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-            /* Add shadow on focus */
-        }
-
         .sidebar a {
             display: flex;
             /* Use flexbox for alignment */
@@ -517,174 +290,18 @@ $result = $conn->query($sql);
             /* Space between icon and text */
         }
 
-        /* Style for the search input field */
-        .input-group input[type="text"] {
-            padding: 10px;
-            /* Add padding */
-            border: 1px solid #ccc;
-            /* Light border */
-            border-radius: 5px;
-            /* Rounded corners */
-            transition: border-color 0.3s;
-            /* Smooth transition for border color */
-        }
-
-        /* Change border color on focus */
-        .input-group input[type="text"]:focus {
-            border-color: #8b61c2;
-            /* Change border color to match theme */
-            outline: none;
-            /* Remove default outline */
-        }
-
-        /* Style for the search button */
-        .input-group button {
-            background-color: #8b61c2;
-            /* Main color */
-            color: white;
-            /* Text color */
-            border: none;
-            /* No border */
-            border-radius: 5px;
-            /* Rounded corners */
-            padding: 10px 20px;
-            /* Padding for size */
-            cursor: pointer;
-            /* Pointer cursor on hover */
-            transition: background-color 0.3s, transform 0.3s;
-            /* Smooth transition */
-        }
-
-        /* Change background color on hover */
-        .input-group button:hover {
-            background-color: #5ce1e6;
-            /* Lighter color on hover */
-        }
-
-        /* Change background color on focus */
-        .input-group button:focus {
-            outline: none;
-            /* Remove default outline */
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-            /* Add shadow on focus */
-        }
-
-        /* Overlay styling */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            /* Semi-transparent background */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            /* Ensures the overlay appears above other content */
-        }
-
-        /* Popup styling */
-        .popup {
-            background-color: #fff;
-            /* White background for the popup */
-            border-radius: 8px;
-            /* Rounded corners */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            /* Subtle shadow */
-            padding: 20px;
-            /* Inner padding */
-            width: 300px;
-            /* Fixed width */
-            text-align: center;
-            /* Center text */
-        }
-
-        /* Heading styling */
-        .popup h2 {
-            margin-bottom: 15px;
-            /* Space below the heading */
-            font-family: 'Montserrat', sans-serif;
-            /* Custom font */
-            color: #333;
-            /* Dark text color */
-        }
-
-        /* Textarea styling */
-        .decline-textarea {
-            width: 100%;
-            /* Full width */
-            height: 80px;
-            /* Fixed height */
-            padding: 10px;
-            /* Inner padding */
-            border-radius: 5px;
-            /* Rounded corners */
-            border: 1px solid #ccc;
-            /* Light border */
-            resize: none;
-            /* Disable resizing */
-            font-family: 'Montserrat', sans-serif;
-            /* Custom font */
-        }
-
-        /* Popup buttons container */
-        .popup-buttons {
-            display: flex;
-            /* Flexbox for horizontal layout */
-            justify-content: space-between;
-            /* Space between buttons */
-            margin-top: 20px;
-            /* Space above buttons */
-        }
-
-        /* Button styling */
-        .btn {
-            padding: 10px 15px;
-            /* Padding for buttons */
-            border: none;
-            /* No border */
-            border-radius: 5px;
-            /* Rounded corners */
-            cursor: pointer;
-            /* Pointer on hover */
-            font-family: 'Montserrat', sans-serif;
-            /* Custom font */
-        }
-
-        /* Primary button (Send) */
-        .btn-primary {
-            background-color: #8b61c2;
-            /* Violet background */
-            color: #fff;
-            /* White text */
-            transition: background-color 0.3s;
-            /* Smooth transition */
-        }
-
-        /* Primary button hover effect */
-        .btn-primary:hover {
-            background-color: #5ce1e6;
-            /* Teal background on hover */
-        }
-
-        /* Secondary button (Close) */
-        .btn-secondary {
-            background-color: #e0e0e0;
-            /* Light grey background */
-            color: #333;
-            /* Dark text */
-            transition: background-color 0.3s;
-            /* Smooth transition */
-        }
-
-        /* Secondary button hover effect */
-        .btn-secondary:hover {
-            background-color: #d5d5d5;
-            /* Slightly darker grey on hover */
+        .sidebar .logo {
+            display: block;
+            margin: 0 auto 20px;
+            /* Center the logo and add margin below */
+            width: 45%;
+            /* Adjust width as needed */
+            height: auto;
+            /* Maintain aspect ratio */
+            border-radius: 100px;
         }
     </style>
+
 </head>
 
 <body>
@@ -731,13 +348,12 @@ $result = $conn->query($sql);
                         <button class="btn btn-outline-secondary" type="submit">Search</button>
                     </div>
 
-                    <label for="statusFilter" class="me-2">Filter by Status:</label>
-                    <select id="statusFilter" name="status" class="form-control me-2" style="width: auto;">
+                    <label for="speciesFilter" class="me-2"> Filter by Species:</label>
+                    <select id="speciesFilter" name="species" class="form-control me-2" style="width: auto;">
                         <option value="">All</option>
-                        <option value="Pending" <?php echo (isset($_GET['status']) && $_GET['status'] == 'Pending') ? 'selected' : ''; ?>>Pending</option>
-                        <option value="Accepted" <?php echo (isset($_GET['status']) && $_GET['status'] == 'Accepted') ? 'selected' : ''; ?>>Accepted</option>
-                        <option value="Declined" <?php echo (isset($_GET['status']) && $_GET['status'] == 'Declined') ? 'selected' : ''; ?>>Declined</option>
-                        <!-- Removed Archived option -->
+                        <option value="Dog" <?php echo (isset($_GET['species']) && $_GET['species'] == 'Dog') ? 'selected' : ''; ?>>Dog</option>
+                        <option value="Cat" <?php echo (isset($_GET['species']) && $_GET['species'] == 'Cat') ? 'selected' : ''; ?>>Cat</option>
+                        <option value="Others" <?php echo (isset($_GET['species']) && $_GET['species'] == 'Others') ? 'selected' : ''; ?>>Others</option>
                     </select>
 
                     <label for="dateFilter" class="me-2">Filter by Date:</label>
@@ -819,6 +435,10 @@ $result = $conn->query($sql);
         </div>
 
     </div>
+
+
+    <!-- Bootstrap JS -->
+    <script src="_assets/bootstrap.bundle.min.js"></script>
     <script>
         let currentAppointmentId;
 
@@ -865,22 +485,29 @@ $result = $conn->query($sql);
         });
     </script>
 
-    <!-- Bootstrap JS -->
-    <script src="_assets/bootstrap.bundle.min.js"></script>
+
 
     <!-- Search Filter Script -->
     <script>
+        // Search Filter Script
         document.getElementById('search').addEventListener('input', function() {
             var search = this.value.toLowerCase();
             var rows = document.querySelectorAll('#appointments-table tbody tr');
             rows.forEach(function(row) {
                 var fullname = row.cells[0].textContent.toLowerCase();
-                var email = row.cells[1].textContent.toLowerCase();
-                var species = row.cells[2].textContent.toLowerCase();
-                var purpose = row.cells[5].textContent.toLowerCase();
-                var status = row.cells[6].textContent.toLowerCase();
+                var petName = row.cells[1].textContent.toLowerCase();
+                var email = row.cells[2].textContent.toLowerCase();
+                var phone = row.cells[3].textContent.toLowerCase();
+                var species = row.cells[4].textContent.toLowerCase();
+                var breed = row.cells[5].textContent.toLowerCase();
+                var color = row.cells[6].textContent.toLowerCase();
+                var date = row.cells[7].textContent.toLowerCase();
+                var time = row.cells[8].textContent.toLowerCase();
+                var purpose = row.cells[9].textContent.toLowerCase();
+                var status = row.cells[10].textContent.toLowerCase();
+                var comments = row.cells[11].textContent.toLowerCase();
 
-                if (fullname.includes(search) || email.includes(search) || species.includes(search) || purpose.includes(search) || status.includes(search)) {
+                if (fullname.includes(search) || petName.includes(search) || email.includes(search) || phone.includes(search) || species.includes(search) || breed.includes(search) || color.includes(search) || date.includes(search) || time.includes(search) || purpose.includes(search) || status.includes(search) || comments.includes(search)) {
                     row.style.display = '';
                 } else {
                     row.style.display = 'none';
@@ -888,7 +515,6 @@ $result = $conn->query($sql);
             });
         });
     </script>
-
 </body>
 
 </html>

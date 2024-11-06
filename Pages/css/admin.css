@@ -1,0 +1,395 @@
+ @import url("https://fonts.googleapis.com/css2?family=Allura&display=swap");
+ @import url("https://fonts.googleapis.com/css2?family=Rancho&family=Rock+Salt&display=swap");
+ @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+
+
+ body {
+     font-family: 'Montserrat', sans-serif !important;
+     font-weight: 300;
+     /* Add this line for light font */
+     background-color: #f7f9fc;
+     color: #333;
+     display: flex;
+ }
+
+
+ .main-content {
+     flex-grow: 1;
+     padding: 10px;
+     text-align: center;
+ }
+
+ .stats-card {
+     display: flex;
+     justify-content: space-around;
+     align-items: center;
+     padding: 20px;
+     background-color: #ffffff;
+     /* White background */
+     border-radius: 10px;
+     margin-bottom: 20px;
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+     /* Added shadow */
+ }
+
+ .stats-card div {
+     text-align: center;
+ }
+
+ .stats-card h5 {
+     font-size: 16px;
+     /* Adjusted font size */
+     color: #555;
+     /* Darker text for better contrast */
+     /* font-weight: bold; */
+     /* Make the text bold */
+ }
+
+ .stats-card h3 {
+     font-size: 36px;
+     /* Increased font size for numbers */
+     color: #8b61c2;
+     /* Color for numbers */
+     margin: 0;
+     /* Remove default margin */
+ }
+
+ .table-wrapper {
+     background-color: #fff;
+     padding: 20px;
+     border-radius: 10px;
+     border: 1px solid #ddd;
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+     overflow: hidden;
+     /* Hide overflow */
+     max-width: 100%;
+     /* Ensure it does not exceed the viewport */
+ }
+
+ table {
+     width: 100%;
+     /* Table takes full width of the wrapper */
+     table-layout: auto;
+     /* Fixed layout for better control */
+ }
+
+ /* Adjust column widths */
+ th,
+ td {
+     padding: 8px;
+     /* Reduce padding */
+     font-size: 11px;
+     /* Smaller font size */
+ }
+
+
+
+ /* Set specific widths for columns if necessary */
+ th:nth-child(1),
+ td:nth-child(1) {
+     width: 15%;
+ }
+
+ /* Owner's Name */
+ th:nth-child(2),
+ td:nth-child(2) {
+     width: 15%;
+ }
+
+ /* petname */
+ th:nth-child(3),
+ td:nth-child(3) {
+     width: 10%;
+ }
+
+ /* Email */
+ th:nth-child(4),
+ td:nth-child(4) {
+     width: 10%;
+ }
+
+ /* Breed */
+ th:nth-child(5),
+ td:nth-child(5) {
+     width: 10%;
+ }
+
+ /* Color */
+ th:nth-child(6),
+ td:nth-child(6) {
+     width: 5%;
+ }
+
+ /* Age */
+ th:nth-child(7),
+ td:nth-child(7) {
+     width: 10%;
+ }
+
+ /* Date */
+ th:nth-child(8),
+ td:nth-child(8) {
+     width: 10%;
+ }
+
+ /* Time */
+ th:nth-child(9),
+ td:nth-child(9) {
+     width: 10%;
+ }
+
+ /* Purpose */
+ th:nth-child(10),
+ td:nth-child(10) {
+     width: 10%;
+ }
+
+ /* Status */
+ th:nth-child(11),
+ td:nth-child(11) {
+     width: 10%;
+ }
+
+ /* Comments */
+ th:nth-child(12),
+ td:nth-child(12) {
+     width: 15%;
+ }
+
+ /* Actions */
+
+
+
+ .input-group {
+     max-width: 400px;
+     /* Limit the width of the search bar */
+     margin: 0 0 0 0;
+     /* Center the search bar */
+ }
+
+ .welcome-section {
+     text-align: center;
+     /* Center the text */
+     background-color: #e9ecef;
+     /* Light background color */
+     padding: 20px;
+     /* Padding around the content */
+     border-radius: 8px;
+     /* Rounded corners */
+ }
+
+ .welcome-logo {
+     margin: -65px 15px;
+     /* Adjust margin as needed */
+     width: 600px;
+     /* Adjust width as needed */
+     height: auto;
+     /* Maintain aspect ratio */
+     /* margin-right: 15px; */
+     /* Space between logo and text */
+     vertical-align: middle;
+     /* Aligns the logo with text */
+ }
+
+ .filter-button {
+     background-color: #8b61c2;
+     /* Main color */
+     color: white;
+     /* Text color */
+     border: none;
+     /* No border */
+     border-radius: 5px;
+     /* Rounded corners */
+     padding: 10px 20px;
+     /* Padding for size */
+     font-size: 16px;
+     /* Font size */
+     cursor: pointer;
+     /* Pointer cursor on hover */
+     transition: background-color 0.3s, transform 0.3s;
+     /* Smooth transition */
+ }
+
+ .filter-button:hover {
+     background-color: #5ce1e6;
+     /* Lighter color on hover */
+     transform: scale(1.05);
+     /* Slightly enlarge on hover */
+ }
+
+ .filter-button:focus {
+     outline: none;
+     /* Remove default outline */
+     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+     /* Add shadow on focus */
+ }
+
+
+
+ /* Style for the search input field */
+ .input-group input[type="text"] {
+     padding: 10px;
+     /* Add padding */
+     border: 1px solid #ccc;
+     /* Light border */
+     border-radius: 5px;
+     /* Rounded corners */
+     transition: border-color 0.3s;
+     /* Smooth transition for border color */
+ }
+
+ /* Change border color on focus */
+ .input-group input[type="text"]:focus {
+     border-color: #8b61c2;
+     /* Change border color to match theme */
+     outline: none;
+     /* Remove default outline */
+ }
+
+ /* Style for the search button */
+ .input-group button {
+     background-color: #8b61c2;
+     /* Main color */
+     color: white;
+     /* Text color */
+     border: none;
+     /* No border */
+     border-radius: 5px;
+     /* Rounded corners */
+     padding: 10px 20px;
+     /* Padding for size */
+     cursor: pointer;
+     /* Pointer cursor on hover */
+     transition: background-color 0.3s, transform 0.3s;
+     /* Smooth transition */
+ }
+
+ /* Change background color on hover */
+ .input-group button:hover {
+     background-color: #5ce1e6;
+     /* Lighter color on hover */
+ }
+
+ /* Change background color on focus */
+ .input-group button:focus {
+     outline: none;
+     /* Remove default outline */
+     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+     /* Add shadow on focus */
+ }
+
+ /* Overlay styling */
+ .overlay {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background-color: rgba(0, 0, 0, 0.7);
+     /* Semi-transparent background */
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     z-index: 1000;
+     /* Ensures the overlay appears above other content */
+ }
+
+ /* Popup styling */
+ .popup {
+     background-color: #fff;
+     /* White background for the popup */
+     border-radius: 8px;
+     /* Rounded corners */
+     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+     /* Subtle shadow */
+     padding: 20px;
+     /* Inner padding */
+     width: 300px;
+     /* Fixed width */
+     text-align: center;
+     /* Center text */
+ }
+
+ /* Heading styling */
+ .popup h2 {
+     margin-bottom: 15px;
+     /* Space below the heading */
+     font-family: 'Montserrat', sans-serif;
+     /* Custom font */
+     color: #333;
+     /* Dark text color */
+ }
+
+ /* Textarea styling */
+ .decline-textarea {
+     width: 100%;
+     /* Full width */
+     height: 80px;
+     /* Fixed height */
+     padding: 10px;
+     /* Inner padding */
+     border-radius: 5px;
+     /* Rounded corners */
+     border: 1px solid #ccc;
+     /* Light border */
+     resize: none;
+     /* Disable resizing */
+     font-family: 'Montserrat', sans-serif;
+     /* Custom font */
+ }
+
+ /* Popup buttons container */
+ .popup-buttons {
+     display: flex;
+     /* Flexbox for horizontal layout */
+     justify-content: space-between;
+     /* Space between buttons */
+     margin-top: 20px;
+     /* Space above buttons */
+ }
+
+ /* Button styling */
+ .btn {
+     padding: 10px 15px;
+     /* Padding for buttons */
+     border: none;
+     /* No border */
+     border-radius: 5px;
+     /* Rounded corners */
+     cursor: pointer;
+     /* Pointer on hover */
+     font-family: 'Montserrat', sans-serif;
+     /* Custom font */
+ }
+
+ /* Primary button (Send) */
+ .btn-primary {
+     background-color: #8b61c2;
+     /* Violet background */
+     color: #fff;
+     /* White text */
+     transition: background-color 0.3s;
+     /* Smooth transition */
+ }
+
+ /* Primary button hover effect */
+ .btn-primary:hover {
+     background-color: #5ce1e6;
+     /* Teal background on hover */
+ }
+
+ /* Secondary button (Close) */
+ .btn-secondary {
+     background-color: #e0e0e0;
+     /* Light grey background */
+     color: #333;
+     /* Dark text */
+     transition: background-color 0.3s;
+     /* Smooth transition */
+ }
+
+ /* Secondary button hover effect */
+ .btn-secondary:hover {
+     background-color: #d5d5d5;
+     /* Slightly darker grey on hover */
+ }

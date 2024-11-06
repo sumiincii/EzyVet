@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="css/appointment.css">
+    <link rel="stylesheet" href="appointment.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ezyvet</title>
+    <title>Book an Appointment</title>
     <!-- this is my fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,272 +14,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- Google reCAPTCHA -->
-    <!-- <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script> -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <!-- sweet alert  -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
-        #wc {
-            /* background-color: #c1cad3; */
-            background-color: #8b61c2;
-            padding: 7px;
-            /* color: #3e444b; */
-            color: white;
-            margin-left: -2px;
-        }
 
-        nav a::before {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 0;
-            height: 2.5px;
-            /* background: #c1cad3; */
-            background: #8b61c2;
-            transition: 0.3s;
-        }
-
-        .hober a:hover {
-            /* background: rgb(150, 150, 150); */
-            background: #8b61c2;
-            color: white;
-
-        }
-
-        .submit-btn {
-            background-color: #8b61c2;
-            /* Violet background color */
-            color: white;
-            /* Text color */
-            border: none;
-            /* No border */
-            padding: 10px 20px;
-            /* Padding */
-            border-radius: 5px;
-            /* Rounded corners */
-            font-size: 16px;
-            /* Font size */
-            cursor: pointer;
-            /* Pointer cursor on hover */
-            transition: background-color 0.3s;
-            /* Smooth transition */
-        }
-
-        .submit-btn:hover {
-            background-color: #5ce1e6;
-            /* Teal background color on hover */
-        }
-
-        /* footer */
-        .footer {
-            background-color: #222;
-            color: #ccc;
-            padding: 3rem 0;
-            font-family: Montserrat, sans-serif;
-            text-align: center;
-            padding: 3rem 0;
-            padding: 3rem 0;
-            /* Adjust padding as necessary */
-            /* Adjust padding as necessary */
-        }
-
-        .footer-logo {
-            height: 100px;
-            /* Adjust this value based on your desired logo height */
-            display: flex;
-            /* Use flexbox to center the logo */
-            justify-content: center;
-            /* Center the logo horizontally */
-            align-items: center;
-            /* Center the logo vertically */
-        }
-
-        .footer-logo img {
-            max-width: 350px;
-            /* Adjust this value to make the logo bigger */
-            height: auto;
-            /* Maintain aspect ratio */
-        }
-
-        .footer-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            /* Adjusted for better spacing */
-            max-width: 1200px;
-            margin: auto;
-            padding: 0 1rem;
-        }
-
-        .footer-map {
-            flex: 2 2 200px;
-            margin: 1rem;
-            margin-bottom: 2rem;
-            /* Added bottom margin */
-            /* margin-left: 50px; */
-        }
-
-        .footer-map h4 {
-            color: #ffbf00;
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-map iframe {
-            margin-top: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 100%;
-        }
-
-        .footer-contact,
-        .footer-social {
-            flex: 1 1 200px;
-            margin: 1rem;
-            margin-bottom: 2rem;
-            /* Added bottom margin */
-        }
-
-        .footer h4 {
-            color: #5ce1e6;
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-contact p,
-        .footer-social a {
-            margin: 0.5rem 0;
-            color: #ccc;
-        }
-
-        .footer-contact i,
-        .footer-social i {
-            margin-right: 0.5rem;
-            color: white;
-            /* small */
-        }
-
-        .footer-contact {
-            flex: 1 1 200px;
-            margin: 1rem;
-            display: flex;
-            /* Enable flexbox */
-            flex-direction: column;
-            /* Stack items vertically */
-            align-items: flex-start;
-            /* Align items to the start */
-            margin-left: 100px;
-        }
-
-        .footer-contact p {
-            margin: 0.5rem 0;
-            color: #ccc;
-            display: flex;
-            /* Enable flexbox for individual items */
-            align-items: center;
-            /* Center items vertically */
-        }
-
-        .social-icon {
-            font-size: 1.5rem;
-            margin-right: 0.5rem;
-            text-decoration: none;
-            color: #ccc;
-            transition: color 0.3s;
-        }
-
-        .social-icon:hover {
-            color: #ffbf00;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            margin-top: 2rem;
-            border-top: 1px solid #444;
-            padding-top: 1rem;
-            font-size: 0.9rem;
-        }
-
-        .footer-bottom a {
-            color: #ffbf00;
-            text-decoration: none;
-            /* margin: 0 0.5rem; */
-            transition: color 0.3s;
-        }
-
-        .footer-bottom a:hover {
-            color: #ccc;
-        }
-
-        @media (max-width: 768px) {
-            .footer-container {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .footer-map,
-            .footer-contact,
-            .footer-social {
-                margin: 1rem 0;
-            }
-        }
-
-        a img {
-            margin-top: -25px;
-            /* margin-left: -50px; */
-        }
-
-        #container1 {
-            background-color: #8b61c2;
-            /* Background color for container1 */
-            color: white;
-            /* Text color */
-            padding: 0;
-            /* Padding for container1 */
-            transition: top 0.3s;
-            /* Smooth transition for sticky effect */
-        }
-
-        #container1.sticky {
-            position: fixed;
-            /* Change to fixed when sticky */
-            top: 0;
-            /* Stick to the top */
-            left: 0;
-            /* Align to the left */
-            right: 0;
-            /* Align to the right */
-            z-index: 999;
-            /* Ensure it stays above other content */
-        }
-
-        #main-nav {
-            background-color: transparent;
-            /* Set the background color to transparent */
-            text-align: center;
-            position: relative;
-            /* Initial position */
-            box-sizing: border-box;
-            height: 60px;
-            /* Height of the navbar */
-            transition: background-color 0.3s ease, top 0.3s ease;
-            width: 100%;
-            /* Smooth transitions for background color and top */
-        }
-
-        #main-nav.sticky {
-            position: fixed;
-            /* Change to fixed when sticky */
-            background-color: white;
-            /* Change background color when sticky */
-            top: 28px;
-            /* Stick below container1 */
-            z-index: 2000;
-            /* Ensure it stays above other content */
-            padding: 0 25px;
-            text-align: center;
-            width: 100%;
-
-        }
-    </style>
 </head>
 
 <body>
@@ -300,31 +38,46 @@
         $appointment_time = $_POST['appointmentTime'];
         $comments = $_POST['comments'];
 
-        $owner_sql = "INSERT INTO owners (fullname, email, phone) VALUES ('$fullname', '$email', '$phone')";
-        if ($conn->query($owner_sql) === TRUE) {
-            $owner_id = $conn->insert_id;
-            $pet_sql = "INSERT INTO pets (owner_id, name, breed, species, color, sex, age) VALUES ('$owner_id', '$pet_name', '$breed', '$species', '$color', '$sex', '$age')";
-            if ($conn->query($pet_sql) === TRUE) {
-                $pet_id = $conn->insert_id;
-                $appointment_sql = "INSERT INTO appointments (owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments) VALUES ('$owner_id', '$pet_id', '$appointment_date', '$appointment_time', 'Pending', '$appointment_for', '$comments')";
-                if ($conn->query($appointment_sql) === TRUE) {
-                    echo "<script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Appointment request submitted successfully!',
-                            showConfirmButton: false,
-                            timer: 3000
+        // reCAPTCHA verification
+        $recaptcha_secret = '6Le383YqAAAAAHyNmno3WI0t-PYiH_uZzoZ5A5rm'; // Replace with your secret key
+        $recaptcha_response = $_POST['g-recaptcha-response'];
+        $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$recaptcha_secret&response=$recaptcha_response");
+        $responseKeys = json_decode($response, true);
+
+        if (intval($responseKeys["success"]) !== 1) {
+            echo "<script>
+            Swal.fire({
+                icon: 'error',
+                title: 'reCAPTCHA verification failed',
+                text: 'Please complete the reCAPTCHA.'
+            });
+            </script>";
+        } else {
+            $owner_sql = "INSERT INTO owners (fullname, email, phone) VALUES ('$fullname', '$email', '$phone')";
+            if ($conn->query($owner_sql) === TRUE) {
+                $owner_id = $conn->insert_id;
+                $pet_sql = "INSERT INTO pets (owner_id, name, breed, species, color, sex, age) VALUES ('$owner_id', '$pet_name', '$breed', '$species', '$color', '$sex', '$age')";
+                if ($conn->query($pet_sql) === TRUE) {
+                    $pet_id = $conn->insert_id;
+                    $appointment_sql = "INSERT INTO appointments (owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments) VALUES ('$owner_id', '$pet_id', '$appointment_date', '$appointment_time', 'Pending', '$appointment_for', '$comments')";
+                    if ($conn->query($appointment_sql) === TRUE) {
+                        echo "<script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Appointment request submitted successfully!',
+                                showConfirmButton: false,
+                                timer: 3000
+                            });
                         });
-                    });
-                </script>";
+                        </script>";
+                    }
                 }
             }
         }
         $conn->close();
     }
     ?>
-    <br>
     <div class="container1 container-fluid text-center" id="container1">
         <div class="row">
             <div class="col" id="wc">Welcome to <b>Dr. Ron Veterinary Clinic</b>, your trusted partner in providing top-notch veterinary care for your beloved pets.</div>
@@ -396,7 +149,8 @@
         <div class="row">
             <div class="col-md-8 mx-auto">
                 <form action="" method="post">
-                    <p>Fields marked with an <span class="text-danger">*</span> are </p>
+
+                    <p>Fields marked with an <span class="text-danger">*</span> are required</p>
                     <div class="row mb-3">
                         <div class="col-sm-6">
                             <label for="fullName" class="form-label">Full Name <span class="text-danger">*</span></label>
@@ -476,12 +230,14 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-12">
-                            <label for="comments" class="form-label">special instructions</label>
+                            <label for="comments" class="form-label">Special Instructions</label>
                             <textarea class="form-control" id="comments" name="comments"></textarea>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <!-- <div class="g-recaptcha" data-sitekey="6Le_gnMqAAAAANkjj9vf5dwN7suQ6AoRHh6w_I26"></div> -->
+                    <!-- reCAPTCHA -->
+                    <div class="g-recaptcha" data-sitekey="6Le383YqAAAAAHuQRm7J0a-mh84GH7B6fvGzDX71"></div> <!-- Replace with your site key -->
+                    <br>
+                    <button type="submit" class="submit-btn">Submit</button>
                 </form>
             </div>
         </div>
@@ -489,7 +245,6 @@
     <footer class="footer">
         <div class="footer-logo">
             <img src="images/taglogo.png" alt="EcoPaws Logo">
-
         </div>
         <div class="footer-container">
             <div class="footer-map">
@@ -501,7 +256,7 @@
             </div>
             <div class="footer-contact">
                 <h4>Contact Information</h4>
-                <p><i class="fas fa-envelope"></i style="font-size:10px;">ezvet.neust@gmail.com</p>
+                <p><i class="fas fa-envelope"></i> ezvet.neust@gmail.com </p>
                 <p><i class="fas fa-phone"></i> (+63) 955-617-9963</p>
                 <p><i class="fas fa-map-marker-alt"></i> Mulao St. Brgy. Batas,<br> Cabanatuan city 3114</p>
             </div>
@@ -514,7 +269,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 EcoPaws. All rights reserved.</p>
+            <p>&copy; 2024 EzyvetNeust. All rights reserved.</p>
         </div>
     </footer>
     <script>
@@ -577,6 +332,17 @@
             // Form validation
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
+
+                // Check reCAPTCHA first
+                const recaptchaResponse = grecaptcha.getResponse();
+                if (!recaptchaResponse) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Please complete the reCAPTCHA',
+                        text: 'You must verify that you are not a robot.'
+                    });
+                    return; // Exit the function if reCAPTCHA is not completed
+                }
 
                 // Basic form validation
                 const required = ['fullname', 'email', 'phone', 'petName', 'breed',

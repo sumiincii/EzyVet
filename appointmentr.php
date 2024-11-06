@@ -5,52 +5,25 @@
     <link rel="stylesheet" href="appointment.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ezyvet</title>
+    <title>Book an Appointment</title>
     <!-- this is my fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="_assets/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <!-- sweet alert  -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
-        #wc {
-            /* background-color: #c1cad3; */
-            background-color: #8b61c2;
-            padding: 7px;
-            /* color: #3e444b; */
-            color: white;
-        }
 
-        nav a::before {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 0;
-            height: 2.5px;
-            /* background: #c1cad3; */
-            background: #8b61c2;
-            transition: 0.3s;
-        }
-
-        .hober a:hover {
-            /* background: rgb(150, 150, 150); */
-            background: #8b61c2;
-            color: white;
-
-        }
-    </style>
 </head>
 
 <body>
     <?php
     include 'connection.php';
-
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Collect form data
         $fullname = $_POST['fullname'];
         $email = $_POST['email'];
         $phone = $_POST['phone'];
@@ -65,54 +38,39 @@
         $appointment_time = $_POST['appointmentTime'];
         $comments = $_POST['comments'];
 
-        // Insert into owners table
         $owner_sql = "INSERT INTO owners (fullname, email, phone) VALUES ('$fullname', '$email', '$phone')";
         if ($conn->query($owner_sql) === TRUE) {
             $owner_id = $conn->insert_id;
-
-            // Insert into pets table
             $pet_sql = "INSERT INTO pets (owner_id, name, breed, species, color, sex, age) VALUES ('$owner_id', '$pet_name', '$breed', '$species', '$color', '$sex', '$age')";
             if ($conn->query($pet_sql) === TRUE) {
                 $pet_id = $conn->insert_id;
-
-                // Insert into appointments table
                 $appointment_sql = "INSERT INTO appointments (owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments) VALUES ('$owner_id', '$pet_id', '$appointment_date', '$appointment_time', 'Pending', '$appointment_for', '$comments')";
                 if ($conn->query($appointment_sql) === TRUE) {
                     echo "<script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Appointment request submitted successfully!',
-                                showConfirmButton: false,
-                                timer: 3000
-                            });
+                    document.addEventListener('DOMContentLoaded', function() {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Appointment request submitted successfully!',
+                            showConfirmButton: false,
+                            timer: 3000
                         });
-                    </script>";
-                } else {
-                    echo "Error: " . $appointment_sql . "<br>" . $conn->error;
+                    });
+                </script>";
                 }
-            } else {
-                echo "Error: " . $pet_sql . "<br>" . $conn->error;
             }
-        } else {
-            echo "Error: " . $owner_sql . "<br>" . $conn->error;
         }
-
-        // Close the database connection
         $conn->close();
     }
     ?>
-
-    <div class="container1 container-fluid text-center">
+    <div class="container1 container-fluid text-center" id="container1">
         <div class="row">
             <div class="col" id="wc">Welcome to <b>Dr. Ron Veterinary Clinic</b>, your trusted partner in providing top-notch veterinary care for your beloved pets.</div>
         </div>
     </div>
     <a href="landing.php"><img class="logo img-fluid float-start" src="images/mainlogo.png" alt="logo"></a>
-
     <div class="container-fluid text-center">
         <div class="dropdown">
-            <nav>
+            <nav id="main-nav">
                 <ul>
                     <li><a href="#">ABOUT</a></li>
                     <li><a href="">SERVICES</a>
@@ -120,7 +78,6 @@
                             <li class="hober"><a href="checkup.php">Checkups</a></li>
                             <li class="hober"><a href="vaccinations.php">Vaccinations</a></li>
                             <li class="hober"><a href="grooming.php">Grooming</a></li>
-                            <li class="hober"><a href="followup.php">Follow Up</a></li>
                         </ul>
                     </li>
                     <li><a href="appointment.php">BOOK NOW</a></li>
@@ -129,11 +86,39 @@
             </nav>
         </div>
     </div>
-    <br><br><br><br><br><br><br><br><br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <script>
+        // Get the navbar and container1 elements
+        let navbar = document.getElementById("main-nav");
+        let container1 = document.getElementById("container1");
 
-    <div class="container1 container-fluid p-0" style="overflow:visible;">
+        // Get the offset positions of the navbar and container1
+        let stickyNavbar = navbar.offsetTop;
+        let stickyContainer1 = container1.offsetTop;
+
+        // Add the scroll event listener
+        window.addEventListener("scroll", function() {
+            // Handle container1 sticky
+            if (window.pageYOffset > stickyContainer1) {
+                container1.classList.add("sticky"); // Add sticky class to container1
+            } else {
+                container1.classList.remove("sticky"); // Remove sticky class from container1
+            }
+
+            // Handle navbar sticky
+            if (window.pageYOffset > stickyNavbar) {
+                navbar.classList.add("sticky"); // Add sticky class to navbar
+            } else {
+                navbar.classList.remove("sticky"); // Remove sticky class from navbar
+            }
+        });
+    </script>
+    <div class="container1 container-fluid p-0 d-flex">
         <div class="row g-0">
-            <div class="col-12 image-top">
+            <div class="col-12">
                 <img src="images/booknow1.jpg" alt="dog image" class="img-fluid w-100 h-100" />
             </div>
         </div>
@@ -148,6 +133,7 @@
         <div class="row">
             <div class="col-md-8 mx-auto">
                 <form action="" method="post">
+
                     <p>Fields marked with an <span class="text-danger">*</span> are </p>
                     <div class="row mb-3">
                         <div class="col-sm-6">
@@ -167,7 +153,6 @@
                                 <option value="Check-up">Check-up</option>
                                 <option value="Vaccination">Vaccination</option>
                                 <option value="Grooming">Grooming</option>
-                                <!-- <option value="Follow-up">Follow-up</option> -->
                             </select>
                         </div>
                         <div class="col-sm-6">
@@ -233,32 +218,132 @@
                             <textarea class="form-control" id="comments" name="comments"></textarea>
                         </div>
                     </div>
+                    <!-- captcha -->
+                    <div class="g-recaptcha" data-sitekey="6Le383YqAAAAAHuQRm7J0a-mh84GH7B6fvGzDX71"></div>
                     <button type="submit" class="btn btn-primary">Submit</button>
+
                 </form>
             </div>
         </div>
     </div>
+    <footer class="footer">
+        <div class="footer-logo">
+            <img src="images/taglogo.png" alt="EcoPaws Logo">
 
+        </div>
+        <div class="footer-container">
+            <div class="footer-map">
+                <h4>Visit Us</h4>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!3m2!1sen!2sph!4v1713428538080!5m2!1sen!2sph!6m8!1m7!1s1UPyzrm-fB9QmunjaXDomg!2m2!1d15.49962680830744!2d120.9768442687773!3f244.72785217855838!4f1.4193708654089647!5f0.7820865974627469"
+                    width="100%" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0">
+                </iframe>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Information</h4>
+                <p><i class="fas fa-envelope"></i style="font-size:10px;">ezvet.neust@gmail.com</p>
+                <p><i class="fas fa-phone"></i> (+63) 955-617-9963</p>
+                <p><i class="fas fa-map-marker-alt"></i> Mulao St. Brgy. Batas,<br> Cabanatuan city 3114</p>
+            </div>
+            <div class="footer-social">
+                <h4>Follow Us</h4>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 EcoPaws. All rights reserved.</p>
+        </div>
+    </footer>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const appointmentDateInput = document.getElementById('appointmentDate');
-            const appointmentTimeSelect = document.getElementById('appointmentTime');
+            const appointmentFor = document.getElementById('appointmentFor');
+            const appointmentDate = document.getElementById('appointmentDate');
+            const appointmentTime = document.getElementById('appointmentTime');
+            const form = document.querySelector('form');
 
-            appointmentDateInput.addEventListener('change', function() {
-                const selectedDate = this.value;
-                if (!selectedDate) return;
+            const intervalMapping = {
+                'Grooming': 60,
+                'Check-up': 60,
+                'Vaccination': 30
+            };
 
-                fetch('get_available_times.php?date=' + encodeURIComponent(selectedDate))
+            function fetchAvailableTimes(date, interval) {
+                fetch(`get_available_times.php?date=${date}&interval=${interval}`)
                     .then(response => response.json())
-                    .then(data => {
-                        appointmentTimeSelect.innerHTML = '<option value="">Select</option>';
-                        data.forEach(time => {
+                    .then(slots => {
+                        appointmentTime.innerHTML = '<option value="">Select</option>';
+                        slots.forEach(slot => {
                             const option = document.createElement('option');
-                            option.value = time;
-                            option.textContent = time;
-                            appointmentTimeSelect.appendChild(option);
+                            option.value = slot.time; // 24-hour format stored as value
+                            option.textContent = slot.display_time; // 12-hour format shown to user
+                            if (!slot.available) {
+                                option.disabled = true;
+                                option.textContent += ' (Booked)';
+                                option.style.color = 'red';
+                            }
+                            appointmentTime.appendChild(option);
                         });
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+
+            appointmentFor.addEventListener('change', function() {
+                if (appointmentDate.value) {
+                    const interval = intervalMapping[this.value];
+                    fetchAvailableTimes(appointmentDate.value, interval);
+                }
+            });
+
+            appointmentDate.addEventListener('change', function() {
+                const selectedDate = new Date(this.value);
+                const dayOfWeek = selectedDate.getUTCDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+
+                if (dayOfWeek === 0) { // Check if it's Sunday
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Invalid Date',
+                        text: 'Clinic is closed during Sundays. Please select a different date.'
                     });
+                    this.value = ''; // Reset the date input
+                } else if (appointmentFor.value) {
+                    const interval = intervalMapping[appointmentFor.value];
+                    fetchAvailableTimes(this.value, interval);
+                }
+            });
+
+            // Form validation
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Basic form validation
+                const required = ['fullname', 'email', 'phone', 'petName', 'breed',
+                    'species', 'color', 'sex', 'age', 'appointmentFor',
+                    'appointmentDate', 'appointmentTime'
+                ];
+
+                let isValid = true;
+                required.forEach(fieldName => {
+                    const field = document.getElementsByName(fieldName)[0];
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = 'red';
+                    } else {
+                        field.style.borderColor = '';
+                    }
+                });
+
+                if (isValid) {
+                    this.submit();
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Please fill in all required fields',
+                        text: 'Fields marked with * are required'
+                    });
+                }
             });
         });
     </script>
