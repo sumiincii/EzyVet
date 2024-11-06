@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="appointment.css">
+    <link rel="stylesheet" href="css/appointment.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ezyvet</title>
@@ -226,14 +226,65 @@
             margin-top: -25px;
             /* margin-left: -50px; */
         }
+
+        #container1 {
+            background-color: #8b61c2;
+            /* Background color for container1 */
+            color: white;
+            /* Text color */
+            padding: 0;
+            /* Padding for container1 */
+            transition: top 0.3s;
+            /* Smooth transition for sticky effect */
+        }
+
+        #container1.sticky {
+            position: fixed;
+            /* Change to fixed when sticky */
+            top: 0;
+            /* Stick to the top */
+            left: 0;
+            /* Align to the left */
+            right: 0;
+            /* Align to the right */
+            z-index: 999;
+            /* Ensure it stays above other content */
+        }
+
+        #main-nav {
+            background-color: transparent;
+            /* Set the background color to transparent */
+            text-align: center;
+            position: relative;
+            /* Initial position */
+            box-sizing: border-box;
+            height: 60px;
+            /* Height of the navbar */
+            transition: background-color 0.3s ease, top 0.3s ease;
+            width: 100%;
+            /* Smooth transitions for background color and top */
+        }
+
+        #main-nav.sticky {
+            position: fixed;
+            /* Change to fixed when sticky */
+            background-color: white;
+            /* Change background color when sticky */
+            top: 28px;
+            /* Stick below container1 */
+            z-index: 2000;
+            /* Ensure it stays above other content */
+            padding: 0 25px;
+            text-align: center;
+            width: 100%;
+
+        }
     </style>
 </head>
 
 <body>
-
     <?php
     include 'connection.php';
-
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fullname = $_POST['fullname'];
         $email = $_POST['email'];
@@ -273,16 +324,16 @@
         $conn->close();
     }
     ?>
-    <div class="container1 container-fluid text-center">
+    <br>
+    <div class="container1 container-fluid text-center" id="container1">
         <div class="row">
             <div class="col" id="wc">Welcome to <b>Dr. Ron Veterinary Clinic</b>, your trusted partner in providing top-notch veterinary care for your beloved pets.</div>
         </div>
     </div>
     <a href="landing.php"><img class="logo img-fluid float-start" src="images/mainlogo.png" alt="logo"></a>
-
     <div class="container-fluid text-center">
         <div class="dropdown">
-            <nav>
+            <nav id="main-nav">
                 <ul>
                     <li><a href="#">ABOUT</a></li>
                     <li><a href="">SERVICES</a>
@@ -302,14 +353,35 @@
     <br>
     <br>
     <br>
-    <br>
-    <br>
-    <br>
+    <script>
+        // Get the navbar and container1 elements
+        let navbar = document.getElementById("main-nav");
+        let container1 = document.getElementById("container1");
 
+        // Get the offset positions of the navbar and container1
+        let stickyNavbar = navbar.offsetTop;
+        let stickyContainer1 = container1.offsetTop;
 
-    <div class="container1 container-fluid p-0" style="overflow:visible;">
+        // Add the scroll event listener
+        window.addEventListener("scroll", function() {
+            // Handle container1 sticky
+            if (window.pageYOffset > stickyContainer1) {
+                container1.classList.add("sticky"); // Add sticky class to container1
+            } else {
+                container1.classList.remove("sticky"); // Remove sticky class from container1
+            }
+
+            // Handle navbar sticky
+            if (window.pageYOffset > stickyNavbar) {
+                navbar.classList.add("sticky"); // Add sticky class to navbar
+            } else {
+                navbar.classList.remove("sticky"); // Remove sticky class from navbar
+            }
+        });
+    </script>
+    <div class="container1 container-fluid p-0 d-flex">
         <div class="row g-0">
-            <div class="col-12 image-top">
+            <div class="col-12">
                 <img src="images/booknow1.jpg" alt="dog image" class="img-fluid w-100 h-100" />
             </div>
         </div>
@@ -535,7 +607,6 @@
             });
         });
     </script>
-
 </body>
 
 </html>

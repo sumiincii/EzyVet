@@ -4,8 +4,8 @@
 include 'connection.php';
 
 // User details
-$email = 'ezyvetneust';
-$password = 'capstoneproject';
+$email = 'ezyvet_neust@gmail.com';
+$password = 'Capstoneproject1!';
 
 // Hash the password
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
