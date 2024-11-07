@@ -11,16 +11,67 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="_assets/bootstrap.min.css" />
+    <!-- animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <!-- icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- Google reCAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <!-- sweet alert  -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .tlogo {
+            display: block;
+            /* Make the image a block element */
+            margin: 0 auto;
+            /* Center the image horizontally */
+            max-width: 50%;
+            /* Limit the max width to 40% of its container */
+            height: auto;
+            /* Maintain aspect ratio */
+            padding: 0;
+            margin-top: -110px;
+            margin-bottom: -60px;
+        }
 
+        .compact-text {
+            /* font-size: 14px; */
+            /* Adjust font size */
+            /* margin: 5px 0; */
+            /* Reduce margin */
+            padding: 0 80px;
+            /* Reduce padding */
+        }
+
+        #formsto2 {
+            /* background-color: #b07df4; */
+            /* background-color: #96dcde; */
+            /* border: solid 1px black; */
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* background-color: #f9f9f9; */
+            margin-bottom: 70px;
+            background-color: transparent;
+        }
+
+        #formsto1 {
+            background-image: url(images/formb.jpg);
+            background-repeat: no-repeat;
+            background-size: 100%;
+            background-position: center;
+            /* margin-bottom: 100px; */
+        }
+    </style>
 </head>
 
 <body>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
     <?php
     include 'connection.php';
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -132,6 +183,8 @@
             }
         });
     </script>
+
+
     <div class="container1 container-fluid p-0 d-flex">
         <div class="row g-0">
             <div class="col-12">
@@ -141,15 +194,16 @@
     </div>
 
     <div class="container my-5">
+        <img src="images/taglogo.png" alt="ezyvet Logo" class="tlogo img-fluid">
         <h2 class="text-center">Make your Appointment Request Online</h2>
-        <div class="row">
+        <br>
+        <div class="compact-text row ">
             <p>Planning a visit? Fill out our appointment request form below and hit 'submit.' Please schedule your appointment at least 24 hours in advance so we can confirm it with you. In case of an emergency, don't use this form—call us at (860) 757-3346 or visit our clinic.</p>
         </div>
-
-        <div class="row">
-            <div class="col-md-8 mx-auto">
+        <br>
+        <div class="row" id="formsto1">
+            <div class="col-md-8 mx-auto" id="formsto2">
                 <form action="" method="post">
-
                     <p>Fields marked with an <span class="text-danger">*</span> are required</p>
                     <div class="row mb-3">
                         <div class="col-sm-6">

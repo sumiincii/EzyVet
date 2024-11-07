@@ -73,6 +73,15 @@
             width: 100%;
 
         }
+
+        #groom3 {
+            margin-top: 40px;
+            max-width: 80%;
+            /* Limit the max width to 50% of its container */
+            height: auto;
+            /* Maintain aspect ratio */
+
+        }
     </style>
 </head>
 
@@ -165,16 +174,16 @@
     </div>
     <!-- end of divider -->
 
-    <div class="container py-5">
+    <div class="container py-5" style="background-color: azure;">
         <h2 class="text-center mb-4">How Pet Grooming</h2>
         <h3 class="text-center mb-5">Keep Your Pet Clean, Comfortable, And Healthy</h3>
-        <p class="text-center mb-5">
+        <p class="mb-5 text-center">
             At Dr. Ron Veterinary Clinic, we strive to create a Fear Free environment in every aspect of our practice, including grooming. Our expert groomer is highly experienced and committed to providing a stress-free grooming experience for each furry guest. We prioritize the health and safety of every pet, tailoring grooming sessions to their individual needs. Our hope is that every dog enjoys a fun and pleasant grooming experience with us. Additionally, our clinic is skilled in providing grooming services for cats, ensuring that all our animal friends receive the care and attention they deserve.
         </p>
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <h4 class="mb-4">With Years Of Experience In Pet Grooming, Our Clinic Offers A Range Of Services, Including:</h4>
-                <ul class="list-unstyled">
+                <ul class="list-unstyled" style="line-height: 30px;">
                     <li>• Bathing</li>
                     <li>• Brushing</li>
                     <li>• Haircut Or Trimming</li>
@@ -182,12 +191,12 @@
                     <li>• Ear Cleaning</li>
                     <li>• Dental Care</li>
                 </ul>
-                <p>
+                <p style="text-align:justify;">
                     Furthermore, our groomer closely observes your pet’s skin, ears, eyes, and coat for any abnormalities. She promptly notifies one of our vets for additional testing if she finds any lumps, bumps, symptoms of parasites, or diseases.
                 </p>
             </div>
-            <div class="col-md-4 text-center">
-                <img src="https://placehold.co/300x300" class="img-fluid rounded" alt="Groomed Pet">
+            <div class="col-md-6 text-center">
+                <img src="images/groom2.jpg" class="img-fluid rounded" alt="Groomed Pet" id="groom3">
             </div>
         </div>
     </div>
