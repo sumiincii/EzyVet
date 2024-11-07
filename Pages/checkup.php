@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="css/checkup.css">
+    <link rel="stylesheet" href="css/checkups.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ezyvet</title>
@@ -14,7 +14,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-
+        .hidden {
+            opacity: 0;
+            /* Makes the element invisible */
+            transition: opacity 0.5s ease;
+            /* Smooth transition for opacity */
+        }
     </style>
 </head>
 
@@ -48,11 +53,6 @@
     <br>
     <br>
     <br>
-
-
-
-
-
     <script>
         // Get the navbar and container1 elements
         let navbar = document.getElementById("main-nav");
@@ -125,19 +125,47 @@
     </div>
 
 
-    <div class="container my-5 animate__animated animate__bounceInLeft animate__delay-2s">
+    <div class="container my-5 animate__animated hidden" id="checkup-section">
         <div class="row align-items-center">
             <div class="col-lg-6 mb-4 mb-lg-0">
-                <h2>How Pet Checkup</h2>
-                <h3>Ensure Thorough Care For Your Pet?</h3>
-                <p>For the sake of our furry friends’ well-being, routine pet exams are essential. Veterinarians can perform a comprehensive health assessment during these visits, looking for early indicators of disease or underlying problems. Early detection allows for quick treatment, which frequently averts later, more serious health issues. Additionally, pet owners can get advice on behavior, diet, and preventive care during checkups. We make sure that our pets receive the care and attention they require to live long, healthy lives by making routine checkups a priority. We advise having a yearly examination for all pets, as they age considerably more quickly than we do. Visiting a veterinarian for your pet once a year is equivalent to seeing a doctor for a checkup just once every six to eight years. As they age, more frequent checkups might be required.</p>
+                <h2 style="letter-spacing:5px; font-size:30px;">How Pet Checkup</h2>
+                <h3 style="letter-spacing:5px; font-size:35px;">Ensure Thorough Care For Your Pet?</h3>
+                <br>
+                <p style="line-height:21px; font-size:15px;">For the sake of our furry friends’ well-being, routine pet exams are essential. Veterinarians can perform a comprehensive health assessment during these visits, looking for early indicators of disease or underlying problems. Early detection allows for quick treatment, which frequently averts later, more serious health issues. Additionally, pet owners can get advice on behavior, diet, and preventive care during checkups. We make sure that our pets receive the care and attention they require to live long, healthy lives by making routine checkups a priority. We advise having a yearly examination for all pets, as they age considerably more quickly than we do. Visiting a veterinarian for your pet once a year is equivalent to seeing a doctor for a checkup just once every six to eight years. As they age, more frequent checkups might be required.</p>
                 <button class="btn btn-outline-secondary">Request an Appointment</button>
             </div>
             <div class="col-lg-6 text-center">
-                <img src="https://placehold.co/500x500" alt="Vet holding a cat" class="img-fluid">
+                <img src="images/checkup2.jpg" alt="Vet holding a cat" class="img-fluid">
             </div>
         </div>
     </div>
+
+    <script>
+        // Function to check if an element is in the viewport
+        const isElementInViewport = (el) => {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        };
+
+        // Function to handle scroll event
+        const handleScroll = () => {
+            const checkupSection = document.getElementById('checkup-section');
+            if (isElementInViewport(checkupSection)) {
+                checkupSection.classList.add('animate__animated', 'animate__slideInLeft'); // Add your desired animation class
+                checkupSection.classList.remove('hidden'); // Remove the hidden class
+            }
+        };
+
+        // Add scroll event listener
+        window.addEventListener('scroll', handleScroll);
+        // Initial check in case the element is already in view
+        handleScroll();
+    </script>
 
     <!-- this is the divider -->
     <div class="container text-center">

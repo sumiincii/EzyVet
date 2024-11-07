@@ -171,10 +171,10 @@
                 <h2>How Pet Vaccinations</h2>
                 <h3>Benefit Your Furry Family</h3>
                 <p>Pet vaccinations are critical for the health and well-being of your furry family members. Vaccinations are critical in preventing illness and reducing the spread of contagious diseases among pets because they protect against a variety of potentially life-threatening diseases such as distemper, parvovirus, rabies, and respiratory infections. This not only protects your pets' individual health, but also improves the overall health of your household. Pet owners can rest assured that their companions are protected against preventable diseases for the rest of their lives by means of vaccinations that provide long-term immunity. Furthermore, vaccination is a cost-effective preventive measure as it avoids the high costs associated with treating illnesses after they occur. Vaccinating your pets also promotes community health by reducing the spread of infectious diseases. In conclusion, pet vaccinations are essential for the health, happiness, and endurance of your beloved furry family members.</p>
-                <button class="btn btn-outline-secondary">Request an Appointment</button>
+                <button class="btn btn-outline-info">Request an Appointment</button>
             </div>
             <div class="col-lg-6 text-center">
-                <img src="https://placehold.co/500x500" alt="Vet vaccinating a dog" class="img-fluid rounded">
+                <img src="images/vac2.jpg" alt="Vet vaccinating a dog" class="img-fluid rounded">
             </div>
         </div>
     </div>
@@ -206,7 +206,7 @@
                 <div class="card h-100 shadow">
                     <div class="card-body">
                         <div class="text-center">
-                            <img src="https://placehold.co/64x64" alt="Dog icon" class="mb-3">
+                            <img src="images/d.png" alt="Dog icon" class="mb-3 w-25 h-25 rounded">
                         </div>
                         <h3 class="card-title text-center">Dogs</h3>
                         <ul>
@@ -224,7 +224,7 @@
                 <div class="card h-100 shadow">
                     <div class="card-body">
                         <div class="text-center">
-                            <img src="https://placehold.co/64x64" alt="Cat icon" class="mb-3">
+                            <img src="images/c.png" alt="Cat icon" class="mb-3 w-25 h-25 rounded">
                         </div>
                         <h3 class="card-title text-center">Cats</h3>
                         <ul>
@@ -299,9 +299,7 @@
                 </ul>
             </div>
         </div>
-        <div class="text-center mt-5">
-            <img src="https://placehold.co/300x300" class="img-fluid rounded" alt="Puppy and Kitten">
-        </div>
+        <br>
         <div class="text-center mt-3">
             <p>Contact Us Today to Help You Plan Your Pet’s Vaccine Series</p>
             <button class="btn btn-primary">Schedule Appointments</button>
