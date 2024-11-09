@@ -68,10 +68,6 @@
 </head>
 
 <body>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
     <?php
     include 'connection.php';
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -310,9 +306,10 @@
             </div>
             <div class="footer-contact">
                 <h4>Contact Information</h4>
-                <p><i class="fas fa-envelope"></i> ezvet.neust@gmail.com </p>
+                <p><i class="fas fa-envelope"></i> ezyvet.neust@gmail.com </p>
                 <p><i class="fas fa-phone"></i> (+63) 955-617-9963</p>
-                <p><i class="fas fa-map-marker-alt"></i> Mulao St. Brgy. Batas,<br> Cabanatuan city 3114</p>
+                <p><i class="fas fa-map-marker-alt"></i> Mulawin St. Brgy. Bitas,<br> Cabanatuan city 3100</p>
+                <!-- zipcode -->
             </div>
             <div class="footer-social">
                 <h4>Follow Us</h4>

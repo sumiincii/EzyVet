@@ -71,19 +71,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Check for action type
         if ($action == 'accept' || $action == 'decline') {
             // Fetch the appointment details
-            $fetch_sql = "SELECT id, owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments 
-                          FROM appointments WHERE id=$appointment_id";
-            $fetch_result = $conn->query($fetch_sql);
-            $appointment = $fetch_result->fetch_assoc();
+            // $fetch_sql = "SELECT id, owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments 
+            //               FROM appointments WHERE id=$appointment_id";
+            // $fetch_result = $conn->query($fetch_sql);
+            // $appointment = $fetch_result->fetch_assoc();
 
             // Insert into archived_appointments
-            $insert_sql = "INSERT INTO archived_appointments (id, owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments)
-                           VALUES ('{$appointment['id']}', '{$appointment['owner_id']}', '{$appointment['pet_id']}', '{$appointment['appointment_date']}', '{$appointment['appointment_time']}', '$action', '{$appointment['appointment_for']}', '{$appointment['comments']}')";
-            $conn->query($insert_sql);
+            // $insert_sql = "INSERT INTO archived_appointments (id, owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments)
+            //                VALUES ('{$appointment['id']}', '{$appointment['owner_id']}', '{$appointment['pet_id']}', '{$appointment['appointment_date']}', '{$appointment['appointment_time']}', '$action', '{$appointment['appointment_for']}', '{$appointment['comments']}')";
+            // $conn->query($insert_sql);
 
-            // Delete from appointments
-            $delete_sql = "DELETE FROM appointments WHERE id=$appointment_id";
-            $conn->query($delete_sql);
+            // // Delete from appointments
+            // $delete_sql = "DELETE FROM appointments WHERE id=$appointment_id";
+            // $conn->query($delete_sql);
 
             // Send email notification using PHPMailer
             $mail = new PHPMailer(true);
@@ -100,9 +100,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $mail->isHTML(true);
 
                 if ($action == 'accept') {
+                    $update_sql = "UPDATE appointments SET status = 'Accepted' WHERE id = $appointment_id";
+                    $conn->query($update_sql);
                     $mail->Subject = 'Appointment Accepted';
                     $mail->Body = 'Dear ' . $owner['fullname'] . ',<br>Your appointment on ' . $owner['appointment_date'] . ' at ' . date('h:i A', strtotime($owner['appointment_time'])) . ' for ' . $owner['appointment_for'] . ' has been accepted.<br>Thank you!';
                 } elseif ($action == 'decline') {
+                    $update_sql = "UPDATE appointments SET status = 'Declined' WHERE id = $appointment_id";
+                    $conn->query($update_sql);
                     // Get the decline reason from the POST request
                     $decline_reason = isset($_POST['decline_reason']) ? $conn->real_escape_string($_POST['decline_reason']) : 'No reason provided.';
                     $mail->Subject = 'Appointment Declined';
@@ -362,8 +366,6 @@ $result = $conn->query($sql);
                     <button type="submit" class="filter-button">Filter</button>
                 </form>
             </div>
-
-
 
             <!-- Appointment Table -->
             <div class="table-wrapper">
