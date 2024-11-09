@@ -20,6 +20,32 @@
             transition: opacity 0.5s ease;
             /* Smooth transition for opacity */
         }
+
+        .btn {
+            font-family: "Montserrat" !important;
+            text-align: center;
+            font-size: 10px;
+            letter-spacing: 2px;
+            /* margin-top: 20px;  */
+            background-color: #8b61c2;
+            color: #fff;
+            padding: 10px;
+            padding-left: 14px;
+            padding-right: 14px;
+            /* Adjust padding as needed */
+            border-radius: 20px;
+            text-decoration: none;
+            /* Remove underline from link */
+            display: inline-block;
+            /* Make the link behave like a button */
+        }
+
+        .btn:hover {
+            background-color: #5ce1e6;
+            /* Set the hover color */
+            color: #fff;
+            /* Keep the text color white on hover */
+        }
     </style>
 </head>
 
@@ -113,16 +139,7 @@
     <!-- end of divider -->
 
 
-    <div class="container my-5">
-        <div class="row justify-content-between align-items-center">
-            <div class="col-lg-5 text-center text-lg-left">
-                <p><i class="fas fa-phone"></i> (+63) 955-617-9558</p>
-            </div>
-            <div class="col-lg-5 text-center text-lg-right">
-                <button class="btn btn-outline-secondary">Request an Appointment</button>
-            </div>
-        </div>
-    </div>
+
 
 
     <div class="container my-5 animate__animated hidden" id="checkup-section">
@@ -132,7 +149,7 @@
                 <h3 style="letter-spacing:5px; font-size:35px;">Ensure Thorough Care For Your Pet?</h3>
                 <br>
                 <p style="line-height:21px; font-size:15px;">For the sake of our furry friends’ well-being, routine pet exams are essential. Veterinarians can perform a comprehensive health assessment during these visits, looking for early indicators of disease or underlying problems. Early detection allows for quick treatment, which frequently averts later, more serious health issues. Additionally, pet owners can get advice on behavior, diet, and preventive care during checkups. We make sure that our pets receive the care and attention they require to live long, healthy lives by making routine checkups a priority. We advise having a yearly examination for all pets, as they age considerably more quickly than we do. Visiting a veterinarian for your pet once a year is equivalent to seeing a doctor for a checkup just once every six to eight years. As they age, more frequent checkups might be required.</p>
-                <button class="btn btn-outline-secondary">Request an Appointment</button>
+                <a href="appointment.php" class="btn">REQUEST AN APPOINTMENT</a>
             </div>
             <div class="col-lg-6 text-center">
                 <img src="images/checkup2.jpg" alt="Vet holding a cat" class="img-fluid">

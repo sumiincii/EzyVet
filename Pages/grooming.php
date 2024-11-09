@@ -82,6 +82,32 @@
             /* Maintain aspect ratio */
 
         }
+
+        .btn {
+            font-family: "Montserrat" !important;
+            text-align: center;
+            font-size: 10px;
+            letter-spacing: 2px;
+            /* margin-top: 20px;  */
+            background-color: #8b61c2;
+            color: #fff;
+            padding: 10px;
+            padding-left: 14px;
+            padding-right: 14px;
+            /* Adjust padding as needed */
+            border-radius: 20px;
+            text-decoration: none;
+            /* Remove underline from link */
+            display: inline-block;
+            /* Make the link behave like a button */
+        }
+
+        .btn:hover {
+            background-color: #5ce1e6;
+            /* Set the hover color */
+            color: #fff;
+            /* Keep the text color white on hover */
+        }
     </style>
 </head>
 
@@ -194,7 +220,9 @@
                 <p style="text-align:justify;">
                     Furthermore, our groomer closely observes your pet’s skin, ears, eyes, and coat for any abnormalities. She promptly notifies one of our vets for additional testing if she finds any lumps, bumps, symptoms of parasites, or diseases.
                 </p>
+
             </div>
+
             <div class="col-md-6 text-center">
                 <img src="images/groom2.jpg" class="img-fluid rounded" alt="Groomed Pet" id="groom3">
             </div>
@@ -233,8 +261,9 @@
             <li>• Maintain a calm and relaxed demeanor to help pets feel at ease during grooming.</li>
         </ul>
         <p class="text-center mt-5">
-            If you have any questions or concerns about pet grooming, options for handling uncooperative or anxious pets, or anything else, please don’t hesitate to contact us at (+63) 955-617-9958.
+            If you have any questions or concerns about pet grooming, options for handling uncooperative or anxious pets, or anything else, please don’t hesitate to contact us at (+63) 955-617-9958.<br><br><a href="appointment.php" class="btn" style="">REQUEST AN APPOINTMENT</a>
         </p>
+
     </div>
 
     <!-- this is the divider -->

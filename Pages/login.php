@@ -189,43 +189,172 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             color: red;
             margin-top: 10px;
         }
+
+        /* From Uiverse.io by mahbowal */
+        .container {
+            max-width: 350px;
+            background: #f8f9fd;
+            background: linear-gradient(0deg,
+                    rgb(255, 255, 255) 0%,
+                    rgb(244, 247, 251) 100%);
+            border-radius: 40px;
+            padding: 25px 35px;
+            border: 5px solid rgb(255, 255, 255);
+            box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 30px 30px -20px;
+            margin: 20px;
+        }
+
+        .heading {
+            text-align: center;
+            font-weight: 900;
+            font-size: 30px;
+            color: rgb(16, 137, 211);
+        }
+
+        .form {
+            margin-top: 20px;
+        }
+
+        .form .input {
+            width: 100%;
+            background: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 20px;
+            margin-top: 15px;
+            box-shadow: #cff0ff 0px 10px 10px -5px;
+            border-inline: 2px solid transparent;
+        }
+
+        .form .input::-moz-placeholder {
+            color: rgb(170, 170, 170);
+        }
+
+        .form .input::placeholder {
+            color: rgb(170, 170, 170);
+        }
+
+        .form .input:focus {
+            outline: none;
+            border-inline: 2px solid #12b1d1;
+        }
+
+        .form .forgot-password {
+            display: block;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
+        .form .forgot-password a {
+            font-size: 11px;
+            color: #0099ff;
+            text-decoration: none;
+        }
+
+        .form .login-button {
+            display: block;
+            width: 100%;
+            font-weight: bold;
+            background: linear-gradient(45deg,
+                    rgb(16, 137, 211) 0%,
+                    rgb(18, 177, 209) 100%);
+            color: white;
+            padding-block: 15px;
+            margin: 20px auto;
+            border-radius: 20px;
+            box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 20px 10px -15px;
+            border: none;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .form .login-button:hover {
+            transform: scale(1.03);
+            box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 23px 10px -20px;
+        }
+
+        .form .login-button:active {
+            transform: scale(0.95);
+            box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 15px 10px -10px;
+        }
+
+        /* From Uiverse.io by kirzin */
+        button {
+            text-decoration: none;
+            position: relative;
+            border: none;
+            font-size: 14px;
+            font-family: inherit;
+            cursor: pointer;
+            color: #fff;
+            width: 9em;
+            height: 3em;
+            line-height: 2em;
+            text-align: center;
+            background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+            background-size: 300%;
+            border-radius: 30px;
+            z-index: 1;
+        }
+
+        button:hover {
+            animation: ani 8s linear infinite;
+            border: none;
+        }
+
+        @keyframes ani {
+            0% {
+                background-position: 0%;
+            }
+
+            100% {
+                background-position: 400%;
+            }
+        }
+
+        button:before {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            z-index: -1;
+            background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+            background-size: 400%;
+            border-radius: 35px;
+            transition: 1s;
+        }
+
+        button:hover::before {
+            filter: blur(20px);
+        }
+
+        button:active {
+            background: linear-gradient(32deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+        }
     </style>
 </head>
 
 <body>
-    <div class="container d-flex justify-content-center align-items-center vh-100">
-        <div class="card shadow-lg" style="max-width: 800px;">
-            <div class="row g-0">
-                <!-- Image Section -->
-                <div class="col-md-6 d-none d-md-block">
-                    <img src="https://placehold.co/400x400" alt="Dog Image" class="img-fluid" style="height: 100%; object-fit: cover;">
-                </div>
-                <!-- Form Section -->
-                <div class="col-md-6 p-5 d-flex flex-column justify-content-center">
-                    <h1 class="text-primary fw-bold text-center">EZyVet</h1>
-                    <form method="post" action="login.php">
-                        <div class="mb-3">
-                            <label for="email" class="form-label visually-hidden">E-mail</label>
-                            <input type="email" name="email" class="form-control" placeholder="Email" required>
-                            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label visually-hidden">Password</label>
-                            <input type="password" name="password" class="form-control" placeholder="Password" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Log In</button>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <a href="landing.php" class="text-muted">Not an admin?</a>
-                        </div>
-                        <?php if (isset($error)) { ?>
-                            <div class="alert alert-danger mt-3"><?php echo $error; ?></div>
-                        <?php } ?>
+    <div class="container container-fluid">
 
-                    </form>
-                </div>
-            </div>
-        </div>
+        <div class="heading">Ezyvet</div>
+        <form class="form" action="login.php" method="post">
+            <label for="email" class="form-label visually-hidden">E-mail</label>
+            <input type="email" id="email" name="email" class="input" placeholder="Email" required>
+            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+
+            <label for="password" class="form-label visually-hidden">Password</label>
+            <input type="password" id="password" name="password" class="input" placeholder="Password" required>
+            <span class="forgot-password"><a href="landing.php">Not an admin?</a></span>
+            <!-- <input value="Log In" type="submit" class="login-button" /> -->
+            <button class="w-100" type="submit" style="margin-top:25px;">Log In</button>
+            <?php if (isset($error)) { ?>
+                <div class="alert alert-danger mt-3"><?php echo $error; ?></div>
+            <?php } ?>
+        </form>
     </div>
+
 
 
 </body>

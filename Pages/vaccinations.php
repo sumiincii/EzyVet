@@ -71,6 +71,32 @@
             width: 100%;
 
         }
+
+        .btn {
+            font-family: "Montserrat" !important;
+            text-align: center;
+            font-size: 10px;
+            letter-spacing: 2px;
+            /* margin-top: 20px;  */
+            background-color: #8b61c2;
+            color: #fff;
+            padding: 10px;
+            padding-left: 14px;
+            padding-right: 14px;
+            /* Adjust padding as needed */
+            border-radius: 20px;
+            text-decoration: none;
+            /* Remove underline from link */
+            display: inline-block;
+            /* Make the link behave like a button */
+        }
+
+        .btn:hover {
+            background-color: #5ce1e6;
+            /* Set the hover color */
+            color: #fff;
+            /* Keep the text color white on hover */
+        }
     </style>
 </head>
 
@@ -81,7 +107,6 @@
         </div>
     </div>
     <a href="landing.php"><img class="logo img-fluid float-start" src="images/mainlogo.png" alt="logo"></a>
-
     <div class="container-fluid text-center">
         <div class="dropdown">
             <nav id="main-nav">
@@ -165,19 +190,23 @@
     <!-- end of divider -->
 
 
-    <div class="container my-5">
+    <div class="container my-5 ">
         <div class="row align-items-center">
-            <div class="col-lg-6 mb-4 mb-lg-0">
+            <div class="col-lg-6 mb-4 mb-lg-0 animate__animated hidden" id="vac1-section">
                 <h2>How Pet Vaccinations</h2>
                 <h3>Benefit Your Furry Family</h3>
                 <p>Pet vaccinations are critical for the health and well-being of your furry family members. Vaccinations are critical in preventing illness and reducing the spread of contagious diseases among pets because they protect against a variety of potentially life-threatening diseases such as distemper, parvovirus, rabies, and respiratory infections. This not only protects your pets' individual health, but also improves the overall health of your household. Pet owners can rest assured that their companions are protected against preventable diseases for the rest of their lives by means of vaccinations that provide long-term immunity. Furthermore, vaccination is a cost-effective preventive measure as it avoids the high costs associated with treating illnesses after they occur. Vaccinating your pets also promotes community health by reducing the spread of infectious diseases. In conclusion, pet vaccinations are essential for the health, happiness, and endurance of your beloved furry family members.</p>
-                <button class="btn btn-outline-info">Request an Appointment</button>
+
+                <a href="appointment.php" class="btn">REQUEST AN APPOINTMENT</a>
+
             </div>
             <div class="col-lg-6 text-center">
-                <img src="images/vac2.jpg" alt="Vet vaccinating a dog" class="img-fluid rounded">
+                <img src="images/vac2.jpg" alt="Vet vaccinating a dog" class="img-fluid rounded animate__animated hidden" id="vac2-section">
             </div>
         </div>
     </div>
+
+
 
     <!-- this is the divider -->
     <div class="container text-center">
@@ -202,11 +231,11 @@
 
     <div class="container my-5">
         <div class="row">
-            <div class="col-lg-6 mb-4">
+            <div class="col-lg-6 mb-4 ">
                 <div class="card h-100 shadow">
                     <div class="card-body">
                         <div class="text-center">
-                            <img src="images/d.png" alt="Dog icon" class="mb-3 w-25 h-25 rounded">
+                            <img src="images/d.jpg" alt="Dog icon" class="mb-3 rounded" style="width: 15%; height: auto;">
                         </div>
                         <h3 class="card-title text-center">Dogs</h3>
                         <ul>
@@ -224,7 +253,7 @@
                 <div class="card h-100 shadow">
                     <div class="card-body">
                         <div class="text-center">
-                            <img src="images/c.png" alt="Cat icon" class="mb-3 w-25 h-25 rounded">
+                            <img src="images/c.jpg" alt="Cat icon" class="mb-3 rounded" style="width: 15%; height: auto;">
                         </div>
                         <h3 class="card-title text-center">Cats</h3>
                         <ul>
@@ -238,14 +267,19 @@
         </div>
     </div>
 
+
+
+
+
     <div class="container text-center my-5">
         <h3>Is Your Pet Due For Boosters?</h3>
-        <button class="btn btn-outline-secondary">Request an Appointment</button>
+        <a href="appointment.php" class="btn">REQUEST AN APPOINTMENT</a>
+
     </div>
 
 
     <!-- image na malaki-->
-    <div class=" container1 container-fluid p-0" style="overflow:visible;">
+    <div class=" container1 container-fluid p-0 anmimate_animated hidden" id="vac3-section" style="overflow:visible;">
         <div class="row g-0">
             <div class="col-12 image-top">
                 <img src="images/vaccination.jpg" alt="dog image" class="img-fluid w-100 h-100" />
@@ -302,7 +336,8 @@
         <br>
         <div class="text-center mt-3">
             <p>Contact Us Today to Help You Plan Your Pet’s Vaccine Series</p>
-            <button class="btn btn-primary">Schedule Appointments</button>
+            <a href="appointment.php" class="btn">REQUEST AN APPOINTMENT</a>
+
         </div>
     </div>
 
@@ -357,7 +392,42 @@
     </footer>
 
 
+    <script>
+        // Function to check if an element is in the viewport
+        const isElementInViewport = (el) => {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        };
 
+        const handleScroll = () => {
+            const sections = document.querySelectorAll('.animate__animated.hidden');
+            sections.forEach(section => {
+                if (isElementInViewport(section)) {
+
+                    if (section.id === 'vac1-section') {
+                        section.classList.add('animate__slideInLeft');
+                    } else if (section.id === 'vac2-section') {
+                        section.classList.add('animate__slideInRight');
+                    } else if (section.id === 'vac3-section') {
+                        section.classList.add('animate__slideInRight'); // Add fadeInUp for vac3-section
+                    }
+
+                    section.classList.remove('hidden');
+                    // Check which section it is and apply the appropriate animation
+                }
+            });
+        };
+
+        // Add scroll event listener
+        window.addEventListener('scroll', handleScroll);
+        // Initial check in case the element is already in view
+        handleScroll();
+    </script>
 
 </body>
 
