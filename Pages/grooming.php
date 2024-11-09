@@ -200,7 +200,7 @@
     </div>
     <!-- end of divider -->
 
-    <div class="container py-5" style="background-color: azure;">
+    <div class="container py-5">
         <h2 class="text-center mb-4">How Pet Grooming</h2>
         <h3 class="text-center mb-5">Keep Your Pet Clean, Comfortable, And Healthy</h3>
         <p class="mb-5 text-center">

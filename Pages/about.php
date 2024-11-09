@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="../css/about.css">
+    <link rel="stylesheet" href="css/about.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ezyvet</title>
@@ -22,17 +22,7 @@
             font-family: 'Montserrat', sans-serif;
         }
 
-        .header {
-            background-color: #8b61c2;
-            color: white;
-            padding: 50px 0;
-            text-align: center;
-        }
 
-        .header h1 {
-            font-size: 2.5rem;
-            margin: 0;
-        }
 
         .mission {
             padding: 50px 0;
@@ -122,10 +112,7 @@
     <br>
     <br>
 
-    <div class="header">
-        <h1>About Dr. Ron Veterinary Clinic</h1>
-        <p>Your trusted partner in providing top-notch veterinary care for your beloved pets.</p>
-    </div>
+
 
     <div class="container mission">
         <h2>Our Mission</h2>
