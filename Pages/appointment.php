@@ -135,7 +135,7 @@
         <div class="dropdown">
             <nav id="main-nav">
                 <ul>
-                    <li><a href="#">ABOUT</a></li>
+                    <li><a href="about.php">ABOUT</a></li>
                     <li><a href="">SERVICES</a>
                         <ul>
                             <li class="hober"><a href="checkup.php">Checkups</a></li>
