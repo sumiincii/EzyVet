@@ -199,6 +199,11 @@
         .gallery {
             padding: 0;
         }
+
+        .mission-section h2 {
+            padding-left: 100px;
+            padding-right: 100px;
+        }
     </style>
 </head>
 
@@ -306,7 +311,7 @@
     <section class="content-section team-section animate__animated" id="team-section">
         <h2 class="section-title text-center">The Team.</h2>
         <div class="team-text mt-4">
-            <p>Each team member brings unique skills to the table, providing creative, innovative solutions tailored to meet our clients' needs. We emphasize collaboration and creativity, and we’re proud to be a part of every project we work on.</p>
+            <p>Each team member brings unique skills to the table, providing creative, innovative solutions tailored to meet our clients' needs. We emphasize collaboration and creativity, and we’re proud to be a part of this project we work on.</p>
         </div>
         <br>
         <div class="row text-center mt-4 animate__animated" id="team-section">
@@ -329,10 +334,12 @@
         </div>
     </section>
 
-    <div class="container mission mission-section animate__animated" id="mission-section">
+
+    <div class="container mission mission-section animate__animated" id="mission-section" style="margin-top:-20px;">
         <h2>Our Mission</h2>
         <p>To create innovative and sustainable solutions that enhance the quality of life for our clients and communities. We strive to lead by example, fostering a culture of collaboration, creativity, and integrity in every project we undertake.</p>
-    </div>
+    </div> <br>
+    <br>
 
 
     <script>
@@ -481,7 +488,6 @@
     </div>
 
 
-    <!-- product gallery -->
     <!-- product gallery -->
     <div class="container">
         <h1 class="text-center mb-4">Product Gallery</h1>
