@@ -38,6 +38,13 @@ $sql = "SELECT a.id, o.fullname, o.email, o.phone, p.name AS pet_name, p.species
 
 $result = $conn->query($sql);
 
+// Check if the result set is empty
+if ($result->num_rows == 0) {
+    $noData = true; // Set a flag to indicate no data
+} else {
+    $noData = false; // Data exists
+}
+
 // Fetch total appointments today
 $today = date("Y-m-d");
 $today_sql = "SELECT COUNT(*) AS total_today FROM appointments WHERE appointment_date = '$today'";
@@ -215,8 +222,11 @@ if ($dateFilter) {
 $sql .= " ORDER BY a.appointment_date DESC";
 
 // Execute the query
-$result = $conn->query($sql);
+$result = $conn->query($sql)
+
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -224,7 +234,7 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ezyvet Admin</title>
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/admins.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -239,7 +249,7 @@ $result = $conn->query($sql);
 
     <style>
         .sidebar {
-            width: 250px;
+            max-width: 230px;
             /* background-color: #5ce1e6; */
             background-color: #8b61c2;
             /* Changed to a deeper blue */
@@ -248,6 +258,7 @@ $result = $conn->query($sql);
             padding-top: 20px;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             /* Added shadow for depth */
+
         }
 
         .sidebar h3 {
@@ -258,20 +269,22 @@ $result = $conn->query($sql);
         }
 
         .sidebar a {
-            display: block;
+            display: flex;
+            align-items: center;
             color: #fff;
             padding: 15px 20px;
+            /* Keep padding consistent */
             text-decoration: none;
-            transition: background 0.3s, padding 0.3s;
-            /* border-radius: 2px; */
-            /* Rounded corners */
+            transition: background 0.3s, transform 0.3s;
+            /* Add transform to transition */
         }
 
         .sidebar a:hover {
             background-color: #5ce1e6;
-            /* Darker shade on hover */
-            padding-left: 25px;
-            /* Slight padding change on hover */
+            /* Change background on hover */
+            transform: scale(1.05);
+            /* Scale the text slightly on hover */
+            /* No padding change */
         }
 
         .sidebar a {
@@ -367,6 +380,7 @@ $result = $conn->query($sql);
                 </form>
             </div>
 
+
             <!-- Appointment Table -->
             <div class="table-wrapper">
                 <table class="table table-striped" id="appointments-table">
@@ -390,6 +404,7 @@ $result = $conn->query($sql);
                     <tbody>
                         <?php while ($row = $result->fetch_assoc()) { ?>
                             <tr>
+
                                 <!-- Decline Reason Popup -->
                                 <div class="overlay" id="overlay" style="display:none;">
                                     <div class="popup" id="popup">
@@ -402,12 +417,12 @@ $result = $conn->query($sql);
                                     </div>
                                 </div>
                                 <td><?php echo $row['fullname']; ?></td>
-                                <td><?php echo $row['pet_name']; ?></td> <!-- Display Pet's Name -->
+                                <td><?php echo $row['pet_name']; ?></td>
                                 <td><?php echo $row['email']; ?></td>
-                                <td><?php echo $row['phone']; ?></td> <!-- Display Phone Number -->
+                                <td><?php echo $row['phone']; ?></td>
                                 <td><?php echo $row['species']; ?></td>
-                                <td><?php echo $row['breed']; ?></td> <!-- Display Breed -->
-                                <td><?php echo $row['color']; ?></td> <!-- Display Color -->
+                                <td><?php echo $row['breed']; ?></td>
+                                <td><?php echo $row['color']; ?></td>
                                 <td><?php echo $row['appointment_date']; ?></td>
                                 <td><?php echo date('h:i A', strtotime($row['appointment_time'])); ?></td>
                                 <td><?php echo $row['appointment_for']; ?></td>

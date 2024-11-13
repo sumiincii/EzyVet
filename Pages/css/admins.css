@@ -56,13 +56,13 @@
 
  .table-wrapper {
      background-color: #fff;
-     padding: 20px;
+     padding: 0;
      border-radius: 10px;
      border: 1px solid #ddd;
      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
      overflow: hidden;
      /* Hide overflow */
-     max-width: 100%;
+     /* max-width: 100%; */
      /* Ensure it does not exceed the viewport */
  }
 
@@ -87,13 +87,13 @@
  /* Set specific widths for columns if necessary */
  th:nth-child(1),
  td:nth-child(1) {
-     width: 15%;
+     width: 10%;
  }
 
  /* Owner's Name */
  th:nth-child(2),
  td:nth-child(2) {
-     width: 15%;
+     width: 10%;
  }
 
  /* petname */
@@ -123,7 +123,7 @@
  /* Age */
  th:nth-child(7),
  td:nth-child(7) {
-     width: 10%;
+     width: 5%;
  }
 
  /* Date */
@@ -147,13 +147,13 @@
  /* Status */
  th:nth-child(11),
  td:nth-child(11) {
-     width: 10%;
+     width: 5%;
  }
 
  /* Comments */
  th:nth-child(12),
  td:nth-child(12) {
-     width: 15%;
+     width: 5%;
  }
 
  /* Actions */

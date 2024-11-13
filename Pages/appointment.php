@@ -194,7 +194,7 @@
         <h2 class="text-center">Make your Appointment Request Online</h2>
         <br>
         <div class="compact-text row ">
-            <p>Planning a visit? Fill out our appointment request form below and hit 'submit.' Please schedule your appointment at least 24 hours in advance so we can confirm it with you. In case of an emergency, don't use this form—call us at (860) 757-3346 or visit our clinic.</p>
+            <p>Planning a visit? Fill out our appointment request form below and hit 'submit.' Please schedule your appointment at least 24 hours in advance so we can confirm it with you. In case of an emergency, don't use this form—call us at (+63) 955-617-9958 / 968-595-8621 or visit our clinic.</p>
         </div>
         <br>
         <div class="row" id="formsto1">
@@ -204,17 +204,17 @@
                     <div class="row mb-3">
                         <div class="col-sm-6">
                             <label for="fullName" class="form-label">Full Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="fullName" name="fullname" />
+                            <input type="text" class="form-control" id="fullName" name="fullname" required />
                         </div>
                         <div class="col-sm-6">
                             <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control" id="email" name="email" />
+                            <input type="email" class="form-control" id="email" name="email" required />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-6">
                             <label for="appointmentFor" class="form-label">What is the Appointment For <span class="text-danger">*</span></label>
-                            <select class="form-control" id="appointmentFor" name="appointmentFor">
+                            <select class="form-control" id="appointmentFor" name="appointmentFor" required>
                                 <option value="">Select</option>
                                 <option value="Check-up">Check-up</option>
                                 <option value="Vaccination">Vaccination</option>
@@ -223,17 +223,17 @@
                         </div>
                         <div class="col-sm-6">
                             <label for="petName" class="form-label">Pet Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="petName" name="petName" />
+                            <input type="text" class="form-control" id="petName" name="petName" required />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-6">
                             <label for="breed" class="form-label">Breed <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="breed" name="breed" />
+                            <input type="text" class="form-control" id="breed" name="breed" required />
                         </div>
                         <div class="col-sm-6">
                             <label for="species" class="form-label">Species <span class="text-danger">*</span></label>
-                            <select class="form-control" id="species" name="species">
+                            <select class="form-control" id="species" name="species" required>
                                 <option value="">Select</option>
                                 <option value="Cat">Cat</option>
                                 <option value="Dog">Dog</option>
@@ -244,11 +244,11 @@
                     <div class="row mb-3">
                         <div class="col-sm-6">
                             <label for="color" class="form-label">Color <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="color" name="color" />
+                            <input type="text" class="form-control" id="color" name="color" required />
                         </div>
                         <div class="col-sm-6">
                             <label for="sex" class="form-label">Sex <span class="text-danger">*</span></label>
-                            <select class="form-control" id="sex" name="sex">
+                            <select class="form-control" id="sex" name="sex" required>
                                 <option value="">Select</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
@@ -258,24 +258,24 @@
                     <div class="row mb-3">
                         <div class="col-sm-6">
                             <label for="age" class="form-label">Age in months <span class="text-danger">*</span></label>
-                            <input type="number" class="form-control" id="age" name="age" />
+                            <input type="number" class="form-control" id="age" name="age" required />
                         </div>
                         <div class="col-sm-6">
                             <label for="appointmentDate" class="form-label">Appointment Date <span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" id="appointmentDate" name="appointmentDate" min="<?php echo date('Y-m-d', strtotime('+0 day')); ?>" />
+                            <input required type="date" class="form-control" id="appointmentDate" name="appointmentDate" min="<?php echo date('Y-m-d', strtotime('+0 day')); ?>" />
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-6">
                             <label for="appointmentTime" class="form-label">Appointment Time <span class="text-danger">*</span></label>
-                            <select class="form-control" id="appointmentTime" name="appointmentTime">
+                            <select class="form-control" id="appointmentTime" name="appointmentTime" required>
                                 <option value="">Select</option>
                                 <!-- Time slots will be populated by JavaScript -->
                             </select>
                         </div>
                         <div class="col-sm-6">
                             <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
-                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="+63" />
+                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="+63" required />
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -307,7 +307,7 @@
             <div class="footer-contact">
                 <h4>Contact Information</h4>
                 <p><i class="fas fa-envelope"></i> ezyvet.neust@gmail.com </p>
-                <p><i class="fas fa-phone"></i> (+63) 955-617-9963</p>
+                <p><i class="fas fa-phone"></i> (+63) 955-617-9958 / 968-595-8621</p>
                 <p><i class="fas fa-map-marker-alt"></i> Mulawin St. Brgy. Bitas,<br> Cabanatuan city 3100</p>
                 <!-- zipcode -->
             </div>

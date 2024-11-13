@@ -244,7 +244,7 @@
         body {
             /* background-image: url(images/bgbgbg.png); */
             /* background-image: url(images/loginbg.jpg); */
-            background-image: url(images/bg2.png);
+            background-image: url(images/bg4.png);
             /* background-repeat: no-repeat; */
             background-size: contain;
         }
@@ -282,13 +282,6 @@
     <br>
     <br>
     <br>
-
-
-
-
-
-
-
     <script>
         // Get the navbar and container1 elements
         let navbar = document.getElementById("main-nav");
@@ -407,7 +400,7 @@
 
                 <div class="col-md-6 description animate__animated">
                     <h3>Fire Safety Compliance</h3>
-                    <p>At Ron's Veterinary Clinic, we prioritize the safety and well-being of our clients, staff, and beloved animal patients. Our commitment to safety is validated by our Fire Safety Inspection Certificate issued by the Bureau of Fire Protection, Regional Office III. This certificate confirms our adherence to the fire safety standards mandated by the Fire Code of the Philippines, ensuring a secure environment for everyone.</p>
+                    <p>At Dr. Ron's Veterinary Clinic, we prioritize the safety and well-being of our clients, staff, and beloved animal patients. Our commitment to safety is validated by our Fire Safety Inspection Certificate issued by the Bureau of Fire Protection, Regional Office III. This certificate confirms our adherence to the fire safety standards mandated by the Fire Code of the Philippines, ensuring a secure environment for everyone.</p>
                 </div>
             </div>
 
@@ -417,7 +410,7 @@
                 </div>
                 <div class="col-md-6 description animate__animated">
                     <h3>Business Name Registration</h3>
-                    <p>Ron's Veterinary Clinic is officially registered with the Department of Trade and Industry (DTI) in the Philippines, ensuring that we operate under legal and recognized business standards. This certification is a testament to our commitment to providing excellent veterinary care in Cabanatuan City.</p>
+                    <p>Dr. Ron's Veterinary Clinic is officially registered with the Department of Trade and Industry (DTI) in the Philippines, ensuring that we operate under legal and recognized business standards. This certification is a testament to our commitment to providing excellent veterinary care in Cabanatuan City.</p>
                 </div>
             </div>
 
@@ -447,7 +440,7 @@
                 </div>
                 <div class="col-md-6 description animate__animated">
                     <h3>Business Permit</h3>
-                    <p>Ron's Veterinary Clinic is proudly licensed to operate as a retailer, as per our business permit issued by the City Business Licensing and Investment Promotion Office of Cabanatuan. This permit ensures that we comply with all local regulations and standards, affirming our commitment to legal and quality operations.</p>
+                    <p>Dr. Ron's Veterinary Clinic is proudly licensed to operate as a retailer, as per our business permit issued by the City Business Licensing and Investment Promotion Office of Cabanatuan. This permit ensures that we comply with all local regulations and standards, affirming our commitment to legal and quality operations.</p>
                 </div>
             </div>
 
@@ -457,7 +450,7 @@
                 </div>
                 <div class="col-md-6 description animate__animated">
                     <h3>Receipt Issuance Requirement</h3>
-                    <p>we are committed to transparency and compliance with the regulations set by the Bureau of Internal Revenue (BIR) of the Philippines. Our Receipt Issuance Notice ensures that we provide receipts or invoices for each service rendered or sale of goods, in accordance with the law.</p>
+                    <p>We are committed to transparency and compliance with the regulations set by the Bureau of Internal Revenue (BIR) of the Philippines. Our Receipt Issuance Notice ensures that we provide receipts or invoices for each service rendered or sale of goods, in accordance with the law.</p>
                 </div>
             </div>
 
@@ -725,8 +718,8 @@
             </div>
             <div class="footer-contact">
                 <h4>Contact Information</h4>
-                <p><i class="fas fa-envelope"></i style="font-size:10px;">ezvet.neust@gmail.com</p>
-                <p><i class="fas fa-phone"></i> (+63) 955-617-9963</p>
+                <p><i class="fas fa-envelope"></i style="font-size:10px;">ezyvet.neust@gmail.com</p>
+                <p><i class="fas fa-phone"></i> (+63) 955-617-9958 / 968-595-8621</p>
                 <p><i class="fas fa-map-marker-alt"></i> Mulawin St. Brgy. Bitas,<br> Cabanatuan city 3100</p>
             </div>
             <div class="footer-social">

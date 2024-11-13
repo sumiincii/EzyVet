@@ -345,8 +345,7 @@ include 'connection.php';
             </div>
             <!-- Appointments Table -->
             <div class="table-wrapper">
-                // Assuming you already have a table displaying archived appointments
-                <table class="table table-striped" id="archived-appointments-table">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>Owner's Name</th>
@@ -356,11 +355,11 @@ include 'connection.php';
                             <th>Species</th>
                             <th>Breed</th>
                             <th>Color</th>
-                            <th>Date</th>
-                            <th>Time</th>
+                            <th>Purpose</th>
+                            <th>Appointment Date</th>
+                            <th>Appointment Time</th>
                             <th>Status</th>
                             <th>Comments</th>
-                            <th>Actions</th> <!-- New Actions Column -->
                         </tr>
                     </thead>
                     <tbody id="table-body">

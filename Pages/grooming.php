@@ -108,6 +108,14 @@
             color: #fff;
             /* Keep the text color white on hover */
         }
+
+        body {
+            /* background-image: url(images/bgbgbg.png); */
+            /* background-image: url(images/loginbg.jpg); */
+            background-image: url(images/bg4.png);
+            /* background-repeat: no-repeat; */
+            background-size: contain;
+        }
     </style>
 </head>
 
@@ -300,8 +308,8 @@
             </div>
             <div class="footer-contact">
                 <h4>Contact Information</h4>
-                <p><i class="fas fa-envelope"></i style="font-size:10px;">ezvet.neust@gmail.com</p>
-                <p><i class="fas fa-phone"></i> (+63) 955-617-9963</p>
+                <p><i class="fas fa-envelope"></i style="font-size:10px;">ezyvet.neust@gmail.com</p>
+                <p><i class="fas fa-phone"></i> (+63) 955-617-9963 / 968-595-8621</p>
                 <p><i class="fas fa-map-marker-alt"></i> Mulawin St. Brgy. Bitas,<br> Cabanatuan city 3100</p>
             </div>
             <div class="footer-social">
