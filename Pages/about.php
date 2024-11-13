@@ -12,6 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="_assets/bootstrap.min.css" />
     <link rel="stylesheet" href="node_modules/animate.css/animate.min.css">
+    <!-- this is icon  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         a img {
             margin-top: -25px;
@@ -56,12 +58,7 @@
             object-fit: cover;
         }
 
-        .footer {
-            background-color: #8b61c2;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
+
 
         #container1 {
             background-color: #8b61c2;
@@ -615,8 +612,35 @@
 
 
     <footer class="footer">
-        <p>&copy; 2024 Dr. Ron Veterinary Clinic. All rights reserved.</p>
-        <p><i class="fas fa-envelope"></i> ezyvet.neust@gmail.com | <i class="fas fa-phone"></i> (+63) 955-617-9963</p>
+        <div class="footer-logo">
+            <img src="images/taglogo.png" alt="EcoPaws Logo">
+
+        </div>
+        <div class="footer-container">
+            <div class="footer-map">
+                <h4>Visit Us</h4>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!3m2!1sen!2sph!4v1713428538080!5m2!1sen!2sph!6m8!1m7!1s1UPyzrm-fB9QmunjaXDomg!2m2!1d15.49962680830744!2d120.9768442687773!3f244.72785217855838!4f1.4193708654089647!5f0.7820865974627469"
+                    width="100%" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0">
+                </iframe>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact Information</h4>
+                <p><i class="fas fa-envelope"></i style="font-size:10px;">ezvet.neust@gmail.com</p>
+                <p><i class="fas fa-phone"></i> (+63) 955-617-9963</p>
+                <p><i class="fas fa-map-marker-alt"></i> Mulawin St. Brgy. Bitas,<br> Cabanatuan city 3100</p>
+            </div>
+            <div class="footer-social">
+                <h4>Follow Us</h4>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 EzyvetNeust. All rights reserved.</p>
+        </div>
     </footer>
 
 </body>

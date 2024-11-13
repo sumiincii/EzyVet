@@ -59,6 +59,8 @@ nav a::before {
     /* Center the logo horizontally */
     align-items: center;
     /* Center the logo vertically */
+    /* meaning gumagana to csss peek */
+    /* margin-top: -20px; */
 }
 
 .footer-logo img {

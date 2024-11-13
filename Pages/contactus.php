@@ -524,7 +524,7 @@
                 <h4>Contact Information</h4>
                 <p><i class="fas fa-envelope"></i style="font-size:10px;">ezvet.neust@gmail.com</p>
                 <p><i class="fas fa-phone"></i> (+63) 955-617-9963</p>
-                <p><i class="fas fa-map-marker-alt"></i> Mulao St. Brgy. Batas,<br> Cabanatuan city 3114</p>
+                <p><i class="fas fa-map-marker-alt"></i> Mulawin St. Brgy. Bitas,<br> Cabanatuan city 3100</p>
             </div>
             <div class="footer-social">
                 <h4>Follow Us</h4>
@@ -535,7 +535,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 EcoPaws. All rights reserved.</p>
+            <p>&copy; 2024 EzyvetNeust. All rights reserved.</p>
         </div>
     </footer>
 
