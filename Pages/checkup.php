@@ -46,6 +46,14 @@
             color: #fff;
             /* Keep the text color white on hover */
         }
+
+        body {
+            /* background-image: url(images/bgbgbg.png); */
+            /* background-image: url(images/loginbg.jpg); */
+            background-image: url(images/bg2.png);
+            /* background-repeat: no-repeat; */
+            background-size: contain;
+        }
     </style>
 </head>
 

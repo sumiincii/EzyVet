@@ -21,7 +21,7 @@
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Montserrat', sans-serif !important;
         }
 
 
@@ -201,6 +201,53 @@
             padding-left: 100px;
             padding-right: 100px;
         }
+
+        .q1 {
+            padding: 20px;
+        }
+
+        .q1 img {
+            width: 80%;
+            /* Adjust the size here */
+            height: auto;
+            /* Maintain aspect ratio */
+        }
+
+        .gal {
+            width: 90%;
+            /* Increase the width to make it bigger */
+            height: auto;
+            /* Maintain aspect ratio */
+            border: 5px solid #8b61c2;
+            /* Add a border with a color that matches the theme */
+            border-radius: 10px;
+            /* Round the corners */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            /* Add a shadow for depth */
+            transition: transform 0.3s;
+            /* Add transition for a hover effect */
+        }
+
+        .gal:hover {
+            transform: scale(1.05);
+            /* Slightly enlarge the image on hover */
+        }
+
+        .container-gal {
+            /* width: 80%; */
+            /* or any other width you prefer */
+            margin-left: 50px;
+
+            /* This will center the div */
+        }
+
+        body {
+            /* background-image: url(images/bgbgbg.png); */
+            /* background-image: url(images/loginbg.jpg); */
+            background-image: url(images/bg2.png);
+            /* background-repeat: no-repeat; */
+            background-size: contain;
+        }
     </style>
 </head>
 
@@ -295,11 +342,11 @@
             <small>— Sumi, Developer</small>
         </blockquote>
         <div class="row">
-            <div class="col-md-6">
-                <img src="https://placehold.co/500x300" alt="Studio work" class="img-fluid">
+            <div class="col-md-6 q1">
+                <img src="gallery/front1.JPEG" alt="Studio work" class="img-fluid">
             </div>
-            <div class="col-md-6">
-                <img src="https://placehold.co/500x300" alt="Studio work" class="img-fluid">
+            <div class="col-md-6 q1">
+                <img src="gallery/q1.JPG" alt="Studio work" class="img-fluid">
             </div>
         </div>
     </section>
@@ -332,10 +379,12 @@
     </section>
 
 
-    <div class="container mission mission-section animate__animated" id="mission-section" style="margin-top:-20px;">
-        <h2>Our Mission</h2>
-        <p>To create innovative and sustainable solutions that enhance the quality of life for our clients and communities. We strive to lead by example, fostering a culture of collaboration, creativity, and integrity in every project we undertake.</p>
-    </div> <br>
+    <div class="container mission mission-section animate__animated" id="mission-section" style="margin-top:50px; margin-bottom:50px;">
+        <h2 style="letter-spacing:8px;font-size:45px;">OUR MISSION</h2>
+        <p style="padding-left:200px; padding-right:200px;">To create innovative and sustainable solutions that enhance the quality of life for our clients and communities. We strive to lead by example, fostering a culture of collaboration, creativity, and integrity in every project we undertake.</p>
+        <!-- <img src="images/formb3.jpg" alt="" style="height: auto; width:50%;"> -->
+    </div>
+    <br>
     <br>
 
 
@@ -346,7 +395,7 @@
 
     <!-- image section -->
     <div class="container">
-        <h1 class="text-center mb-4">Certifications</h1>
+        <h2 class="text-center mb-4" style="letter-spacing:8px;font-size:45px;">CERTIFICATIONS</h2>
         <br>
         <br>
         <div class="gallery" style="margin-left:90px;">
@@ -485,68 +534,118 @@
     </div>
 
 
+
+
+    <div class="container container-gal">
+        <h2 class="text-center mb-4" style="letter-spacing:8px;font-size:50px;">GALLERY</h2>
+        <BR></BR>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="">
+                    <img src="gallery/gallery.jpeg" alt="Image 1" class="img-fluid gal">
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="">
+                    <img src="gallery/gallery2.jpeg" alt="Image 2" class="img-fluid gal">
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="">
+                    <img src="gallery/gallery3.jpeg" alt="Image 3" class="img-fluid gal">
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="">
+                    <img src="gallery/gallery4.jpeg" alt="Image 4" class="img-fluid gal">
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="">
+                    <img src="gallery/gallery5.jpeg" alt="Image 5" class="img-fluid gal">
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="">
+                    <img src="gallery/gallery6.jpeg" alt="Image 6" class="img-fluid gal">
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="">
+                    <img src="gallery/gallery7.jpeg" alt="Image 7" class="img-fluid gal">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <br><br><br><br><br><br><br><ruby>
+
+    </ruby>
+
     <!-- product gallery -->
-    <div class="container">
-        <h1 class="text-center mb-4">Product Gallery</h1>
-        <div class="row justify-content-center"> <!-- Added justify-content-center here -->
+    <div class="container container-gal">
+        <h1 class="text-center mb-4" style="letter-spacing:8px;font-size:45px;">PRODUCT'S GALLERY</h1>
+        <br><br>
+        <div class="row">
             <div class="col-md-4 mb-4">
-                <div class="gallery-image">
-                    <img src="gallery/product1.jpeg" alt="Product 1" class="img-fluid">
+                <div class="">
+                    <img src="gallery/product1.jpeg" alt="Product 1" class="img-fluid gal">
                 </div>
             </div>
             <div class="col-md-4 mb-4">
-                <div class="gallery-image">
-                    <img src="gallery/product2.jpeg" alt="Product 2" class="img-fluid">
+                <div class="">
+                    <img src="gallery/product2.jpeg" alt="Product 2" class="img-fluid gal">
                 </div>
             </div>
             <div class="col-md-4 mb-4">
-                <div class="gallery-image">
-                    <img src="gallery/product3.jpeg" alt="Product 3" class="img-fluid">
+                <div class="">
+                    <img src="gallery/product3.jpeg" alt="Product 3" class="img-fluid gal">
                 </div>
             </div>
             <div class="col-md-4 mb-4">
-                <div class="gallery-image">
-                    <img src="gallery/product13.jpeg" alt="Product 4" class="img-fluid">
+                <div class="">
+                    <img src="gallery/product13.jpeg" alt="Product 4" class="img-fluid gal">
                 </div>
             </div>
             <div class="col-md-4 mb-4">
-                <div class="gallery-image">
-                    <img src="gallery/product5.jpeg" alt="Product 5" class="img-fluid">
+                <div class="">
+                    <img src="gallery/product5.jpeg" alt="Product 5" class="img-fluid gal">
+                </div>
+            </div>
+            <div class=" col-md-4 mb-4">
+                <div class="">
+                    <img src="gallery/product6.jpeg" alt="Product 6" class="img-fluid gal">
                 </div>
             </div>
             <div class="col-md-4 mb-4">
-                <div class="gallery-image">
-                    <img src="gallery/product6.jpeg" alt="Product 6" class="img-fluid">
+                <div class="">
+                    <img src="gallery/product7.jpeg" alt="Product 7" class="img-fluid gal">
                 </div>
             </div>
             <div class="col-md-4 mb-4">
-                <div class="gallery-image">
-                    <img src="gallery/product7.jpeg" alt="Product 7" class="img-fluid">
+                <div class="">
+                    <img src="gallery/product8.jpeg" alt="Product 8" class="img-fluid gal">
                 </div>
             </div>
             <div class="col-md-4 mb-4">
-                <div class="gallery-image">
-                    <img src="gallery/product8.jpeg" alt="Product 8" class="img-fluid">
+                <div class="">
+                    <img src="gallery/product9.jpeg" alt="Product 9" class="img-fluid gal">
                 </div>
             </div>
             <div class="col-md-4 mb-4">
-                <div class="gallery-image">
-                    <img src="gallery/product9.jpeg" alt="Product 9" class="img-fluid">
+                <div class="">
+                    <img src="gallery/product10.jpeg" alt="Product 10" class="img-fluid gal">
                 </div>
             </div>
             <div class="col-md-4 mb-4">
-                <div class="gallery-image">
-                    <img src="gallery/product10.jpeg" alt="Product 10" class="img-fluid">
+                <div class="">
+                    <img src="gallery/product11.jpeg" alt="Product 11" class="img-fluid gal">
                 </div>
             </div>
             <div class="col-md-4 mb-4">
-                <div class="gallery-image">
-                    <img src="gallery/product11.jpeg" alt="Product 11" class="img-fluid">
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="gallery-image">
-                    <img src="gallery/product12.jpeg" alt="Product 12" class="img-fluid">
+                <div class="">
+                    <img src="gallery/product12.jpeg" alt="Product 12" class="img-fluid gal">
                 </div>
             </div>
         </div>
