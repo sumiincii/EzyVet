@@ -327,7 +327,6 @@
     </section>
 
 
-
     <!-- Quote Section -->
     <section class="content-section quote-section text-center animate__animated" id="quote-section">
         <blockquote class="blockquote">
@@ -379,12 +378,6 @@
     </div>
     <br>
     <br>
-
-
-    <script>
-
-    </script>
-
 
     <!-- image section -->
     <div class="container">
@@ -727,7 +720,7 @@
                 <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
                 <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-viber"></i></a>
             </div>
         </div>
         <div class="footer-bottom">

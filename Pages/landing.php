@@ -171,7 +171,7 @@
         <p id="vetcare">YOUR PET'S SANCTUARY <br>FOR COMPASSIONATE<br>
         <p style="font-family:Allura !important;font-size: 80px;line-height:49px; font-weight:350;"><b>Veterinary Care</b></p>
         </p>
-        <!-- <button type="button" class="">REQUEST AN APPOINTMENT</button> -->
+
         <a href="appointment.php" class="btn" style="margin-left: 80px;">REQUEST AN APPOINTMENT</a>
       </div>
       <div class="col-6 align-self-right">
@@ -187,33 +187,33 @@
   <br>
   <br>
 
-  <div class="animate__animated animate__fadeInLeft">
+  <!-- <div class="animate__animated animate__fadeInLeft">
     <div class="container3 text-center">
       <div class="row row-number2">
         <div class="col align-self-center wala">
-          <!-- wala -->
+         
         </div>
         <div class="col-8 align-self-center gitna">
           <img src="images/Paws.png" class="rounded mx-auto d-block paws-logo" alt="PawsLogo">
           <p id="p1">DR. RON VETERINARY CLINIC</p>
-          <p id="p2">Discover Expert Care And Compassionate Service</p>
+          <p id="p2">Disco   .    ver Expert Care And Compassionate Service</p>
           <hr style="margin-top:5px; margin-bottom:5px;">
           <p id="p3">Being a pet owner, you are aware of the importance of regular veterinary checkups for your animal's health. But sometimes you might wonder whether the stress of visiting the veterinarian is really worth your pet's fear and anxiety. You don't have to choose between your pet's mental health and veterinary care at Dr. Ron Veterinary Clinic because we are committed to providing high-quality, holistic veterinarian care with an intense focus on a fear-free approach.</p>
         </div>
         <div class="col align-self-center wala">
-          <!-- wala -->
+      
         </div>
       </div>
     </div>
-  </div>
+  </div>-->
 
-  <div class="container4 container-fluid text-center">
+  <!-- <div class="container4 container-fluid text-center">
     <div class="">
       <img src="images/Paws.png" class="rounded mx-auto d-block paws-logo" alt="PawsLogo">
       <p>Visit Us.</p>
       <a href="appointment.php" class="btn">REQUEST AN APPOINTMENT</a>
     </div>
-  </div>
+  </div> -->
 
   <footer class="footer">
     <div class="footer-logo">
@@ -238,7 +238,7 @@
         <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
         <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
         <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-viber"></i></a>
       </div>
     </div>
     <div class="footer-bottom">

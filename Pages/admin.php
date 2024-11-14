@@ -114,8 +114,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $mail->Body = 'Dear ' . $owner['fullname'] . ',<br>Your appointment has been updated to ' . $new_date . ' at ' . date('h:i A', strtotime($new_time)) . '.<br>Edit Reason: ' . $edit_reason . '<br>Thank you!';
                 }
 
-
-
                 $mail->SMTPOptions = array(
                     'ssl' => array(
                         'verify_peer' => false,
