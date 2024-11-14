@@ -1,17 +1,3 @@
-<?php
-session_start(); // Start the session
-
-// Check if the user is logged in
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php"); // Redirect to the login page if not logged in
-    exit();
-}
-// Start output buffering
-ob_start();
-
-// Include database connection
-include 'connection.php';
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -341,12 +327,14 @@ include 'connection.php';
         <img src="images/taglogo.png" alt="EzyVet Logo" class="welcome-logo">
         <div class="container">
             <div class="search-form">
-                <input type="text" id="search-input" placeholder="Search archived appointments">
+                <form method="POST" action="">
+                    <input type="text" id="search-input" name="search_query" placeholder="Search archived appointments" value="<?php echo isset($_POST['search_query']) ? htmlspecialchars($_POST['search_query']) : ''; ?>">
+
+                </form>
             </div>
             <!-- Appointments Table -->
             <div class="table-wrapper">
-                // Assuming you already have a table displaying archived appointments
-                <table class="table table-striped" id="archived-appointments-table">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>Owner's Name</th>
@@ -356,15 +344,15 @@ include 'connection.php';
                             <th>Species</th>
                             <th>Breed</th>
                             <th>Color</th>
-                            <th>Date</th>
-                            <th>Time</th>
+                            <th>Purpose</th>
+                            <th>Appointment Date</th>
+                            <th>Appointment Time</th>
                             <th>Status</th>
                             <th>Comments</th>
-                            <th>Actions</th> <!-- New Actions Column -->
                         </tr>
                     </thead>
                     <tbody id="table-body">
-                        <!-- Data will be injected here by AJAX -->
+
                     </tbody>
                 </table>
             </div>

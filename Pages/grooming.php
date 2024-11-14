@@ -116,6 +116,11 @@
             /* background-repeat: no-repeat; */
             background-size: contain;
         }
+
+        .button-container {
+            text-align: center;
+            /* Center the text and inline elements */
+        }
     </style>
 </head>
 
@@ -269,8 +274,12 @@
             <li>• Maintain a calm and relaxed demeanor to help pets feel at ease during grooming.</li>
         </ul>
         <p class="text-center mt-5">
-            If you have any questions or concerns about pet grooming, options for handling uncooperative or anxious pets, or anything else, please don’t hesitate to contact us at (+63) 955-617-9958.<br><br><a href="appointment.php" class="btn" style="">REQUEST AN APPOINTMENT</a>
+            If you have any questions or concerns about pet grooming, options for handling uncooperative or anxious pets, or anything else, please don’t hesitate to contact us at (+63) 955-617-9958.<br>
+        <h3>Price starts at 450!</h3> <br><br>
         </p>
+        <div class="button-container">
+            <a href="appointment.php" class="btn b2">REQUEST AN APPOINTMENT</a>
+        </div>
 
     </div>
 

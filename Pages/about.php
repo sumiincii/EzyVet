@@ -353,20 +353,20 @@
         <br>
         <div class="row text-center mt-4 animate__animated" id="team-section">
             <div class="col-md-3 team-member">
-                <img src="https://placehold.co/200x200" alt="Team member photo" class="rounded-circle mb-2">
+                <img src="team/Incess.jpg" alt="Team member photo" class="rounded-circle mb-2">
                 <p><strong>Princess Lorraine Navarro</strong><br>Designer</p>
             </div>
             <div class="col-md-3 team-member">
-                <img src="https://placehold.co/200x200" alt="Team member photo" class="rounded-circle mb-2">
+                <img src="team/Erichans.png" alt="Team member photo" class="rounded-circle mb-2">
                 <p><strong>Eric Hans Carillo</strong><br>Project Manager</p>
             </div>
             <div class="col-md-3 team-member">
-                <img src="https://placehold.co/200x200" alt="Team member photo" class="rounded-circle mb-2">
+                <img src="team/Vincent.jpg" alt="Team member photo" class="rounded-circle mb-2">
                 <p><strong>Vincent Santos</strong><br>System Developer</p>
             </div>
             <div class="col-md-3 team-member">
-                <img src="https://placehold.co/200x200" alt="Team member photo" class="rounded-circle mb-2">
-                <p><strong>Vince Arvee Valdez</strong><br>System Developer</p>
+                <img src="team/Vince.jpg" alt="Team member photo" class="rounded-circle mb-2">
+                <p><strong>Vince Arvee Valdez</strong><br>Producer</p>
             </div>
         </div>
     </section>

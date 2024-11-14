@@ -49,49 +49,34 @@ if ($result->num_rows == 0) {
 $today = date("Y-m-d");
 $today_sql = "SELECT COUNT(*) AS total_today FROM appointments WHERE appointment_date = '$today'";
 $today_result = $conn->query($today_sql);
-$today_count = $today_result->fetch_assoc();
+$today_count = $today_result ? $today_result->fetch_assoc() : ['total_today' => 0];
 
 // Fetch pending appointments
 $pending_sql = "SELECT COUNT(*) AS pending FROM appointments WHERE status = 'Pending'";
 $pending_result = $conn->query($pending_sql);
-$pending_count = $pending_result->fetch_assoc();
+$pending_count = $pending_result ? $pending_result->fetch_assoc() : ['pending' => 0];
 
 // Fetch archived appointments
 $archived_sql = "SELECT COUNT(*) AS archived FROM archived_appointments";
 $archived_result = $conn->query($archived_sql);
-$archived_count = $archived_result->fetch_assoc();
+$archived_count = $archived_result ? $archived_result->fetch_assoc() : ['archived' => 0];
 
-// Handle button clicks for accept, decline, and archive
+// Handle button clicks for accept, decline, archive, and edit
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['appointment_id']) && isset($_POST['action'])) {
         $appointment_id = $conn->real_escape_string($_POST['appointment_id']);
         $action = $conn->real_escape_string($_POST['action']);
 
         // Fetch the owner's email for sending notifications
-        $owner_email_sql = "SELECT o.email, o.fullname, a.appointment_date, a.appointment_time, a.appointment_for 
-                            FROM appointments a
-                            JOIN owners o ON a.owner_id = o.id
-                            WHERE a.id = $appointment_id";
+        $owner_email_sql = "SELECT o.email, o.fullname, a.appointment_date, a.appointment_time, a.appointment_for
+    FROM appointments a
+    JOIN owners o ON a.owner_id = o.id
+    WHERE a.id = $appointment_id";
         $owner_result = $conn->query($owner_email_sql);
         $owner = $owner_result->fetch_assoc();
 
         // Check for action type
-        if ($action == 'accept' || $action == 'decline') {
-            // Fetch the appointment details
-            // $fetch_sql = "SELECT id, owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments 
-            //               FROM appointments WHERE id=$appointment_id";
-            // $fetch_result = $conn->query($fetch_sql);
-            // $appointment = $fetch_result->fetch_assoc();
-
-            // Insert into archived_appointments
-            // $insert_sql = "INSERT INTO archived_appointments (id, owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments)
-            //                VALUES ('{$appointment['id']}', '{$appointment['owner_id']}', '{$appointment['pet_id']}', '{$appointment['appointment_date']}', '{$appointment['appointment_time']}', '$action', '{$appointment['appointment_for']}', '{$appointment['comments']}')";
-            // $conn->query($insert_sql);
-
-            // // Delete from appointments
-            // $delete_sql = "DELETE FROM appointments WHERE id=$appointment_id";
-            // $conn->query($delete_sql);
-
+        if ($action == 'accept' || $action == 'decline' || $action == 'edit') {
             // Send email notification using PHPMailer
             $mail = new PHPMailer(true);
             try {
@@ -114,11 +99,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 } elseif ($action == 'decline') {
                     $update_sql = "UPDATE appointments SET status = 'Declined' WHERE id = $appointment_id";
                     $conn->query($update_sql);
-                    // Get the decline reason from the POST request
                     $decline_reason = isset($_POST['decline_reason']) ? $conn->real_escape_string($_POST['decline_reason']) : 'No reason provided.';
                     $mail->Subject = 'Appointment Declined';
-                    $mail->Body = 'Dear ' . $owner['fullname'] . ',<br>Thank you for reaching out to us regarding your appointment request for ' . $owner['appointment_for'] . ' on ' . $owner['appointment_date'] . ' at ' . date('h:i A', strtotime($owner['appointment_time'])) . '. After careful consideration, we regret to inform you that we are unable to accommodate your appointment at this time.<br>The reason for this decision is as follows: ' . $decline_reason . '.<br>We appreciate your understanding and encourage you to reach out for any future needs or to discuss alternative arrangements.<br><br>Best regards,<br>Dr. Ron veterinary clinic.';
+                    $mail->Body = 'Dear ' . $owner['fullname'] . ',<br>We regret to inform you that your appointment on ' . $owner['appointment_date'] . ' at ' . date('h:i A', strtotime($owner['appointment_time'])) . ' for ' . $owner['appointment_for'] . ' has been declined.<br>Reason: ' . $decline_reason . '<br>Thank you for your understanding.';
+                } elseif ($action == 'edit') {
+                    $new_date = $conn->real_escape_string($_POST['new_date']);
+                    $new_time = $conn->real_escape_string($_POST['new_time']);
+                    $edit_reason = $conn->real_escape_string($_POST['edit_reason']);
+                    $update_sql = "UPDATE appointments SET appointment_date = '$new_date', appointment_time = '$new_time' WHERE id = $appointment_id";
+                    $conn->query($update_sql);
+                    $update_sql = "UPDATE appointments SET status = 'Follow-up' WHERE id = $appointment_id";
+                    $conn->query($update_sql);
+                    $mail->Subject = 'Appointment Follow-up';
+                    $mail->Body = 'Dear ' . $owner['fullname'] . ',<br>Your appointment has been updated to ' . $new_date . ' at ' . date('h:i A', strtotime($new_time)) . '.<br>Edit Reason: ' . $edit_reason . '<br>Thank you!';
                 }
+
+
 
                 $mail->SMTPOptions = array(
                     'ssl' => array(
@@ -129,24 +125,51 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 );
 
                 // Send the email
+
                 if ($mail->send()) {
-                    echo "<div class='alert alert-success'>Appointment $action and email sent successfully.</div>";
+                    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+                    echo "<script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Appointment $action',
+            text: 'Appointment $action and email sent successfully.',
+            showConfirmButton: false,
+            timer: 2000
+        });
+    </script>";
                 } else {
-                    echo "<div class='alert alert-danger'>Appointment $action but email could not be sent.</div>";
+                    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+                    echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Appointment $action',
+            text: 'Appointment $action but email could not be sent.',
+            showConfirmButton: false,
+            timer: 3000
+        });
+    </script>";
                 }
             } catch (Exception $e) {
-                echo "<div class='alert alert-danger'>Error sending email: " . $mail->ErrorInfo . "</div>";
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+                echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error sending email',
+            text: 'Error: " . $mail->ErrorInfo . "',
+            showConfirmButton: true
+        });
+    </script>";
             }
         } elseif ($action == 'archive') {
             // Fetch the appointment details
-            $fetch_sql = "SELECT id, owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments 
-                          FROM appointments WHERE id=$appointment_id";
+            $fetch_sql = "SELECT id, owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments
+            FROM appointments WHERE id=$appointment_id";
             $fetch_result = $conn->query($fetch_sql);
             $appointment = $fetch_result->fetch_assoc();
 
             // Insert into archived_appointments
             $insert_sql = "INSERT INTO archived_appointments (id, owner_id, pet_id, appointment_date, appointment_time, status, appointment_for, comments)
-                           VALUES ('{$appointment['id']}', '{$appointment['owner_id']}', '{$appointment['pet_id']}', '{$appointment['appointment_date']}', '{$appointment['appointment_time']}', '{$appointment['status']}', '{$appointment['appointment_for']}', '{$appointment['comments']}')";
+            VALUES ('{$appointment['id']}', '{$appointment['owner_id']}', '{$appointment['pet_id']}', '{$appointment['appointment_date']}', '{$appointment['appointment_time']}', '{$appointment['status']}', '{$appointment['appointment_for']}', '{$appointment['comments']}')";
             $conn->query($insert_sql);
 
             // Delete from appointments
@@ -155,7 +178,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             echo "<div class='alert alert-secondary'>Appointment archived successfully.</div>";
         }
-
         // Redirect to avoid form resubmission issues
         header("Location: " . $_SERVER['PHP_SELF']);
         exit();
@@ -167,7 +189,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // End output buffering and flush output
 ob_end_flush();
 ?>
-
 <?php
 // Start output buffering
 ob_start();
@@ -226,7 +247,6 @@ $result = $conn->query($sql)
 
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -235,37 +255,23 @@ $result = $conn->query($sql)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ezyvet Admin</title>
     <link rel="stylesheet" href="css/admins.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="_assets/bootstrap.min.css">
-
-    <!-- FontAwesome for Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
-    <!-- fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-
     <style>
         .sidebar {
             max-width: 230px;
-            /* background-color: #5ce1e6; */
             background-color: #8b61c2;
-            /* Changed to a deeper blue */
             color: #fff;
             height: auto;
             padding-top: 20px;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-            /* Added shadow for depth */
-
         }
 
         .sidebar h3 {
             text-align: center;
             margin-bottom: 30px;
             font-size: 24px;
-            /* Increased font size */
         }
 
         .sidebar a {
@@ -273,56 +279,32 @@ $result = $conn->query($sql)
             align-items: center;
             color: #fff;
             padding: 15px 20px;
-            /* Keep padding consistent */
             text-decoration: none;
             transition: background 0.3s, transform 0.3s;
-            /* Add transform to transition */
         }
 
         .sidebar a:hover {
             background-color: #5ce1e6;
-            /* Change background on hover */
             transform: scale(1.05);
-            /* Scale the text slightly on hover */
-            /* No padding change */
-        }
-
-        .sidebar a {
-            display: flex;
-            /* Use flexbox for alignment */
-            align-items: center;
-            /* Center items vertically */
-            color: #fff;
-            padding: 15px 20px;
-            text-decoration: none;
-            transition: background 0.3s, padding 0.3s;
         }
 
         .sidebar a img.sidebar-icon {
             width: 20px;
-            /* Adjust icon size as needed */
             height: auto;
-            /* Maintain aspect ratio */
             margin-right: 10px;
-            /* Space between icon and text */
         }
 
         .sidebar .logo {
             display: block;
             margin: 0 auto 20px;
-            /* Center the logo and add margin below */
             width: 45%;
-            /* Adjust width as needed */
             height: auto;
-            /* Maintain aspect ratio */
             border-radius: 100px;
         }
     </style>
-
 </head>
 
 <body>
-    <!-- sidebar -->
     <div class="sidebar">
         <img src="images/main-logo.png" alt="EzyVet Logo" class="logo">
         <h3><strong>EzyVet Dashboard</strong></h3>
@@ -334,26 +316,26 @@ $result = $conn->query($sql)
 
     <div class="main-content">
         <div class="container">
-            <!-- Additional Content -->
             <img src="images/taglogo.png" alt="EzyVet Logo" class="welcome-logo">
             <div class="welcome-section mb-4">
                 <h1>Welcome to EzyVet Dashboard</h1>
                 <p>Your one-stop solution for managing pet appointments efficiently.</p>
             </div>
 
-            <!-- Stats Card -->
-            <div class="stats-card">
-                <div>
-                    <h5>Today's Appointments</h5>
-                    <h3><?php echo $today_count['total_today']; ?></h3>
-                </div>
-                <div>
-                    <h5>Pending Appointments</h5>
-                    <h3><?php echo $pending_count['pending']; ?></h3>
-                </div>
-                <div>
-                    <h5>Archived Appointments</h5>
-                    <h3><?php echo $archived_count['archived']; ?></h3>
+            <div>
+                <div class="stats-card">
+                    <div>
+                        <h5>Today's Appointments</h5>
+                        <h3><?php echo $today_count['total_today']; ?></h3>
+                    </div>
+                    <div>
+                        <h5>Pending Appointments</h5>
+                        <h3><?php echo $pending_count['pending']; ?></h3>
+                    </div>
+                    <div>
+                        <h5>Archived Appointments</h5>
+                        <h3><?php echo $archived_count['archived']; ?></h3>
+                    </div>
                 </div>
             </div>
 
@@ -381,18 +363,17 @@ $result = $conn->query($sql)
             </div>
 
 
-            <!-- Appointment Table -->
             <div class="table-wrapper">
                 <table class="table table-striped" id="appointments-table">
                     <thead>
                         <tr>
                             <th>Owner's Name</th>
-                            <th>Pet's Name</th> <!-- Added Pet's Name -->
+                            <th>Pet's Name</th>
                             <th>Email</th>
-                            <th>Phone</th> <!-- Added Phone Number -->
+                            <th>Phone</th>
                             <th>Pet's Species</th>
-                            <th>Breed</th> <!-- Added Breed -->
-                            <th>Color</th> <!-- Added Color -->
+                            <th>Breed</th>
+                            <th>Color</th>
                             <th>Date</th>
                             <th>Time</th>
                             <th>Purpose</th>
@@ -404,18 +385,6 @@ $result = $conn->query($sql)
                     <tbody>
                         <?php while ($row = $result->fetch_assoc()) { ?>
                             <tr>
-
-                                <!-- Decline Reason Popup -->
-                                <div class="overlay" id="overlay" style="display:none;">
-                                    <div class="popup" id="popup">
-                                        <h2>Decline Reason</h2>
-                                        <textarea id="declineReason" placeholder="Type the reason for declining..." class="decline-textarea"></textarea>
-                                        <div class="popup-buttons">
-                                            <button id="sendDeclineReason" class="btn btn-primary">Send</button>
-                                            <button class="close-popup" onclick="closeDeclinePopup()" class="btn btn-secondary">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
                                 <td><?php echo $row['fullname']; ?></td>
                                 <td><?php echo $row['pet_name']; ?></td>
                                 <td><?php echo $row['email']; ?></td>
@@ -433,26 +402,45 @@ $result = $conn->query($sql)
                                 <td class="action-buttons">
                                     <form method="POST" action="" onsubmit="return confirmAction(this.action.value);">
                                         <input type="hidden" name="appointment_id" value="<?php echo $row['id']; ?>">
-                                        <button type="submit" name="action" value="accept" class="btn btn-success" id="acceptButton">Accept</button>
+                                        <button type="submit" name="action" value="accept" class="btn btn-success">Accept</button>
                                         <button type="button" class="btn btn-danger" onclick="openDeclinePopup(<?php echo $row['id']; ?>)">Decline</button>
-                                        <button type="submit" name="action" value="archive" class="btn btn-secondary" id="archiveButton">Archive</button>
+                                        <button type="submit" name="action" value="archive" class="btn btn-dark">Archive</button>
+                                        <button style="font-size: 12px;" type="button" class="btn btn-warning" onclick="openEditPopup(<?php echo $row['id']; ?>, '<?php echo $row['appointment_date']; ?>', '<?php echo $row['appointment_time']; ?>')">Follow-up</button>
                                     </form>
                                 </td>
-
-                                <script>
-                                    function confirmAction(action) {
-                                        return confirm("Are you sure you want to " + action + " this appointment?");
-                                    }
-                                </script>
                             </tr>
                         <?php } ?>
                     </tbody>
                 </table>
             </div>
         </div>
-
     </div>
 
+    <!-- Decline Reason Popup -->
+    <div class="overlay" id="overlay" style="display:none;">
+        <div class="popup" id="popup">
+            <h2>Decline Reason</h2>
+            <textarea id="declineReason" placeholder="Type the reason for declining..." class="decline-textarea"></textarea>
+            <div class="popup-buttons">
+                <button id="sendDeclineReason" class="btn btn-danger">Send</button>
+                <button class="close-popup btn btn-secondary" onclick="closeDeclinePopup()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Appointment Popup -->
+    <div class="overlay" id="editOverlay" style="display:none;">
+        <div class="popup" id="editPopup">
+            <h2>Follow- Appointment</h2>
+            <input type="date" id="editDate" class="form-control" placeholder="New Date">
+            <input type="time" id="editTime" class="form-control" placeholder="New Time">
+            <textarea id="editReason" placeholder="Follow up information..." class="form-control" style="margin-top: 10px;"></textarea>
+            <div class="popup-buttons">
+                <button id="saveEdit" class="btn btn-warning">Save & Send</button>
+                <button class="close-popup btn btn-secondary" onclick="closeEditPopup()" class="">Close</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Bootstrap JS -->
     <script src="_assets/bootstrap.bundle.min.js"></script>
@@ -500,10 +488,72 @@ $result = $conn->query($sql)
                 alert('Please provide a reason for declining the appointment.');
             }
         });
+
+        let currentEditAppointmentId;
+
+        function openEditPopup(appointmentId, currentDate, currentTime) {
+            currentEditAppointmentId = appointmentId;
+            document.getElementById('editDate').value = currentDate;
+            document.getElementById('editTime').value = currentTime;
+            document.getElementById('editOverlay').style.display = 'block';
+        }
+
+        function closeEditPopup() {
+            document.getElementById('editOverlay').style.display = 'none';
+        }
+
+        document.getElementById('saveEdit').addEventListener('click', function() {
+            const newDate = document.getElementById('editDate').value;
+            const newTime = document.getElementById('editTime').value;
+            const editReason = document.getElementById('editReason').value;
+
+            if (newDate && newTime && editReason) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '';
+
+                const appointmentIdInput = document.createElement('input');
+                appointmentIdInput.type = 'hidden';
+                appointmentIdInput.name = 'appointment_id';
+                appointmentIdInput.value = currentEditAppointmentId;
+
+                const actionInput = document.createElement('input');
+                actionInput.type = 'hidden';
+                actionInput.name = 'action';
+                actionInput.value = 'edit';
+
+                const dateInput = document.createElement('input');
+                dateInput.type = 'hidden';
+                dateInput.name = 'new_date';
+                dateInput.value = newDate;
+
+                const timeInput = document.createElement('input');
+                timeInput.type = 'hidden';
+                timeInput.name = 'new_time';
+                timeInput.value = newTime;
+
+                const reasonInput = document.createElement('input');
+                reasonInput.type = 'hidden';
+                reasonInput.name = 'edit_reason';
+                reasonInput.value = editReason;
+
+                form.appendChild(appointmentIdInput);
+                form.appendChild(actionInput);
+                form.appendChild(dateInput);
+                form.appendChild(timeInput);
+                form.appendChild(reasonInput);
+
+                document.body.appendChild(form);
+                form.submit();
+            } else {
+                alert('Please provide both date, time, and a reason for Follow-up.');
+            }
+        });
+
+        function confirmAction(action) {
+            return confirm("Are you sure you want to accept" + action + " this appointment?");
+        }
     </script>
-
-
-
     <!-- Search Filter Script -->
     <script>
         // Search Filter Script
