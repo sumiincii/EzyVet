@@ -29,12 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Your appointment is confirmed! Your queue number is $queue_number.";
 
         // Send confirmation email
-        include 'send_mail.php';
+        // include 'send_mail.php';
         sendConfirmationEmail(
             $email,
-            $fullname,
+            $client_name,
             $queue_number,
-            $appointment_details
+            $service
         );
     } else {
         echo "Error: " . $stmt->error;
@@ -56,6 +56,33 @@ $conn->close();
 </head>
 
 <body>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#appointment_date, #service').change(function() {
+                var appointmentDate = $('#appointment_date').val();
+                var service = $('#service').val();
+
+                if (appointmentDate && service) {
+                    $.ajax({
+                        url: 'get_queue_number.php', // Create this file to handle the request
+                        type: 'POST',
+                        data: {
+                            appointment_date: appointmentDate,
+                            service: service
+                        },
+                        success: function(data) {
+                            $('#current_queue').text(data);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- Add this to your form to display the current queue -->
+    <p>Your Queue Number for Selected Date: <span id="current_queue">0</span></p>
     <h1>Book an Appointment</h1>
     <form method="POST">
         <label for="client_name">Name:</label>
