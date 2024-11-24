@@ -267,36 +267,39 @@ if (isset($_POST['add_walkin'])) {
 
     </div>
 
-    <div class="mb-4">
-        <h2>Add Walk-in Appointment</h2>
-        <form action="" method="post" class="mb-3">
-            <div class="mb-3">
-                <label for="client_name" class="form-label">Client Name:</label>
-                <input type="text" name="client_name" id="client_name" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email:</label>
-                <input type="email" name="email" id="email" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="pet_details" class="form-label">Pet Details:</label>
-                <textarea name="pet_details" id="pet_details" class="form-control" required></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="service" class="form-label">Service:</label>
-                <select name="service" id="service" class="form-select" required>
-                    <option value="Grooming">Grooming</option>
-                    <option value="Vaccination">Vaccination</option>
-                    <option value="Checkup">Checkup</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="appointment_date" class="form-label">Date:</label>
-                <input type="date" name="appointment_date" id="appointment_date" class="form-control" required onchange="checkDate()">
-            </div>
-            <button type="submit" name="add_walkin" class="btn btn-success">Add Walk-in Appointment</button>
-        </form>
+    <div class="container contaier-fluid">
+        <div class="mb-4">
+            <h2>Add Walk-in Appointment</h2>
+            <form action="" method="post" class="mb-3">
+                <div class="mb-3">
+                    <label for="client_name" class="form-label">Client Name:</label>
+                    <input type="text" name="client_name" id="client_name" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" name="email" id="email" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="pet_details" class="form-label">Pet Details:</label>
+                    <textarea name="pet_details" id="pet_details" class="form-control" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="service" class="form-label">Service:</label>
+                    <select name="service" id="service" class="form-select" required>
+                        <option value="Grooming">Grooming</option>
+                        <option value="Vaccination">Vaccination</option>
+                        <option value="Checkup">Checkup</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="appointment_date" class="form-label">Date:</label>
+                    <input type="date" name="appointment_date" id="appointment_date" class="form-control" required onchange="checkDate()">
+                </div>
+                <button type="submit" name="add_walkin" class="btn btn-success">Add Walk-in Appointment</button>
+            </form>
+        </div>
     </div>
+
 
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
