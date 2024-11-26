@@ -277,18 +277,6 @@ a img {
     /* Smooth transition for sticky effect */
 }
 
-#container1.sticky {
-    position: fixed;
-    /* Change to fixed when sticky */
-    top: 0;
-    /* Stick to the top */
-    left: 0;
-    /* Align to the left */
-    right: 0;
-    /* Align to the right */
-    z-index: 999;
-    /* Ensure it stays above other content */
-}
 
 #main-nav {
     background-color: transparent;
@@ -302,19 +290,4 @@ a img {
     transition: background-color 0.3s ease, top 0.3s ease;
     width: 100%;
     /* Smooth transitions for background color and top */
-}
-
-#main-nav.sticky {
-    position: fixed;
-    /* Change to fixed when sticky */
-    background-color: white;
-    /* Change background color when sticky */
-    top: 28px;
-    /* Stick below container1 */
-    z-index: 2000;
-    /* Ensure it stays above other content */
-    padding: 0 25px;
-    text-align: center;
-    width: 100%;
-
 }
