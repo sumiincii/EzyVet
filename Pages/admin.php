@@ -62,10 +62,10 @@ if (isset($_POST['update_status'])) {
     updateAppointmentStatus($conn, $_POST['appointment_id'], $_POST['status'], $_POST['email'], $_POST['client_name'], $_POST['queue_number']);
 }
 
-// Fetch appointments for each service
-$grooming_appointments_query = "SELECT * FROM appointments1 WHERE service = 'Grooming' ORDER BY appointment_date, queue_number ASC";
-$vaccination_appointments_query = "SELECT * FROM appointments1 WHERE service = 'Vaccination' ORDER BY appointment_date, queue_number ASC";
-$checkup_appointments_query = "SELECT * FROM appointments1 WHERE service = 'Checkup' ORDER BY appointment_date, queue_number ASC";
+// Fetch appointments for each service (excluding completed ones)
+$grooming_appointments_query = "SELECT * FROM appointments1 WHERE service = 'Grooming' AND status != 'Completed' ORDER BY appointment_date, queue_number ASC";
+$vaccination_appointments_query = "SELECT * FROM appointments1 WHERE service = 'Vaccination' AND status != 'Completed' ORDER BY appointment_date, queue_number ASC";
+$checkup_appointments_query = "SELECT * FROM appointments1 WHERE service = 'Checkup' AND status != 'Completed' ORDER BY appointment_date, queue_number ASC";
 
 $grooming_appointments_result = $conn->query($grooming_appointments_query);
 $vaccination_appointments_result = $conn->query($vaccination_appointments_query);
@@ -185,7 +185,7 @@ if (isset($_POST['add_walkin'])) {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#report">Report</a>
+                        <a class="nav-link" href="report.php">Report</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#feedback">Feedback</a>
