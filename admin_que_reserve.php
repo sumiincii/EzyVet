@@ -8,15 +8,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-
-
-
-
-
-
-
-
-
 // Function to update appointment status
 function updateAppointmentStatus($conn, $appointment_id, $new_status, $email, $client_name, $queue_number)
 {
@@ -70,6 +61,7 @@ $checkup_appointments_query = "SELECT * FROM appointments1 WHERE service = 'Chec
 $grooming_appointments_result = $conn->query($grooming_appointments_query);
 $vaccination_appointments_result = $conn->query($vaccination_appointments_query);
 $checkup_appointments_result = $conn->query($checkup_appointments_query);
+
 // Handle adding walk-in appointment
 if (isset($_POST['add_walkin'])) {
     $client_name = $_POST['client_name'];
@@ -77,16 +69,19 @@ if (isset($_POST['add_walkin'])) {
     $pet_details = $_POST['pet_details'];
     $service = $_POST['service'];
     $appointment_date = $_POST['appointment_date'];
-    $status = 'Walk-in';
+    $status = 'Walk-in'; // Define the status
 
-    // Fetch the maximum queue number for the given date and service
-    $queue_query = "SELECT MAX(queue_number) as max_queue FROM appointments1 WHERE appointment_date = '$appointment_date' AND service = '$service'";
-    $queue_result = $conn->query($queue_query);
-    $queue_row = $queue_result->fetch_assoc();
-    $queue_number = ($queue_row['max_queue'] ?? 0) + 1; // Increment the max queue number by 1
+    // Get the current queue number for the selected service
+    $query = "SELECT MAX(queue_number) AS last_queue FROM appointments1 WHERE service = '$service' AND DATE(appointment_date) = '$appointment_date'";
+    $result = $conn->query($query);
+    $last_queue = $result->fetch_assoc()['last_queue'] ?? 0;
+
+    // Assign the next queue number
+    $queue_number = $last_queue + 1;
 
     // Insert the walk-in appointment into the database
-    $stmt = $conn->prepare("INSERT INTO appointments1 (client_name, email, pet_details, service, appointment_date, queue_number, status) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn
+        ->prepare("INSERT INTO appointments1 (client_name, email, pet_details, service, appointment_date, queue_number, status) VALUES (?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("sssssis", $client_name, $email, $pet_details, $service, $appointment_date, $queue_number, $status);
 
     if ($stmt->execute()) {
@@ -96,7 +91,6 @@ if (isset($_POST['add_walkin'])) {
     }
     $stmt->close();
 }
-
 ?>
 
 <!DOCTYPE html>

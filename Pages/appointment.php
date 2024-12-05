@@ -14,8 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $service = $_POST['service'];
     $appointment_date = $_POST['appointment_date'];
 
-    // Get the current queue number for the selected service
-    $query = "SELECT MAX(queue_number) AS last_queue FROM appointments1 WHERE service = '$service' AND DATE(created_at) = CURDATE()";
+    // Get the current queue number for the selected service and date
+    $query = "SELECT MAX(queue_number) AS last_queue FROM appointments1 WHERE service = '$service' AND appointment_date = '$appointment_date'";
     $result = $conn->query($query);
     $last_queue = $result->fetch_assoc()['last_queue'] ?? 0;
 
@@ -30,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Your appointment is confirmed! Your queue number is $queue_number.";
 
         // Send confirmation email
-        // include 'send_mail.php';
         sendConfirmationEmail(
             $email,
             $client_name,
