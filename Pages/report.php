@@ -221,7 +221,6 @@ while ($row = $service_counts_result->fetch_assoc()) {
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
-
         <script>
             const serviceCounts = <?php echo json_encode($service_counts); ?>;
             const labels = Object.keys(serviceCounts);

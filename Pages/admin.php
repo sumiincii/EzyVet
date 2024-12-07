@@ -372,15 +372,45 @@ if (isset($_POST['add_walkin'])) {
                 <div class="mb-3">
                     <label for="service" class="form-label">Service:</label>
                     <select name="service" id="service" class="form-select" required>
+                        <option value="" disabled selected>Select a Service</option>
                         <option value="Grooming">Grooming</option>
                         <option value="Vaccination">Vaccination</option>
                         <option value="Checkup">Checkup</option>
                     </select>
                 </div>
+
                 <div class="mb-3">
                     <label for="appointment_date" class="form-label">Date:</label>
                     <input type="date" name="appointment_date" id="appointment_date" class="form-control" required onchange="checkDate()">
                 </div>
+
+
+                <script>
+                    // Set the minimum date to today when the document is ready
+                    document.addEventListener('DOMContentLoaded', function() {
+                        var today = new Date();
+                        var dd = String(today.getDate()).padStart(2, '0');
+                        var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+                        var yyyy = today.getFullYear();
+                        today = yyyy + '-' + mm + '-' + dd;
+                        document.getElementById('appointment_date').setAttribute('min', today);
+                    });
+
+                    function checkDate() {
+                        var selectedDate = new Date(document.getElementById('appointment_date').value);
+                        var day = selectedDate.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+
+                        if (day === 0) { // If the selected day is Sunday
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Invalid Date',
+                                text: 'You cannot select a Sunday. Please choose another date.',
+                            });
+                            document.getElementById('appointment_date').value = ''; // Clear the input
+                        }
+                    }
+                </script>
+
                 <button type="submit" name="add_walkin" class="btn btn-success">Add Walk-in Appointment</button>
             </form>
         </div>
