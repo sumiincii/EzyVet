@@ -329,10 +329,9 @@ while ($row = $service_counts_result->fetch_assoc()) {
     </div>
 
     <script>
-        // Responsive search function
-        document.querySelector('input[name="search_query"]').addEventListener('input', function() {
-            const searchValue = this.value.toLowerCase();
-            const rows = document.querySelectorAll('tbody tr');
+        const serviceCounts = <?php echo json_encode($service_counts); ?>;
+        const labels = Object.keys(serviceCounts);
+        const data = labels.map(service => serviceCounts[service]);
 
             rows.forEach(row => {
                 const clientName = row.cells[0].textContent.toLowerCase();
