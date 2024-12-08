@@ -109,3 +109,53 @@ function sendNotification($email, $fullname, $queue_number)
         echo "Mailer Error (Notification): {$mail->ErrorInfo}";
     }
 }
+/**
+ * Sends a cancellation notification email to the client.
+ *
+ * @param string $email The recipient's email address.
+ * @param string $client_name The recipient's full name.
+ * @param string $cancel_reason The reason for the cancellation.
+ */
+function sendCancellationNotification($email, $client_name, $cancel_reason)
+{
+    $mail = new PHPMailer(true);
+
+    try {
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'ezyvet.neust@gmail.com'; // your gmail
+        $mail->Password = 'gjyk hyze xust szfv'; // app password
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port = 465;
+
+        // Recipients
+        $mail->setFrom('ezyvet.neust@gmail.com', 'EzyVet'); // Replace with your email
+        $mail->addAddress($email, $client_name);
+
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = 'Appointment Cancellation Notification';
+        $mail->Body = "
+            <p>Dear $client_name,</p>
+            <p>Your appointment has been canceled.</p>
+            
+            <p>Thank you for your understanding.</p>
+            <p>Best regards,</p>
+            <p>Veterinary Clinic Team</p>
+        ";
+
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
+
+        $mail->send();
+    } catch (Exception $e) {
+        echo "Mailer Error (Cancellation Notification): {$mail->ErrorInfo}";
+    }
+}

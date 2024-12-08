@@ -50,6 +50,27 @@ function updateAppointmentStatus($conn, $appointment_id, $new_status, $email, $c
                 $row = $notification_result->fetch_assoc();
                 sendNotification($row['email'], $row['client_name'], $row['queue_number']);
             }
+        } elseif ($new_status == "Canceled") {
+            $cancel_reason = "Your appointment has been canceled."; // You can customize this message
+            sendCancellationNotification($email, $client_name, $cancel_reason);
+
+            // Update queue numbers for other appointments on the same date and service
+            $appointment_query = "SELECT service, appointment_date FROM appointments1 WHERE id = $appointment_id";
+            $appointment_result = $conn->query($appointment_query);
+            $appointment_data = $appointment_result->fetch_assoc();
+            $service = $appointment_data['service'];
+            $appointment_date = $appointment_data['appointment_date'];
+
+            // Reduce queue numbers for other clients
+            $update_queue_query = "UPDATE appointments1 SET queue_number = queue_number - 1 WHERE service = '$service' AND appointment_date = '$appointment_date' AND queue_number > 0";
+            $conn->query($update_queue_query);
+
+            // Send notifications to clients
+            $notification_query = "SELECT email, client_name, queue_number FROM appointments1 WHERE service = '$service' AND appointment_date = '$appointment_date' AND queue_number > 0";
+            $notification_result = $conn->query($notification_query);
+            while ($row = $notification_result->fetch_assoc()) {
+                sendNotification($row['email'], $row['client_name'], $row['queue_number']);
+            }
         }
         echo "<script>alert('Status updated successfully!');</script>";
     } else {
@@ -62,10 +83,10 @@ if (isset($_POST['update_status'])) {
     updateAppointmentStatus($conn, $_POST['appointment_id'], $_POST['status'], $_POST['email'], $_POST['client_name'], $_POST['queue_number']);
 }
 
-// Fetch appointments for each service (excluding completed ones)
-$grooming_appointments_query = "SELECT * FROM appointments1 WHERE service = 'Grooming' AND status != 'Completed' ORDER BY appointment_date, queue_number ASC";
-$vaccination_appointments_query = "SELECT * FROM appointments1 WHERE service = 'Vaccination' AND status != 'Completed' ORDER BY appointment_date, queue_number ASC";
-$checkup_appointments_query = "SELECT * FROM appointments1 WHERE service = 'Checkup' AND status != 'Completed' ORDER BY appointment_date, queue_number ASC";
+// Fetch appointments for each service (excluding completed and canceled ones)
+$grooming_appointments_query = "SELECT * FROM appointments1 WHERE service = 'Grooming' AND status NOT IN ('Completed', 'Canceled') ORDER BY appointment_date, queue_number ASC";
+$vaccination_appointments_query = "SELECT * FROM appointments1 WHERE service = 'Vaccination' AND status NOT IN ('Completed', 'Canceled') ORDER BY appointment_date, queue_number ASC";
+$checkup_appointments_query = "SELECT * FROM appointments1 WHERE service = 'Checkup' AND status NOT IN ('Completed', 'Canceled') ORDER BY appointment_date, queue_number ASC";
 
 $grooming_appointments_result = $conn->query($grooming_appointments_query);
 $vaccination_appointments_result = $conn->query($vaccination_appointments_query);
@@ -113,6 +134,10 @@ if (isset($_POST['add_walkin'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         /* Custom Navbar Styles */
         .custom-navbar {
@@ -241,6 +266,7 @@ if (isset($_POST['add_walkin'])) {
                                         <option value="Pending" <?php if ($row['status'] == 'Pending') echo 'selected'; ?>>Pending</option>
                                         <option value="Notified" <?php if ($row['status'] == 'Notified') echo 'selected'; ?>>Notified</option>
                                         <option value="Completed" <?php if ($row['status'] == 'Completed') echo 'selected'; ?>>Completed</option>
+                                        <option value="Canceled" <?php if ($row['status'] == 'Canceled') echo 'selected'; ?>>Canceled</option> <!-- New Cancel Option -->
                                     </select>
                                     <button type="submit" name="update_status" class="btn btn-primary btn-sm">Update</button>
                                 </form>
@@ -289,6 +315,7 @@ if (isset($_POST['add_walkin'])) {
                                         <option value="Pending" <?php if ($row['status'] == 'Pending') echo 'selected'; ?>>Pending</option>
                                         <option value="Notified" <?php if ($row['status'] == 'Notified') echo 'selected'; ?>>Notified</option>
                                         <option value="Completed" <?php if ($row['status'] == 'Completed') echo 'selected'; ?>>Completed</option>
+                                        <option value="Canceled" <?php if ($row['status'] == 'Canceled') echo 'selected'; ?>>Canceled</option> <!-- New Cancel Option -->
                                     </select>
                                     <button type="submit" name="update_status" class="btn btn-primary btn-sm">Update</button>
                                 </form>
@@ -335,8 +362,9 @@ if (isset($_POST['add_walkin'])) {
                                     <select name="status" class="form-select mb-2" required>
                                         <option value="">Select</option>
                                         <option value="Pending" <?php if ($row['status'] == 'Pending') echo 'selected'; ?>>Pending</option>
-                                        <option value="Notified" <?php if ($row['status'] == ' Notified') echo 'selected'; ?>>Notified</option>
+                                        <option value="Notified" <?php if ($row['status'] == 'Notified') echo 'selected'; ?>>Notified</option>
                                         <option value="Completed" <?php if ($row['status'] == 'Completed') echo 'selected'; ?>>Completed</option>
+                                        <option value="Canceled" <?php if ($row['status'] == 'Canceled') echo 'selected'; ?>>Canceled</option> <!-- New Cancel Option -->
                                     </select>
                                     <button type="submit" name="update_status" class="btn btn-primary btn-sm">Update</button>
                                 </form>
@@ -410,7 +438,7 @@ if (isset($_POST['add_walkin'])) {
                         }
                     }
                 </script>
-
+                <p> Queue Number for Selected Date: <span id="current_queue" style="color: red;">0</span></p>
                 <button type="submit" name="add_walkin" class="btn btn-success">Add Walk-in Appointment</button>
             </form>
         </div>
