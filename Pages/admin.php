@@ -439,7 +439,28 @@ if (isset($_POST['add_walkin'])) {
             </form>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#appointment_date, #service').change(function() {
+                var appointmentDate = $('#appointment_date').val();
+                var service = $('#service').val();
 
+                if (appointmentDate && service) {
+                    $.ajax({
+                        url: 'get_queue_number.php', // Create this file to handle the request
+                        type: 'POST',
+                        data: {
+                            appointment_date: appointmentDate,
+                            service: service
+                        },
+                        success: function(data) {
+                            $('#current_queue').text(data);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
