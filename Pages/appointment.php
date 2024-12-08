@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $captcha_response = $_POST['g-recaptcha-response'];
 
     // Verify CAPTCHA
-    $secret_key = '6Le383YqAAAAAHyNmno3WI0t-PYiH_uZzoZ5A5rmY'; // Replace with your secret key
+    $secret_key = '6Le383YqAAAAAHyNmno3WI0t-PYiH_uZzoZ5A5rm'; // Replace with your secret key
     $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secret_key&response=$captcha_response");
     $response_keys = json_decode($response, true);
 
@@ -36,7 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param("sssssi", $client_name, $email, $pet_details, $service, $appointment_date, $queue_number);
 
         if ($stmt->execute()) {
-            echo "Your appointment is confirmed! Your queue number is $queue_number.";
+            echo "Your appointment is confirmed! Your queue number is $queue_number. Please check your email for the confirmation details.";
+            echo "<script>Swal.fire('Success!', 'Appointment request submitted successfully!  Your queue number is $queue_number.', 'success');</script>";
 
             // Send confirmation email
             sendConfirmationEmail(
@@ -81,7 +82,11 @@ $conn->close();
     <!-- Google reCAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <!-- sweet alert  -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- jQuery -->
 
     <style>
         body {

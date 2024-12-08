@@ -57,6 +57,44 @@ include('header.php');
             /* background-repeat: no-repeat; */
             background-size: contain;
         }
+
+        #container1 {
+            background-color: #8b61c2;
+            /* Background color for container1 */
+            color: white;
+            /* Text color */
+            padding: 0;
+            /* Padding for container1 */
+            transition: top 0.3s;
+            /* Smooth transition for sticky effect */
+        }
+
+        #container1.sticky {
+            position: fixed;
+            /* Change to fixed when sticky */
+            top: 0;
+            /* Stick to the top */
+            left: 0;
+            /* Align to the left */
+            right: 0;
+            /* Align to the right */
+            z-index: 999;
+            /* Ensure it stays above other content */
+        }
+
+        #main-nav {
+            background-color: transparent;
+            /* Set the background color to transparent */
+            text-align: center;
+            position: relative;
+            /* Initial position */
+            box-sizing: border-box;
+            height: 60px;
+            /* Height of the navbar */
+            transition: background-color 0.3s ease, top 0.3s ease;
+            width: 100%;
+            /* Smooth transitions for background color and top */
+        }
     </style>
 </head>
 

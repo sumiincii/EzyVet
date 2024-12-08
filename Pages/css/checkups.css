@@ -266,6 +266,7 @@ a img {
     /* margin-left: -50px; */
 }
 
+
 #container1 {
     background-color: #8b61c2;
     /* Background color for container1 */
@@ -277,6 +278,18 @@ a img {
     /* Smooth transition for sticky effect */
 }
 
+#container1.sticky {
+    position: fixed;
+    /* Change to fixed when sticky */
+    top: 0;
+    /* Stick to the top */
+    left: 0;
+    /* Align to the left */
+    right: 0;
+    /* Align to the right */
+    z-index: 999;
+    /* Ensure it stays above other content */
+}
 
 #main-nav {
     background-color: transparent;

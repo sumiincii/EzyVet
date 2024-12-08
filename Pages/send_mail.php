@@ -92,6 +92,7 @@ function sendNotification($email, $fullname, $queue_number)
             <p>Dear $fullname,</p>
             <p>Your appointment queue number <strong>$queue_number</strong> is almost ready.</p>
             <p>Please prepare for your appointment and arrive on time.</p>
+            <p> PLEASE COME ON TIME. 5-10mins before of your appointment schedule.Late comers (15mins late) will no longer be accomodated. AVOID BEING LATE if di po aabot sa oras resched nalang po natin dahil may sinusunod po tayong oras.</p>
             <p>Thank you,</p>
             <p>Veterinary Clinic Team</p>
         ";
@@ -140,7 +141,6 @@ function sendCancellationNotification($email, $client_name, $cancel_reason)
         $mail->Body = "
             <p>Dear $client_name,</p>
             <p>Your appointment has been canceled.</p>
-            
             <p>Thank you for your understanding.</p>
             <p>Best regards,</p>
             <p>Veterinary Clinic Team</p>
