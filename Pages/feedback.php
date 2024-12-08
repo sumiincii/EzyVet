@@ -21,105 +21,24 @@ $feedback_result = $conn->query($feedback_sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ezyvet Feedback</title>
-
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="_assets/bootstrap.min.css">
-
     <!-- FontAwesome for Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom Styles -->
     <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 300;
-            /* Add this line for light font */
-            background-color: #f7f9fc;
-            color: #333;
-            display: flex;
-        }
-
-        .container {
-            padding: 20px;
-        }
-
-        .sidebar {
-            width: 210px;
-            /* background-color: #5ce1e6; */
-            background-color: #8b61c2;
-            /* Changed to a deeper blue */
-            color: #fff;
-            height: auto;
-            padding-top: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-            /* Added shadow for depth */
-        }
-
-        .sidebar h3 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 24px;
-            /* Increased font size */
-        }
-
-        .sidebar a {
-            display: block;
-            color: #fff;
-            padding: 15px 20px;
-            text-decoration: none;
-            transition: background 0.3s, padding 0.3s;
-            /* border-radius: 2px; */
-            /* Rounded corners */
-        }
-
-        .sidebar a:hover {
-            background-color: #5ce1e6;
-            /* Darker shade on hover */
-            padding-left: 25px;
-            /* Slight padding change on hover */
-        }
-
-        .main-content {
-            flex-grow: 1;
-            padding: 29px;
-            text-align: center;
-        }
-
-        .table-wrapper {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-            /* Light border for the table wrapper */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            /* Added shadow */
-        }
-
-        .sidebar .logo {
-            display: block;
-            margin: 0 auto 20px;
-            /* Center the logo and add margin below */
-            width: 45%;
-            /* Adjust width as needed */
-            height: auto;
-            /* Maintain aspect ratio */
-            border-radius: 100px;
-        }
-
-        .welcome-section {
-            text-align: center;
-            /* Center the text */
-            background-color: #e9ecef;
-            /* Light background color */
-            padding: 20px;
-            /* Padding around the content */
-            border-radius: 8px;
-            /* Rounded corners */
-        }
-
         .welcome-logo {
             margin: -65px 15px;
             /* Adjust margin as needed */
@@ -133,37 +52,87 @@ $feedback_result = $conn->query($feedback_sql);
             /* Aligns the logo with text */
         }
 
-        .sidebar a {
-            display: flex;
-            /* Use flexbox for alignment */
-            align-items: center;
-            /* Center items vertically */
-            color: #fff;
-            padding: 15px 20px;
-            text-decoration: none;
-            transition: background 0.3s, padding 0.3s;
+        /* Custom Navbar Styles */
+        .custom-navbar {
+            background-color: #000;
+            /* Change to black */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        .sidebar a img.sidebar-icon {
-            width: 20px;
-            /* Adjust icon size as needed */
-            height: auto;
-            /* Maintain aspect ratio */
+        .custom-navbar .navbar-brand {
+            color: #ffffff;
+            /* Brand text color */
+            font-weight: bold;
+            /* Make brand text bold */
+        }
+
+        .custom-navbar .navbar-nav .nav-link {
+            color: #ffffff;
+            /* Default link color */
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            /* Smooth transition for color and text shadow */
+            padding: 10px 15px;
+            /* Add padding for better click area */
+        }
+
+        .custom-navbar .navbar-nav .nav-link:hover {
+            color: #ffd700;
+            /* Change text color on hover */
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+            /* Subtle glow effect */
+            background-color: transparent;
+            /* No background color on hover */
+        }
+
+        .custom-navbar .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.5);
+            /* Toggler border color */
+        }
+
+
+        .logo {
+            height: 60px;
+            /* Adjust logo height */
             margin-right: 10px;
-            /* Space between icon and text */
+            /* Space between logo and brand name */
+            border-radius: 5px;
+        }
+
+        .taglogo {
+            height: 200px;
+            width: auto;
+            margin: auto;
+            display: block;
         }
     </style>
 </head>
 
 <body>
-    <div class="sidebar">
-        <img src="images/main-logo.png" alt="EzyVet Logo" class="logo">
-        <h3><strong>EzyVet Dashboard</strong></h3>
-        <a href="admin.php"><img src="icons/dash.png" alt="Dashboard" class="sidebar-icon"> <strong>Dashboard</strong></a>
-        <a href="archives.php"><img src="icons/archive.png" alt="Archives" class="sidebar-icon"> <strong>Archives</strong></a>
-        <a href="feedback.php"><img src="icons/feedback.png" alt="Feedback" class="sidebar-icon"> <strong>Feedbacks</strong></a>
-        <a href="login.php"><img src="icons/logout.png" alt="Log Out" class="sidebar-icon"> <strong>Log Out</strong></a>
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
+        <div class="container">
+            <img src="images/mainlogo.png" alt="Logo" class="logo"> <!-- Add logo here -->
+            <a class="navbar-brand" href="#">EzyVet Feedback Page</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin.php">Dashboard</a> <!-- New Dashboard link -->
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="report.php">Report</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="feedback.php">Feedback</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.php">Log Out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <div class="main-content">
         <img src="images/taglogo.png" alt="EzyVet Logo" class="welcome-logo">
@@ -171,8 +140,8 @@ $feedback_result = $conn->query($feedback_sql);
             <!-- Feedback Table -->
             <div class="table-wrapper">
                 <!-- <h3>Client Feedback</h3> -->
-                <table class="table table-striped">
-                    <thead>
+                <table class="table table-bordered">
+                    <thead class="table-dark">
                         <tr>
                             <th>Name</th>
                             <th>Email</th>

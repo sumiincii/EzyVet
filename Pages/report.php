@@ -57,21 +57,59 @@ $canceled_count = $conn->query($canceled_count_query)->fetch_assoc()['count'] ??
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointments Report</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-        /* Styles */
+        /* Custom Navbar Styles */
         .custom-navbar {
             background-color: #000;
+            /* Change to black */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .custom-navbar .navbar-brand {
             color: #ffffff;
+            /* Brand text color */
             font-weight: bold;
+            /* Make brand text bold */
         }
 
         .custom-navbar .navbar-nav .nav-link {
             color: #ffffff;
+            /* Default link color */
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            /* Smooth transition for color and text shadow */
             padding: 10px 15px;
+            /* Add padding for better click area */
+        }
+
+        .custom-navbar .navbar-nav .nav-link:hover {
+            color: #ffd700;
+            /* Change text color on hover */
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+            /* Subtle glow effect */
+            background-color: transparent;
+            /* No background color on hover */
+        }
+
+        .custom-navbar .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.5);
+            /* Toggler border color */
+        }
+
+        .logo {
+            height: 60px;
+            /* Adjust logo height */
+            margin-right: 10px;
+            /* Space between logo and brand name */
+            border-radius: 5px;
         }
 
         .stats-card {
@@ -80,35 +118,40 @@ $canceled_count = $conn->query($canceled_count_query)->fetch_assoc()['count'] ??
             border-radius: 5px;
             padding: 20px;
             text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .table {
-            margin-top: 20px;
-        }
-
-        .no-data {
-            text-align: center;
-            font-style: italic;
-            color: #888;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg custom-navbar">
+    <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
         <div class="container">
-            <a class="navbar-brand" href="#">EzyVet Admin Dashboard</a>
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#">Report</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Feedback</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Log Out</a></li>
-            </ul>
+            <img src="images/mainlogo.png" alt="Logo" class="logo"> <!-- Add logo here -->
+            <a class="navbar-brand" href="#">Appointments Report</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin.php">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="report.php">Report</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="feedback.php">Feedback</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.php">Log Out</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
     <div class="container mt-4">
-        <h2>Appointments Report</h2>
+        <!-- <h2>Appointments Report</h2> -->
 
         <!-- Stats Cards -->
         <div class="row mb-4">
@@ -129,7 +172,7 @@ $canceled_count = $conn->query($canceled_count_query)->fetch_assoc()['count'] ??
         <!-- Pie Chart -->
         <div class="mb-4">
             <h5>Appointments by Service</h5>
-            <div style="width: 400px; margin: auto;">
+            <div style="max-width: 250px; margin: auto;">
                 <canvas id="servicePieChart"></canvas>
             </div>
         </div>

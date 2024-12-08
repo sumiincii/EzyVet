@@ -1,21 +1,17 @@
 <?php
-// Database connection
-$conn = new mysqli("localhost", "root", "", "ezyvet");
+session_start(); // Start the session
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php"); // Redirect to the login page if not logged in
+    exit();
+}
+include 'connection.php';
 include 'send_mail.php';
 
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
-
-
-
-
-
-
-
-
 
 // Function to update appointment status
 function updateAppointmentStatus($conn, $appointment_id, $new_status, $email, $client_name, $queue_number)
@@ -213,10 +209,10 @@ if (isset($_POST['add_walkin'])) {
                         <a class="nav-link" href="report.php">Report</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#feedback">Feedback</a>
+                        <a class="nav-link" href="feedback.php">Feedback</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#logout">Log Out</a>
+                        <a class="nav-link" href="logout.php">Log Out</a>
                     </li>
                 </ul>
             </div>
