@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 session_start(); // Start the session
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
@@ -33,6 +35,13 @@ if (isset($_POST['status'])) {
     $client_name = $_POST['client_name'];
     $queue_number = $_POST['queue_number'];
 
+    // Fetch the service and appointment date for the appointment being updated
+    $appointment_query = "SELECT service, appointment_date FROM appointments1 WHERE id = $appointment_id";
+    $appointment_result = $conn->query($appointment_query);
+    $appointment_data = $appointment_result->fetch_assoc();
+    $service = $appointment_data['service']; // Define the $service variable here
+    $appointment_date = $appointment_data['appointment_date'];
+
     // Update status in the database
     $update_query = "UPDATE appointments1 SET status = '$new_status' WHERE id = $appointment_id";
     if ($conn->query($update_query)) {
@@ -51,8 +60,8 @@ if (isset($_POST['status'])) {
                 $next_appointment_id = $next_appointment_row['id'];
 
                 // Update the status of the next appointment to indicate it's being served
-                $update_next_query = "UPDATE appointments1 SET status = 'In Service' WHERE id = $next_appointment_id";
-                $conn->query($update_next_query);
+                // $update_next_query = "UPDATE appointments1 SET status = 'In Service' WHERE id = $next_appointment_id";
+                // $conn->query($update_next_query);
             }
             // Update queue numbers for other appointments on the same date and service
             $appointment_query = "SELECT service, appointment_date FROM appointments1 WHERE id = $appointment_id";
@@ -92,9 +101,9 @@ if (isset($_POST['status'])) {
                 $next_appointment_row = $next_appointment_result->fetch_assoc();
                 $next_appointment_id = $next_appointment_row['id'];
 
-                // Update the status of the next appointment to indicate it's being served
-                $update_next_query = "UPDATE appointments1 SET status = 'In Service' WHERE id = $next_appointment_id";
-                $conn->query($update_next_query);
+                // // Update the status of the next appointment to indicate it's being served
+                // $update_next_query = "UPDATE appointments1 SET status = 'In Service' WHERE id = $next_appointment_id";
+                // $conn->query($update_next_query);
             }
             $cancel_reason = "Your appointment has been canceled."; // You can customize this message
             sendCancellationNotification($email, $client_name, $cancel_reason);
@@ -279,19 +288,37 @@ if (isset($_POST['add_walkin'])) {
                     <th>Service</th>
                     <th>Client Name</th>
                     <th>Queue Number</th>
+                    <th>Actions</th> <!-- Add Actions column -->
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($current_appointments as $service => $appointment): ?>
+                <?php if (!empty($current_appointments)): ?>
+                    <?php foreach ($current_appointments as $appointment): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($appointment['service'] ?? ''); ?></td>
+                            <td><?php echo htmlspecialchars($appointment['client_name'] ?? ''); ?></td>
+                            <td><?php echo htmlspecialchars($appointment['queue_number'] ?? ''); ?></td>
+                            <td class="text-center">
+                                <form action="" method="post" class="d-inline">
+                                    <input type="hidden" name="appointment_id" value="<?php echo htmlspecialchars($appointment['id'] ?? ''); ?>">
+                                    <input type="hidden" name="email" value="<?php echo htmlspecialchars($appointment['email'] ?? ''); ?>">
+                                    <input type="hidden" name="client_name" value="<?php echo htmlspecialchars($appointment['client_name'] ?? ''); ?>">
+                                    <input type="hidden" name="queue_number" value="<?php echo htmlspecialchars($appointment['queue_number'] ?? ''); ?>">
+                                    <button type="submit" name="status" value="Notified" class="btn btn-info btn-sm">Notify</button>
+                                    <button type="submit" name="status" value="Completed" class="btn btn-success btn-sm">Complete</button>
+                                    <button type="submit" name="status" value="Canceled" class="btn btn-danger btn-sm">Cancel</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
                     <tr>
-                        <td><?php echo $service; ?></td>
-                        <td><?php echo $appointment['client_name']; ?></td>
-                        <td><?php echo $appointment['queue_number']; ?></td>
+                        <td colspan="4" class="text-center">No current appointments found.</td>
                     </tr>
-                <?php endforeach; ?>
+                <?php endif; ?>
+
             </tbody>
         </table>
-
 
 
 
