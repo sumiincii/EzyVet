@@ -13,7 +13,18 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Fetch current appointments for each service
+$current_appointments_query = "
+    SELECT service, id, client_name, queue_number 
+    FROM appointments1 
+    WHERE status NOT IN ('Completed', 'Canceled') 
+    AND queue_number = 1"; // Assuming queue_number = 1 indicates the current appointment being served
 
+$current_appointments_result = $conn->query($current_appointments_query);
+$current_appointments = [];
+while ($row = $current_appointments_result->fetch_assoc()) {
+    $current_appointments[$row['service']] = $row; // Store current appointment by service
+}
 // Handle status update
 if (isset($_POST['status'])) {
     $appointment_id = $_POST['appointment_id'];
@@ -27,6 +38,22 @@ if (isset($_POST['status'])) {
     if ($conn->query($update_query)) {
         // Notify other clients only if the status is "Completed"
         if ($new_status == "Completed") {
+            // Remove the completed appointment from the current appointments
+            $update_query = "UPDATE appointments1 SET status = 'Completed' WHERE id = $appointment_id";
+            $conn->query($update_query);
+
+            // Check for the next appointment in the queue
+            $next_appointment_query = "SELECT id FROM appointments1 WHERE service = '$service' AND status NOT IN ('Completed', 'Canceled') ORDER BY queue_number ASC LIMIT 1";
+            $next_appointment_result = $conn->query($next_appointment_query);
+
+            if ($next_appointment_result->num_rows > 0) {
+                $next_appointment_row = $next_appointment_result->fetch_assoc();
+                $next_appointment_id = $next_appointment_row['id'];
+
+                // Update the status of the next appointment to indicate it's being served
+                $update_next_query = "UPDATE appointments1 SET status = 'In Service' WHERE id = $next_appointment_id";
+                $conn->query($update_next_query);
+            }
             // Update queue numbers for other appointments on the same date and service
             $appointment_query = "SELECT service, appointment_date FROM appointments1 WHERE id = $appointment_id";
             $appointment_result = $conn->query($appointment_query);
@@ -53,18 +80,38 @@ if (isset($_POST['status'])) {
                 sendNotification($row['email'], $row['client_name'], $row['queue_number']);
             }
         } elseif ($new_status == "Canceled") {
+            // Update the status of the canceled appointment
+            $update_query = "UPDATE appointments1 SET status = 'Canceled' WHERE id = $appointment_id";
+            $conn->query($update_query);
+
+            // Check for the next appointment in the queue
+            $next_appointment_query = "SELECT id FROM appointments1 WHERE service = '$service' AND status NOT IN ('Completed', 'Canceled') ORDER BY queue_number ASC LIMIT 1";
+            $next_appointment_result = $conn->query($next_appointment_query);
+
+            if ($next_appointment_result->num_rows > 0) {
+                $next_appointment_row = $next_appointment_result->fetch_assoc();
+                $next_appointment_id = $next_appointment_row['id'];
+
+                // Update the status of the next appointment to indicate it's being served
+                $update_next_query = "UPDATE appointments1 SET status = 'In Service' WHERE id = $next_appointment_id";
+                $conn->query($update_next_query);
+            }
             $cancel_reason = "Your appointment has been canceled."; // You can customize this message
             sendCancellationNotification($email, $client_name, $cancel_reason);
 
-            // Update queue numbers for other appointments on the same date and service
-            $appointment_query = "SELECT service, appointment_date FROM appointments1 WHERE id = $appointment_id";
+            // Get the service and appointment date for the canceled appointment
+            $appointment_query = "SELECT service, appointment_date, queue_number FROM appointments1 WHERE id = $appointment_id";
             $appointment_result = $conn->query($appointment_query);
             $appointment_data = $appointment_result->fetch_assoc();
             $service = $appointment_data['service'];
             $appointment_date = $appointment_data['appointment_date'];
+            $canceled_queue_number = $appointment_data['queue_number']; // Get the queue number of the canceled appointment
 
-            // Reduce queue numbers for other clients
-            $update_queue_query = "UPDATE appointments1 SET queue_number = queue_number - 1 WHERE service = '$service' AND appointment_date = '$appointment_date' AND queue_number > 0";
+            // Reduce queue numbers for other clients below the canceled appointment
+            $update_queue_query = "UPDATE appointments1 SET queue_number = queue_number - 1 
+                           WHERE service = '$service' 
+                           AND appointment_date = '$appointment_date' 
+                           AND queue_number > $canceled_queue_number";
             $conn->query($update_queue_query);
 
             // Send notifications to clients
@@ -224,6 +271,40 @@ if (isset($_POST['add_walkin'])) {
     <div class="container mt-5">
         <img src="images/taglogo.png" alt="Logo" class="taglogo"> <!-- Add logo here -->
         <!-- <h1 class="text-center mb-4">Admin Dashboard</h1> -->
+
+        <h2>Current Appointments</h2>
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Service</th>
+                    <th>Client Name</th>
+                    <th>Queue Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($current_appointments as $service => $appointment): ?>
+                    <tr>
+                        <td><?php echo $service; ?></td>
+                        <td><?php echo $appointment['client_name']; ?></td>
+                        <td><?php echo $appointment['queue_number']; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <!-- Search Input -->
         <div class="mb-3">

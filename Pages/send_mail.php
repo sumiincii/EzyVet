@@ -41,6 +41,7 @@ function sendConfirmationEmail($email, $fullname, $queue_number, $appointment_de
             <p>Your queue number is <strong>$queue_number</strong>.</p>
             <p>Appointment Details: <strong>$appointment_details</strong></p>
             <p>We look forward to seeing you and your pet!</p>
+            
             <p>Thank you,</p>
             <p>Veterinary Clinic Team</p>
         ";

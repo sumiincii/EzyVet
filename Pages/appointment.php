@@ -55,7 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $conn->close();
 ?>
-
 <!-- HTML Form -->
 <!DOCTYPE html>
 <html lang="en">
@@ -162,17 +161,17 @@ $conn->close();
         <form method="POST">
             <div class="form-group">
                 <label for="client_name">Name:</label>
-                <input type="text" name="client_name" id="client_name" class="form-control" required>
+                <input type="text" name="client_name" id="client_name" class="form-control">
             </div>
 
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" name="email" id="email" class="form-control" required>
+                <input type="email" name="email" id="email" class="form-control">
             </div>
 
             <div class="form-group">
                 <label for="pet_details">Pet Details:</label>
-                <textarea name="pet_details" id="pet_details" class="form-control" rows="2" required></textarea> <!-- Reduced rows -->
+                <textarea name="pet_details" id="pet_details" class="form-control" rows="2"></textarea> <!-- Reduced rows -->
             </div>
 
             <div class="form-group">

@@ -13,15 +13,9 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-
-// Handle status update
-if (isset($_POST['status'])) {
-    $appointment_id = $_POST['appointment_id'];
-    $new_status = $_POST['status']; // Get the status from the button clicked
-    $email = $_POST['email'];
-    $client_name = $_POST['client_name'];
-    $queue_number = $_POST['queue_number'];
-
+// Function to update appointment status
+function updateAppointmentStatus($conn, $appointment_id, $new_status, $email, $client_name, $queue_number)
+{
     // Update status in the database
     $update_query = "UPDATE appointments1 SET status = '$new_status' WHERE id = $appointment_id";
     if ($conn->query($update_query)) {
@@ -78,6 +72,11 @@ if (isset($_POST['status'])) {
     } else {
         echo "<script>alert('Error updating status.');</script>";
     }
+}
+
+// Handle status update
+if (isset($_POST['update_status'])) {
+    updateAppointmentStatus($conn, $_POST['appointment_id'], $_POST['status'], $_POST['email'], $_POST['client_name'], $_POST['queue_number']);
 }
 
 // Fetch appointments for each service (excluding completed and canceled ones)
@@ -252,17 +251,21 @@ if (isset($_POST['add_walkin'])) {
                             <td><?php echo isset($row['pet_details']) ? $row['pet_details'] : 'N/A'; ?></td>
                             <td><?php echo isset($row['appointment_date']) ? $row['appointment_date'] : 'N/A'; ?></td>
                             <td><?php echo isset($row['status']) ? $row['status'] : 'N/A'; ?></td>
-                            <td class="text-center">
+                            <td>
                                 <!-- Update Status Form -->
                                 <form action="" method="post" class="d-inline">
                                     <input type="hidden" name="appointment_id" value="<?php echo $row['id']; ?>">
                                     <input type="hidden" name="email" value="<?php echo $row['email']; ?>">
                                     <input type="hidden" name="client_name" value="<?php echo $row['client_name']; ?>">
                                     <input type="hidden" name="queue_number" value="<?php echo $row['queue_number']; ?>">
-                                    <!-- <button type="submit" name="status" value="Pending" class="btn btn-warning btn-sm">Set Pending</button> -->
-                                    <button type="submit" name="status" value="Notified" class="btn btn-info btn-sm">Notify</button>
-                                    <button type="submit" name="status" value="Completed" class="btn btn-success btn-sm">Complete</button>
-                                    <button type="submit" name="status" value="Canceled" class="btn btn-danger btn-sm">Cancel</button>
+                                    <select name="status" class="form-select mb-2" required>
+                                        <option value="">Select</option>
+                                        <option value="Pending" <?php if ($row['status'] == 'Pending') echo 'selected'; ?>>Pending</option>
+                                        <option value="Notified" <?php if ($row['status'] == 'Notified') echo 'selected'; ?>>Notified</option>
+                                        <option value="Completed" <?php if ($row['status'] == 'Completed') echo 'selected'; ?>>Completed</option>
+                                        <option value="Canceled" <?php if ($row['status'] == 'Canceled') echo 'selected'; ?>>Canceled</option> <!-- New Cancel Option -->
+                                    </select>
+                                    <button type="submit" name="update_status" class="btn btn-primary btn-sm">Update</button>
                                 </form>
                             </td>
                         </tr>
@@ -297,17 +300,21 @@ if (isset($_POST['add_walkin'])) {
                             <td><?php echo isset($row['pet_details']) ? $row['pet_details'] : 'N/A'; ?></td>
                             <td><?php echo isset($row['appointment_date']) ? $row['appointment_date'] : 'N/A'; ?></td>
                             <td><?php echo isset($row['status']) ? $row['status'] : 'N/A'; ?></td>
-                            <td class="text-center">
+                            <td>
                                 <!-- Update Status Form -->
                                 <form action="" method="post" class="d-inline">
                                     <input type="hidden" name="appointment_id" value="<?php echo $row['id']; ?>">
                                     <input type="hidden" name="email" value="<?php echo $row['email']; ?>">
                                     <input type="hidden" name="client_name" value="<?php echo $row['client_name']; ?>">
                                     <input type="hidden" name="queue_number" value="<?php echo $row['queue_number']; ?>">
-                                    <!-- <button type="submit" name="status" value="Pending" class="btn btn-warning btn-sm">Set Pending</button> -->
-                                    <button type="submit" name="status" value="Notified" class="btn btn-info btn-sm">Notify</button>
-                                    <button type="submit" name="status" value="Completed" class="btn btn-success btn-sm">Complete</button>
-                                    <button type="submit" name="status" value="Canceled" class="btn btn-danger btn-sm">Cancel</button>
+                                    <select name="status" class="form-select mb-2" required>
+                                        <option value="">Select</option>
+                                        <option value="Pending" <?php if ($row['status'] == 'Pending') echo 'selected'; ?>>Pending</option>
+                                        <option value="Notified" <?php if ($row['status'] == 'Notified') echo 'selected'; ?>>Notified</option>
+                                        <option value="Completed" <?php if ($row['status'] == 'Completed') echo 'selected'; ?>>Completed</option>
+                                        <option value="Canceled" <?php if ($row['status'] == 'Canceled') echo 'selected'; ?>>Canceled</option> <!-- New Cancel Option -->
+                                    </select>
+                                    <button type="submit" name="update_status" class="btn btn-primary btn-sm">Update</button>
                                 </form>
                             </td>
                         </tr>
@@ -342,17 +349,21 @@ if (isset($_POST['add_walkin'])) {
                             <td><?php echo isset($row['pet_details']) ? $row['pet_details'] : 'N/A'; ?></td>
                             <td><?php echo isset($row['appointment_date']) ? $row['appointment_date'] : 'N/A'; ?></td>
                             <td><?php echo isset($row['status']) ? $row['status'] : 'N/A'; ?></td>
-                            <td class="text-center">
+                            <td>
                                 <!-- Update Status Form -->
                                 <form action="" method="post" class="d-inline">
                                     <input type="hidden" name="appointment_id" value="<?php echo $row['id']; ?>">
                                     <input type="hidden" name="email" value="<?php echo $row['email']; ?>">
                                     <input type="hidden" name="client_name" value="<?php echo $row['client_name']; ?>">
                                     <input type="hidden" name="queue_number" value="<?php echo $row['queue_number']; ?>">
-                                    <!-- <button type="submit" name="status" value="Pending" class="btn btn-warning btn-sm">Set Pending</button> -->
-                                    <button type="submit" name="status" value="Notified" class="btn btn-info btn-sm">Notify</button>
-                                    <button type="submit" name="status" value="Completed" class="btn btn-success btn-sm">Complete</button>
-                                    <button type="submit" name="status" value="Canceled" class="btn btn-danger btn-sm">Cancel</button>
+                                    <select name="status" class="form-select mb-2" required>
+                                        <option value="">Select</option>
+                                        <option value="Pending" <?php if ($row['status'] == 'Pending') echo 'selected'; ?>>Pending</option>
+                                        <option value="Notified" <?php if ($row['status'] == 'Notified') echo 'selected'; ?>>Notified</option>
+                                        <option value="Completed" <?php if ($row['status'] == 'Completed') echo 'selected'; ?>>Completed</option>
+                                        <option value="Canceled" <?php if ($row['status'] == 'Canceled') echo 'selected'; ?>>Canceled</option> <!-- New Cancel Option -->
+                                    </select>
+                                    <button type="submit" name="update_status" class="btn btn-primary btn-sm">Update</button>
                                 </form>
                             </td>
                         </tr>

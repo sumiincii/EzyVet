@@ -3,7 +3,7 @@
 session_start();
 
 // Database connection
-$conn = new mysqli("localhost", "root", "", "ezyvet");
+include 'connection.php';
 
 // Check connection
 if ($conn->connect_error) {
@@ -46,8 +46,10 @@ while ($row = $service_counts_result->fetch_assoc()) {
 // Count completed and canceled appointments for stats
 $completed_count_query = "SELECT COUNT(*) as count FROM appointments1 WHERE status = 'Completed'";
 $canceled_count_query = "SELECT COUNT(*) as count FROM appointments1 WHERE status = 'Canceled'";
+$walkin_count_query = "SELECT COUNT(*) as count FROM appointments1 WHERE status = 'Walk-in'";
 $completed_count = $conn->query($completed_count_query)->fetch_assoc()['count'] ?? 0;
 $canceled_count = $conn->query($canceled_count_query)->fetch_assoc()['count'] ?? 0;
+$walkin_count = $conn->query($walkin_count_query)->fetch_assoc()['count'] ?? 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -155,16 +157,22 @@ $canceled_count = $conn->query($canceled_count_query)->fetch_assoc()['count'] ??
 
         <!-- Stats Cards -->
         <div class="row mb-4">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="stats-card">
                     <h5>Completed Appointments</h5>
                     <p><?php echo $completed_count; ?></p>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="stats-card">
                     <h5>Canceled Appointments</h5>
                     <p><?php echo $canceled_count; ?></p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stats-card">
+                    <h5>Walk-in Appointments</h5>
+                    <p><?php echo $walkin_count; ?></p>
                 </div>
             </div>
         </div>
