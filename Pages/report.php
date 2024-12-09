@@ -214,7 +214,7 @@ $walkin_count = $conn->query($walkin_count_query)->fetch_assoc()['count'] ?? 0;
 
         <!-- Appointments Table -->
         <table class="table table-bordered" id="appointmentsTable">
-            <thead>
+            <thead class="table-dark">
                 <tr>
                     <th>Client Name</th>
                     <th>Pet Details</th>
