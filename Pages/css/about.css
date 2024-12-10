@@ -8,15 +8,7 @@ body {
 
 }
 
-#wc {
-    /* background-color: #c1cad3; */
-    background-color: #8b61c2;
-    padding: 7px;
-    /* color: #3e444b; */
-    color: white;
-    margin-left: -2px;
-    /* Adjust the value as needed */
-}
+
 
 nav a::before {
     content: "";

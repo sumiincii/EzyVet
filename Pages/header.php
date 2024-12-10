@@ -1,8 +1,27 @@
+<?php
+include 'connection.php';
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+// Fetch the current settings
+$sql = "SELECT navbar_color, header_color, logo_url FROM settings WHERE id=1";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+
+$navbar_color = $row['navbar_color'];
+$header_color = $row['header_color'];
+$logo_url = $row['logo_url'];
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="header.css">
+    <!-- <link rel="stylesheet" href="header.css"> -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ezyvet</title>
@@ -60,11 +79,25 @@
             transition: 0.3s;
         }
 
+        #container1.sticky {
+            position: fixed;
+            /* Change to fixed when sticky */
+            top: 0;
+            /* Stick to the top */
+            left: 0;
+            /* Align to the left */
+            right: 0;
+            /* Align to the right */
+            z-index: 999;
+            /* Ensure it stays above other content */
+        }
+
         #wc {
             /* background-color: #c1cad3; */
-            background-color: #8b61c2;
+            /* background-color: #8b61c2; */
+            background-color: <?php echo htmlspecialchars($header_color); ?>;
             padding: 7px;
-            /* color: #3e444b; */
+            padding: 7px;
             color: white;
         }
 
@@ -201,7 +234,8 @@
             <div class="col" id="wc">Welcome to <b>Dr. Ron Veterinary Clinic</b> , your trusted partner in providing top-notch veterinary care for your beloved pets.</div>
         </div>
     </div>
-    <a href="landing.php"><img class="logo img-fluid float-start" src="images/mainlogo.png" alt="logo"></a>
+    <!-- <a href="landing.php"><img class="logo img-fluid float-start" src="images/mainlogo.png" alt="logo"></a> -->
+    <a href="landing.php"><img class="logo img-fluid float-start" src="<?php echo htmlspecialchars($logo_url); ?>" alt="logo"></a>
 
     <div class="container-fluid text-center">
         <div class="dropdown">

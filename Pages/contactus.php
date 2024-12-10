@@ -1,8 +1,11 @@
+<?php
+include 'header.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="css/contactus.css">
+    <!-- <link rel="stylesheet" href="css/contactus.css"> -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ezyvet</title>
@@ -94,138 +97,168 @@
             border-radius: 0 0 10px 10px;
         }
 
+        /* footer */
+        .footer {
+            background-color: #222;
+            color: #ccc;
+            padding: 3rem 0;
+            font-family: Montserrat, sans-serif;
+            text-align: center;
+            padding: 3rem 0;
+            padding: 3rem 0;
+            /* Adjust padding as necessary */
+            /* Adjust padding as necessary */
+        }
+
+        .footer-logo {
+            height: 100px;
+            /* Adjust this value based on your desired logo height */
+            display: flex;
+            /* Use flexbox to center the logo */
+            justify-content: center;
+            /* Center the logo horizontally */
+            align-items: center;
+            /* Center the logo vertically */
+            /* meaning gumagana to csss peek */
+        }
+
+        .footer-logo img {
+            max-width: 350px;
+            /* Adjust this value to make the logo bigger */
+            height: auto;
+            /* Maintain aspect ratio */
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            /* Adjusted for better spacing */
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 1rem;
+        }
+
+        .footer-map {
+            flex: 2 2 200px;
+            margin: 1rem;
+            margin-bottom: 2rem;
+            /* Added bottom margin */
+            /* margin-left: 50px; */
+        }
+
+        .footer-map h4 {
+            color: #ffbf00;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-map iframe {
+            margin-top: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+        }
+
+        .footer-contact,
+        .footer-social {
+            flex: 1 1 200px;
+            margin: 1rem;
+            margin-bottom: 2rem;
+            /* Added bottom margin */
+        }
+
+        .footer h4 {
+            color: #5ce1e6;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-contact p,
+        .footer-social a {
+            margin: 0.5rem 0;
+            color: #ccc;
+        }
+
+        .footer-contact i,
+        .footer-social i {
+            margin-right: 0.5rem;
+            color: white;
+            /* small */
+        }
+
+        .footer-contact {
+            flex: 1 1 200px;
+            margin: 1rem;
+            display: flex;
+            /* Enable flexbox */
+            flex-direction: column;
+            /* Stack items vertically */
+            align-items: flex-start;
+            /* Align items to the start */
+            margin-left: 100px;
+        }
+
+        .footer-contact p {
+            margin: 0.5rem 0;
+            color: #ccc;
+            display: flex;
+            /* Enable flexbox for individual items */
+            align-items: center;
+            /* Center items vertically */
+        }
+
+        .social-icon {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+            text-decoration: none;
+            color: #ccc;
+            transition: color 0.3s;
+        }
+
+        .social-icon:hover {
+            color: #ffbf00;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            border-top: 1px solid #444;
+            padding-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom a {
+            color: #ffbf00;
+            text-decoration: none;
+            /* margin: 0 0.5rem; */
+            transition: color 0.3s;
+        }
+
+        .footer-bottom a:hover {
+            color: #ccc;
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-map,
+            .footer-contact,
+            .footer-social {
+                margin: 1rem 0;
+            }
+        }
+
         a img {
             margin-top: -25px;
             /* margin-left: -50px; */
-        }
-
-        nav {
-            position: relative;
-            /* Ensure that z-index works */
-            z-index: 2000;
-            /* Set a high z-index for the nav bar */
-        }
-
-        img {
-            position: relative;
-            /* Ensure that z-index works */
-            z-index: 1;
-            /* Set a lower z-index for the image */
-        }
-
-        #container1 {
-            background-color: #8b61c2;
-            /* Background color for container1 */
-            color: white;
-            /* Text color */
-            padding: 0;
-            /* Padding for container1 */
-            transition: top 0.3s;
-            /* Smooth transition for sticky effect */
-        }
-
-        #container1.sticky {
-            position: fixed;
-            /* Change to fixed when sticky */
-            top: 0;
-            /* Stick to the top */
-            left: 0;
-            /* Align to the left */
-            right: 0;
-            /* Align to the right */
-            z-index: 999;
-            /* Ensure it stays above other content */
-        }
-
-        #main-nav {
-            background-color: transparent;
-            /* Set the background color to transparent */
-            text-align: center;
-            position: relative;
-            /* Initial position */
-            box-sizing: border-box;
-            height: 60px;
-            /* Height of the navbar */
-            transition: background-color 0.3s ease, top 0.3s ease;
-            width: 100%;
-            /* Smooth transitions for background color and top */
-        }
-
-        #main-nav.sticky {
-            position: fixed;
-            /* Change to fixed when sticky */
-            background-color: white;
-            /* Change background color when sticky */
-            top: 28px;
-            /* Stick below container1 */
-            z-index: 2000;
-            /* Ensure it stays above other content */
-            padding: 0 25px;
-            text-align: center;
-            width: 100%;
-
         }
     </style>
 </head>
 
 <body>
-    <div class="container1 container-fluid text-center" id="container1">
-        <div class="row">
-            <div class="col" id="wc">Welcome to <b>Dr. Ron Veterinary Clinic</b>, your trusted partner in providing top-notch veterinary care for your beloved pets.</div>
-        </div>
-    </div>
-    <a href="landing.php"><img class="logo img-fluid float-start" src="images/mainlogo.png" alt="logo"></a>
 
-    <div class="container-fluid text-center">
-        <div class="dropdown">
-            <nav id="main-nav">
-                <ul>
-                    <li><a href="about.php">ABOUT</a></li>
-                    <li><a href="#">SERVICES</a>
-                        <ul>
-                            <li class="hober"><a href="checkup.php">Checkups</a></li>
-                            <li class="hober"><a href="vaccinations.php">Vaccinations</a></li>
-                            <li class="hober"><a href="grooming.php">Grooming</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="appointment.php">BOOK NOW</a></li>
-                    <li><a href="contactus.php">CONTACT US</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-
-
-    <script>
-        // Get the navbar and container1 elements
-        let navbar = document.getElementById("main-nav");
-        let container1 = document.getElementById("container1");
-
-        // Get the offset positions of the navbar and container1
-        let stickyNavbar = navbar.offsetTop;
-        let stickyContainer1 = container1.offsetTop;
-
-        // Add the scroll event listener
-        window.addEventListener("scroll", function() {
-            // Handle container1 sticky
-            if (window.pageYOffset > stickyContainer1) {
-                container1.classList.add("sticky"); // Add sticky class to container1
-            } else {
-                container1.classList.remove("sticky"); // Remove sticky class from container1
-            }
-
-            // Handle navbar sticky
-            if (window.pageYOffset > stickyNavbar) {
-                navbar.classList.add("sticky"); // Add sticky class to navbar
-            } else {
-                navbar.classList.remove("sticky"); // Remove sticky class from navbar
-            }
-        });
-    </script>
 
 
 

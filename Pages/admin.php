@@ -171,6 +171,51 @@ if (isset($_POST['add_walkin'])) {
     $stmt->close();
 }
 
+
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Get the values from the form
+    $navbar_color = $_POST['navbar_color'];
+    $header_color = $_POST['header_color'];
+
+    // Handle file upload
+    $logo_url = 'images/mainlogo.png'; // Default logo path
+    if (isset($_FILES['logo_image']) && $_FILES['logo_image']['error'] == UPLOAD_ERR_OK) {
+        $target_dir = "images/";
+        $target_file = $target_dir . basename($_FILES["logo_image"]["name"]);
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+        // Check if the file is an actual image
+        $check = getimagesize($_FILES["logo_image"]["tmp_name"]);
+        if ($check !== false) {
+            // Move the uploaded file to the target directory
+            if (move_uploaded_file($_FILES["logo_image"]["tmp_name"], $target_file)) {
+                $logo_url = $target_file; // Update logo URL
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
+        } else {
+            echo "File is not an image.";
+        }
+    }
+
+    // Update the settings in the database
+    $sql = "UPDATE settings SET navbar_color=?, header_color=?, logo_url=? WHERE id=1";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sss", $navbar_color, $header_color, $logo_url);
+    $stmt->execute();
+    $stmt->close();
+}
+// Fetch the current settings
+$sql = "SELECT navbar_color, header_color, logo_url FROM settings WHERE id=1";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+
+$navbar_color = $row['navbar_color'];
+$header_color = $row['header_color'];
+$logo_url = $row['logo_url'];
+
+
 ?>
 
 <!DOCTYPE html>
@@ -599,6 +644,21 @@ if (isset($_POST['add_walkin'])) {
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+    <form method="POST" action="" enctype="multipart/form-data">
+        <label for="navbar_color">Navbar Color:</label>
+        <input type="color" id="navbar_color" name="navbar_color" value="<?php echo htmlspecialchars($navbar_color); ?>">
+
+        <label for="header_color">Header Color:</label>
+        <input type="color" id="header_color" name="header_color" value="<?php echo htmlspecialchars($header_color); ?>">
+
+        <label for="logo_image">Logo Image:</label>
+        <input type="file" id="logo_image" name="logo_image" accept="image/*">
+
+        <input type="submit" value="Update">
+    </form>
 </body>
 
 </html>

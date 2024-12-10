@@ -2,6 +2,7 @@
 include('header.php');
 $conn = new mysqli("localhost", "root", "", "ezyvet");
 include 'send_mail.php';
+
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
@@ -62,7 +63,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="appointment.css">
+    <!-- <link rel="stylesheet" href="appointment.css"> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -140,6 +141,154 @@ $conn->close();
 
         .compact-text {
             padding: 0 80px;
+        }
+
+        /* footer */
+        .footer {
+            background-color: #222;
+            color: #ccc;
+            padding: 3rem 0;
+            font-family: Montserrat, sans-serif;
+            text-align: center;
+            padding: 3rem 0;
+            padding: 3rem 0;
+            /* Adjust padding as necessary */
+            /* Adjust padding as necessary */
+        }
+
+        .footer-logo {
+            height: 100px;
+            /* Adjust this value based on your desired logo height */
+            display: flex;
+            /* Use flexbox to center the logo */
+            justify-content: center;
+            /* Center the logo horizontally */
+            align-items: center;
+            /* Center the logo vertically */
+        }
+
+        .footer-logo img {
+            max-width: 350px;
+            /* Adjust this value to make the logo bigger */
+            height: auto;
+            /* Maintain aspect ratio */
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            /* Adjusted for better spacing */
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 1rem;
+        }
+
+        .footer-map {
+            flex: 2 2 200px;
+            margin: 1rem;
+            margin-bottom: 2rem;
+            /* Added bottom margin */
+            /* margin-left: 50px; */
+        }
+
+        .footer-map h4 {
+            color: #ffbf00;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-map iframe {
+            margin-top: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+        }
+
+        .footer-contact,
+        .footer-social {
+            flex: 1 1 200px;
+            margin: 1rem;
+            margin-bottom: 2rem;
+            /* Added bottom margin */
+        }
+
+        .footer h4 {
+            color: #5ce1e6;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-contact p,
+        .footer-social a {
+            margin: 0.5rem 0;
+            color: #ccc;
+        }
+
+        .footer-contact i,
+        .footer-social i {
+            margin-right: 0.5rem;
+            color: white;
+            /* small */
+        }
+
+        .footer-contact {
+            flex: 1 1 200px;
+            margin: 1rem;
+            display: flex;
+            /* Enable flexbox */
+            flex-direction: column;
+            /* Stack items vertically */
+            align-items: flex-start;
+            /* Align items to the start */
+            margin-left: 100px;
+        }
+
+        .footer-contact p {
+            margin: 0.5rem 0;
+            color: #ccc;
+            display: flex;
+            /* Enable flexbox for individual items */
+            align-items: center;
+            /* Center items vertically */
+        }
+
+        .social-icon {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+            text-decoration: none;
+            color: #ccc;
+            transition: color 0.3s;
+        }
+
+        .social-icon:hover {
+            color: #ffbf00;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            border-top: 1px solid #444;
+            padding-top: 1rem;
+            font-size: 0.9rem;
+            /* background-color: #fff; */
+        }
+
+
+        @media (max-width: 768px) {
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-map,
+            .footer-contact,
+            .footer-social {
+                margin: 1rem 0;
+            }
+        }
+
+        a img {
+            margin-top: -25px;
+            /* margin-left: -50px; */
         }
     </style>
 </head>

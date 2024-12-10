@@ -2,6 +2,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Rancho&family=Rock+Salt&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
 
+
+
 body {
     background-color: #ffffff;
     font-family: "Montserrat", sans-serif, "Allura", "Playfair Display" !important;
@@ -9,24 +11,11 @@ body {
 }
 
 
-
-nav a::before {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 0;
-    height: 2.5px;
-    /* background: #c1cad3; */
-    background: #8b61c2;
-    transition: 0.3s;
-}
-
-.hober a:hover {
-    /* background: rgb(150, 150, 150); */
-    background: #8b61c2;
-    color: white;
-
+button:hover {
+    background-color: #5ce1e6;
+    /* Set the hover color to #5ce1e6 */
+    color: #fff;
+    /* Keep the text color white on hover */
 }
 
 /* footer */
@@ -51,6 +40,7 @@ nav a::before {
     /* Center the logo horizontally */
     align-items: center;
     /* Center the logo vertically */
+    /* meaning gumagana to csss peek */
 }
 
 .footer-logo img {
@@ -181,62 +171,7 @@ nav a::before {
     }
 }
 
-nav a:hover::before {
-    width: 100%;
-}
-
-nav {
-    margin-top: 10px;
-    background: #fff;
-}
-
-.logo {
-    margin-left: 125px;
-    width: 200px;
-    height: auto;
-}
-
-nav ul {
-    padding: 0;
-    margin: 0;
-    float: right;
-    margin-right: 102px;
-}
-
-nav ul li {
-    background: #fff;
-    position: relative;
-    list-style: none;
-    display: inline-block;
-}
-
-nav ul li a {
-    display: block;
-    padding: 0 25px;
-    color: #3e444b;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 60px;
-    letter-spacing: 2px;
-}
-
-
-nav ul ul {
-    position: absolute;
-    top: 65px;
-    display: none;
-}
-
-nav ul li:hover>ul {
-    display: block;
-    box-shadow: 0 7px 14px rgba(0, 0, 0, 1);
-    border: 1px solid #3e444b;
-}
-
-nav ul ul li {
-    width: 159px;
-    float: none;
-    display: list-item;
-    position: relative;
+a img {
+    margin-top: -25px;
+    /* margin-left: -50px; */
 }
