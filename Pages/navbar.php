@@ -11,8 +11,6 @@ $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
 $navbar_color = $row['navbar_color'];
-
-
 ?>
 <!-- navbar.php -->
 <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
@@ -25,10 +23,16 @@ $navbar_color = $row['navbar_color'];
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="admin.php">Dashboard</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="report.php">Report</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="feedback.php">Feedback</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="customize.php">Customize</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="logout.php">Log Out</a>

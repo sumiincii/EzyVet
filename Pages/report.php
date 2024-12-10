@@ -1,14 +1,13 @@
 <?php
-// Start the session
-session_start();
+session_start(); // Start the session
 
-// Database connection
-include 'connection.php';
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php"); // Redirect to the login page if not logged in
+    exit();
 }
+include 'connection.php';
+include 'navbar.php';
 
 // Initialize filter variables
 $date_filter = isset($_POST['date_filter']) ? $_POST['date_filter'] : '';
@@ -32,6 +31,7 @@ if ($date_filter || $service_filter || $search_query) {
 $appointments_query .= " ORDER BY appointment_date DESC";
 $appointments_result = $conn->query($appointments_query);
 
+
 // Query to count appointments by service
 $service_counts_query = "SELECT service, COUNT(*) as count FROM appointments1 GROUP BY service";
 $service_counts_result = $conn->query($service_counts_query);
@@ -46,7 +46,10 @@ while ($row = $service_counts_result->fetch_assoc()) {
 // Count completed and canceled appointments for stats
 $completed_count_query = "SELECT COUNT(*) as count FROM appointments1 WHERE status = 'Completed'";
 $canceled_count_query = "SELECT COUNT(*) as count FROM appointments1 WHERE status = 'Canceled'";
-$walkin_count_query = "SELECT COUNT(*) as count FROM appointments1 WHERE status = 'Walk-in'";
+// $walkin_count_query = "SELECT COUNT(*) as count FROM appointments1 WHERE status = 'Walk-in'";
+// $walkin_count_query = "SELECT COUNT(*) as count FROM appointments1 WHERE Marks = 'Walk-in'";
+$walkin_count_query = "SELECT COUNT(*) as count FROM appointments1 WHERE status = 'Walk-in' OR marks = 'Walk-in'";
+
 $completed_count = $conn->query($completed_count_query)->fetch_assoc()['count'] ?? 0;
 $canceled_count = $conn->query($canceled_count_query)->fetch_assoc()['count'] ?? 0;
 $walkin_count = $conn->query($walkin_count_query)->fetch_assoc()['count'] ?? 0;
@@ -69,43 +72,6 @@ $walkin_count = $conn->query($walkin_count_query)->fetch_assoc()['count'] ?? 0;
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-        /* Custom Navbar Styles */
-        .custom-navbar {
-            background-color: #000;
-            /* Change to black */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .custom-navbar .navbar-brand {
-            color: #ffffff;
-            /* Brand text color */
-            font-weight: bold;
-            /* Make brand text bold */
-        }
-
-        .custom-navbar .navbar-nav .nav-link {
-            color: #ffffff;
-            /* Default link color */
-            transition: color 0.3s ease, text-shadow 0.3s ease;
-            /* Smooth transition for color and text shadow */
-            padding: 10px 15px;
-            /* Add padding for better click area */
-        }
-
-        .custom-navbar .navbar-nav .nav-link:hover {
-            color: #ffd700;
-            /* Change text color on hover */
-            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
-            /* Subtle glow effect */
-            background-color: transparent;
-            /* No background color on hover */
-        }
-
-        .custom-navbar .navbar-toggler {
-            border-color: rgba(255, 255, 255, 0.5);
-            /* Toggler border color */
-        }
-
         .logo {
             height: 60px;
             /* Adjust logo height */
@@ -126,31 +92,6 @@ $walkin_count = $conn->query($walkin_count_query)->fetch_assoc()['count'] ?? 0;
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
-        <div class="container">
-            <img src="images/mainlogo.png" alt="Logo" class="logo"> <!-- Add logo here -->
-            <a class="navbar-brand" href="#">Appointments Report</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="admin.php">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="report.php">Report</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="feedback.php">Feedback</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="logout.php">Log Out</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
     <div class="container mt-4">
         <!-- <h2>Appointments Report</h2> -->
@@ -221,6 +162,7 @@ $walkin_count = $conn->query($walkin_count_query)->fetch_assoc()['count'] ?? 0;
                     <th>Service</th>
                     <th>Date</th>
                     <th>Status</th>
+                    <th>Marks</th>
                 </tr>
             </thead>
             <tbody>
@@ -232,11 +174,12 @@ $walkin_count = $conn->query($walkin_count_query)->fetch_assoc()['count'] ?? 0;
                             <td><?php echo $row['service'] ?? 'N/A'; ?></td>
                             <td><?php echo $row['appointment_date'] ?? 'N/A'; ?></td>
                             <td><?php echo $row['status'] ?? 'N/A'; ?></td>
+                            <td><?php echo $row['Marks'] ?? 'N/A'; ?></td>
                         </tr>
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="5" class="no-data">No appointments found.</td>
+                        <td colspan="6" class="no-data">No appointments found.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>

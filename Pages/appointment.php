@@ -1,6 +1,6 @@
 <?php
 include('header.php');
-$conn = new mysqli("localhost", "root", "", "ezyvet");
+include 'connection.php';
 include 'send_mail.php';
 
 if ($conn->connect_error) {
@@ -11,7 +11,10 @@ if ($conn->connect_error) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $client_name = $_POST['client_name'];
     $email = $_POST['email'];
-    $pet_details = $_POST['pet_details'];
+    $pet_name = $_POST['pet_name'];
+    $species = $_POST['species'];
+    $breed = $_POST['breed'];
+    $color = $_POST['color'];
     $service = $_POST['service'];
     $appointment_date = $_POST['appointment_date'];
     $captcha_response = $_POST['g-recaptcha-response'];
@@ -31,14 +34,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Assign the next queue number
         $queue_number = $last_queue + 1;
+        // Prepare the SQL statement
+        $stmt = $conn->prepare("INSERT INTO appointments1 (client_name, email, pet_name, species, breed, color, service, appointment_date, queue_number, Marks) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        // Insert the appointment into the database
-        $stmt = $conn->prepare("INSERT INTO appointments1 (client_name, email, pet_details, service, appointment_date, queue_number) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssssi", $client_name, $email, $pet_details, $service, $appointment_date, $queue_number);
+        if ($stmt === false) {
+            die("Error preparing statement: " . $conn->error);
+        }
 
+        // Set Marks to "Online"
+        $marks = "Online";
+
+        // Bind the parameters
+        $stmt->bind_param("ssssssssss", $client_name, $email, $pet_name, $species, $breed, $color, $service, $appointment_date, $queue_number, $marks);
+
+        // Execute the statement
         if ($stmt->execute()) {
             echo "Your appointment is confirmed! Your queue number is $queue_number. Please check your email for the confirmation details.";
-            echo "<script>Swal.fire('Success!', 'Appointment request submitted successfully!  Your queue number is $queue_number.', 'success');</script>";
+            echo "<script>Swal.fire('Success!', 'Appointment request submitted successfully! Your queue number is $queue_number.', 'success');</script>";
 
             // Send confirmation email
             sendConfirmationEmail(
@@ -48,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $service
             );
         } else {
-            echo "Error: " . $stmt->error;
+            echo "Error: " . $stmt->error; // This will show any SQL errors
         }
         $stmt->close();
     }
@@ -317,15 +329,30 @@ $conn->close();
                 <label for="email">Email:</label>
                 <input type="email" name="email" id="email" class="form-control">
             </div>
-
             <div class="form-group">
-                <label for="pet_details">Pet Details:</label>
-                <textarea name="pet_details" id="pet_details" class="form-control" rows="2"></textarea> <!-- Reduced rows -->
+                <label for="pet_name">Pet Name:</label>
+                <input type="text" name="pet_name" id="pet_name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="species">Species:</label>
+                <select name="species" id="species" class="form-control">
+                    <option value="" disabled selected>Select Species</option>
+                    <option value="Dog">Dog</option>
+                    <option value="Cat">Cat</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="breed">Breed:</label>
+                <input type="text" name="breed" id="breed" class="form-control">
             </div>
 
             <div class="form-group">
+                <label for="color">Color:</label>
+                <input type="text" name="color" id="color" class="form-control">
+            </div>
+            <div class="form-group">
                 <label for="service">Service:</label>
-                <select name="service" id="service" class="form-control" required>
+                <select name="service" id="service" class="form-control">
                     <option value="" disabled selected>Select a Service</option>
                     <option value="Grooming">Grooming</option>
                     <option value="Vaccination">Vaccination</option>
