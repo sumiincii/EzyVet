@@ -15,9 +15,9 @@ $service_filter = isset($_POST['service_filter']) ? $_POST['service_filter'] : '
 $search_query = isset($_POST['search_query']) ? $_POST['search_query'] : '';
 
 // Fetch appointments with filters
-$appointments_query = "SELECT * FROM appointments1";
+$appointments_query = "SELECT * FROM appointments1 WHERE status IN ('Completed', 'Canceled')"; // Only fetch completed appointments
 if ($date_filter || $service_filter || $search_query) {
-    $appointments_query .= " WHERE 1=1";
+    $appointments_query .= " AND 1=1"; // Keep the existing filters
     if ($date_filter) {
         $appointments_query .= " AND appointment_date = '$date_filter'";
     }
@@ -30,7 +30,6 @@ if ($date_filter || $service_filter || $search_query) {
 }
 $appointments_query .= " ORDER BY appointment_date DESC";
 $appointments_result = $conn->query($appointments_query);
-
 
 // Query to count appointments by service
 $service_counts_query = "SELECT service, COUNT(*) as count FROM appointments1 GROUP BY service";
@@ -158,7 +157,6 @@ $walkin_count = $conn->query($walkin_count_query)->fetch_assoc()['count'] ?? 0;
             <thead class="table-dark">
                 <tr>
                     <th>Client Name</th>
-                    <th>Pet Details</th>
                     <th>Service</th>
                     <th>Date</th>
                     <th>Status</th>
@@ -170,7 +168,7 @@ $walkin_count = $conn->query($walkin_count_query)->fetch_assoc()['count'] ?? 0;
                     <?php while ($row = $appointments_result->fetch_assoc()): ?>
                         <tr>
                             <td><?php echo $row['client_name'] ?? 'N/A'; ?></td>
-                            <td><?php echo $row['pet_details'] ?? 'N/A'; ?></td>
+
                             <td><?php echo $row['service'] ?? 'N/A'; ?></td>
                             <td><?php echo $row['appointment_date'] ?? 'N/A'; ?></td>
                             <td><?php echo $row['status'] ?? 'N/A'; ?></td>

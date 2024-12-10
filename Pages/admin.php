@@ -81,6 +81,9 @@ if (isset($_POST['status'])) {
                     sendNotification($row['email'], $row['client_name'], $current_queue_number);
                 }
             } elseif ($new_status == "Canceled") {
+                // Update the queue number to 0 for the completed appointment
+                $set_queue_zero_query = "UPDATE appointments1 SET queue_number = 0 WHERE id = $appointment_id";
+                $conn->query($set_queue_zero_query);
                 // Update the status of the canceled appointment
                 $update_query = "UPDATE appointments1 SET status = 'Canceled' WHERE id = $appointment_id";
                 $conn->query($update_query);
@@ -91,7 +94,8 @@ if (isset($_POST['status'])) {
                                        AND appointment_date = '$appointment_date' 
                                        AND queue_number > $current_queue_number";
                 $conn->query($update_queue_query);
-
+                $notification_query = "SELECT email, client_name FROM appointments1 WHERE id = $appointment_id";
+                $notification_result = $conn->query($notification_query);
                 // Send cancellation notification
                 sendCancellationNotification($email, $client_name, "Your appointment has been canceled.");
             }
