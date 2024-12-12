@@ -1,3 +1,7 @@
+<?php
+include('header.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,7 +61,6 @@
             height: 150px;
             object-fit: cover;
         }
-
 
 
         #container1 {
@@ -252,63 +255,9 @@
 </head>
 
 <body>
-    <div class="container1 container-fluid text-center" id="container1">
-        <div class="row">
-            <div class="col" id="wc">Welcome to <b>Dr. Ron Veterinary Clinic</b>, your trusted partner in providing top-notch veterinary care for your beloved pets.</div>
-        </div>
-    </div>
-    <a href="landing.php"><img class="logo img-fluid float-start" src="images/mainlogo.png" alt="logo"></a>
 
-    <div class="container-fluid text-center">
-        <div class="dropdown">
-            <nav id="main-nav">
-                <ul>
-                    <li><a href="about.php">ABOUT</a></li>
-                    <li><a href="#">SERVICES</a>
-                        <ul>
-                            <li class="hober"><a href="checkup.php">Checkups</a></li>
-                            <li class="hober"><a href="vaccinations.php">Vaccinations</a></li>
-                            <li class="hober"><a href="grooming.php">Grooming</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="appointment.php">BOOK NOW</a></li>
-                    <li><a href="contactus.php">CONTACT US</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
     <br>
     <br>
-    <br>
-    <br>
-    <br>
-    <script>
-        // Get the navbar and container1 elements
-        let navbar = document.getElementById("main-nav");
-        let container1 = document.getElementById("container1");
-
-        // Get the offset positions of the navbar and container1
-        let stickyNavbar = navbar.offsetTop;
-        let stickyContainer1 = container1.offsetTop;
-
-        // Add the scroll event listener
-        window.addEventListener("scroll", function() {
-            // Handle container1 sticky
-            if (window.pageYOffset > stickyContainer1) {
-                container1.classList.add("sticky"); // Add sticky class to container1
-            } else {
-                container1.classList.remove("sticky"); // Remove sticky class from container1
-            }
-
-            // Handle navbar sticky
-            if (window.pageYOffset > stickyNavbar) {
-                navbar.classList.add("sticky"); // Add sticky class to navbar
-            } else {
-                navbar.classList.remove("sticky"); // Remove sticky class from navbar
-            }
-        });
-    </script>
-
     <!-- Team Image Section -->
     <section class="content-section image-row">
         <div class="row ">

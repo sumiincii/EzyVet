@@ -19,15 +19,17 @@ if ($conn->connect_error) {
 
 // Fetch current appointments for each service
 $current_appointments_query = "
-    SELECT service, id, client_name, pet_name 
+    SELECT service, id, client_name, pet_name, email, queue_number 
     FROM appointments1 
     WHERE status NOT IN ('Completed', 'Canceled') 
     AND queue_number = 1"; // Assuming queue_number = 1 indicates the current appointment being served
 
 $current_appointments_result = $conn->query($current_appointments_query);
 $current_appointments = [];
+
+// Change the structure to store multiple appointments per service
 while ($row = $current_appointments_result->fetch_assoc()) {
-    $current_appointments[$row['service']] = $row; // Store current appointment by service
+    $current_appointments[$row['service']][] = $row; // Store current appointment by service as an array
 }
 // Handle status update
 if (isset($_POST['status'])) {
@@ -153,6 +155,7 @@ if (isset($_POST['add_walkin'])) {
     }
     $stmt->close();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -216,33 +219,33 @@ if (isset($_POST['add_walkin'])) {
             </thead>
             <tbody>
                 <?php if (!empty($current_appointments)): ?>
-                    <?php foreach ($current_appointments as $appointment): ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($appointment['service'] ?? ''); ?></td>
-                            <td><?php echo htmlspecialchars($appointment['client_name'] ?? ''); ?></td>
-                            <td><?php echo htmlspecialchars($appointment['pet_name'] ?? 'N/A'); ?></td>
-                            <td class="text-center">
-                                <form action="" method="post" class="d-inline">
-                                    <input type="hidden" name="appointment_id" value="<?php echo htmlspecialchars($appointment['id'] ?? ''); ?>">
-                                    <input type="hidden" name="email" value="<?php echo htmlspecialchars($appointment['email'] ?? ''); ?>">
-                                    <input type="hidden" name="client_name" value="<?php echo htmlspecialchars($appointment['client_name'] ?? ''); ?>">
-                                    <input type="hidden" name="queue_number" value="<?php echo htmlspecialchars($appointment['queue_number'] ?? ''); ?>">
-                                    <button type="submit" name="status" value="Notified" class="btn btn-info btn-sm">Notify</button>
-                                    <button type="submit" name="status" value="Completed" class="btn btn-success btn-sm">Complete</button>
-                                    <button type="submit" name="status" value="Canceled" class="btn btn-danger btn-sm">Cancel</button>
-                                </form>
-                            </td>
-                        </tr>
+                    <?php foreach ($current_appointments as $appointments): ?>
+                        <?php foreach ($appointments as $appointment): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($appointment['service'] ?? ''); ?></td>
+                                <td><?php echo htmlspecialchars($appointment['client_name'] ?? ''); ?></td>
+                                <td><?php echo htmlspecialchars($appointment['pet_name'] ?? 'N/A'); ?></td>
+                                <td class="text-center">
+                                    <form action="" method="post" class="d-inline">
+                                        <input type="hidden" name="appointment_id" value="<?php echo htmlspecialchars($appointment['id'] ?? ''); ?>">
+                                        <input type="hidden" name="email" value="<?php echo htmlspecialchars($appointment['email'] ?? ''); ?>">
+                                        <input type="hidden" name="client_name" value="<?php echo htmlspecialchars($appointment['client_name'] ?? ''); ?>">
+                                        <input type="hidden" name="queue_number" value="<?php echo htmlspecialchars($appointment['queue_number'] ?? ''); ?>">
+                                        <button type="submit" name="status" value="Notified" class="btn btn-info btn-sm">Notify</button>
+                                        <button type="submit" name="status" value="Completed" class="btn btn-success btn-sm">Complete</button>
+                                        <button type="submit" name="status" value="Canceled" class="btn btn-danger btn-sm">Cancel</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
                         <td colspan="4" class="text-center">No current appointments found.</td>
                     </tr>
                 <?php endif; ?>
-
             </tbody>
         </table>
-
 
 
 
@@ -267,7 +270,7 @@ if (isset($_POST['add_walkin'])) {
             <thead class="table-dark">
                 <tr>
                     <th>Queue Number</th>
-                    <th>Owner's Name</th>
+                    <th>Client's Name</th>
                     <th>Email</th>
                     <th>Pet's Name</th>
                     <th>Pet's Species</th>
@@ -283,16 +286,15 @@ if (isset($_POST['add_walkin'])) {
                     <?php while ($row = $grooming_appointments_result->fetch_assoc()): ?>
                         <tr>
                             <td><?php echo isset($row['queue_number']) ? $row['queue_number'] : 'N/A'; ?></td>
-                            <td><?php echo htmlspecialchars($appointment['client_name'] ?? ''); ?></td>
+                            <td><?php echo htmlspecialchars($row['client_name'] ?? ''); ?></td>
                             <td><?php echo isset($row['email']) ? $row['email'] : 'N/A'; ?></td>
                             <td><?php echo isset($row['pet_name']) ? $row['pet_name'] : 'N/A'; ?></td>
-                            <td><?php echo isset($row['pet_species']) ? $row['pet_species'] : 'N/A'; ?></td>
+                            <td><?php echo isset($row['species']) ? $row['species'] : 'N/A'; ?></td>
                             <td><?php echo isset($row['breed']) ? $row['breed'] : 'N/A'; ?></td>
                             <td><?php echo isset($row['color']) ? $row['color'] : 'N/A'; ?></td>
                             <td><?php echo isset($row['appointment_date']) ? $row['appointment_date'] : 'N/A'; ?></td>
                             <td><?php echo isset($row['status']) ? $row['status'] : 'N/A'; ?></td>
                             <td class="text-center">
-                                <!-- Update Status Form -->
                                 <form action="" method="post" class="d-inline">
                                     <input type="hidden" name="appointment_id" value="<?php echo $row['id']; ?>">
                                     <input type="hidden" name="email" value="<?php echo $row['email']; ?>">
@@ -307,11 +309,12 @@ if (isset($_POST['add_walkin'])) {
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="10" class="text-center">No grooming appointments found</td>
+                        <td colspan="10" class="text-center">No grooming appointments found.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
         </table>
+
 
         <!-- Vaccination Appointments Table -->
         <h2>Vaccination Appointments</h2>
@@ -319,7 +322,7 @@ if (isset($_POST['add_walkin'])) {
             <thead class="table-dark">
                 <tr>
                     <th>Queue Number</th>
-                    <th>Owner's Name</th>
+                    <th>Client's Name</th>
                     <th>Email</th>
                     <th>Pet's Name</th>
                     <th>Pet's Species</th>
@@ -335,17 +338,15 @@ if (isset($_POST['add_walkin'])) {
                     <?php while ($row = $vaccination_appointments_result->fetch_assoc()): ?>
                         <tr>
                             <td><?php echo isset($row['queue_number']) ? $row['queue_number'] : 'N/A'; ?></td>
-                            <td><?php echo htmlspecialchars($appointment['client_name'] ?? ''); ?></td>
-
+                            <td><?php echo htmlspecialchars($row['client_name'] ?? ''); ?></td>
                             <td><?php echo isset($row['email']) ? $row['email'] : 'N/A'; ?></td>
                             <td><?php echo isset($row['pet_name']) ? $row['pet_name'] : 'N/A'; ?></td>
-                            <td><?php echo isset($row['pet_species']) ? $row['pet_species'] : 'N/A'; ?></td>
+                            <td><?php echo isset($row['species']) ? $row['species'] : 'N/A'; ?></td>
                             <td><?php echo isset($row['breed']) ? $row['breed'] : 'N/A'; ?></td>
                             <td><?php echo isset($row['color']) ? $row['color'] : 'N/A'; ?></td>
                             <td><?php echo isset($row['appointment_date']) ? $row['appointment_date'] : 'N/A'; ?></td>
                             <td><?php echo isset($row['status']) ? $row['status'] : 'N/A'; ?></td>
                             <td class="text-center">
-                                <!-- Update Status Form -->
                                 <form action="" method="post" class="d-inline">
                                     <input type="hidden" name="appointment_id" value="<?php echo $row['id']; ?>">
                                     <input type="hidden" name="email" value="<?php echo $row['email']; ?>">
@@ -360,11 +361,12 @@ if (isset($_POST['add_walkin'])) {
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="10" class="text-center">No vaccination appointments found</td>
+                        <td colspan="10" class="text-center">No vaccination appointments found.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
         </table>
+
 
         <!-- Checkup Appointments Table -->
         <h2>Checkup Appointments</h2>
@@ -372,7 +374,7 @@ if (isset($_POST['add_walkin'])) {
             <thead class="table-dark">
                 <tr>
                     <th>Queue Number</th>
-                    <th>Owner's Name</th>
+                    <th>Client's Name</th>
                     <th>Email</th>
                     <th>Pet's Name</th>
                     <th>Pet's Species</th>
@@ -388,17 +390,15 @@ if (isset($_POST['add_walkin'])) {
                     <?php while ($row = $checkup_appointments_result->fetch_assoc()): ?>
                         <tr>
                             <td><?php echo isset($row['queue_number']) ? $row['queue_number'] : 'N/A'; ?></td>
-                            <td><?php echo htmlspecialchars($appointment['client_name'] ?? ''); ?></td>
-
+                            <td><?php echo htmlspecialchars($row['client_name'] ?? ''); ?></td>
                             <td><?php echo isset($row['email']) ? $row['email'] : 'N/A'; ?></td>
                             <td><?php echo isset($row['pet_name']) ? $row['pet_name'] : 'N/A'; ?></td>
-                            <td><?php echo isset($row['pet_species']) ? $row['pet_species'] : 'N/A'; ?></td>
+                            <td><?php echo isset($row['species']) ? $row['species'] : 'N/A'; ?></td>
                             <td><?php echo isset($row['breed']) ? $row['breed'] : 'N/A'; ?></td>
                             <td><?php echo isset($row['color']) ? $row['color'] : 'N/A'; ?></td>
                             <td><?php echo isset($row['appointment_date']) ? $row['appointment_date'] : 'N/A'; ?></td>
                             <td><?php echo isset($row['status']) ? $row['status'] : 'N/A'; ?></td>
                             <td class="text-center">
-                                <!-- Update Status Form -->
                                 <form action="" method="post" class="d-inline">
                                     <input type="hidden" name="appointment_id" value="<?php echo $row['id']; ?>">
                                     <input type="hidden" name="email" value="<?php echo $row['email']; ?>">
@@ -413,14 +413,16 @@ if (isset($_POST['add_walkin'])) {
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="10" class="text-center">No checkup appointments found</td>
+                        <td colspan="10" class="text-center">No checkup appointments found.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
         </table>
 
     </div>
-
+    <br>
+    <br>
+    <br>
     <div class="container container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-8">
